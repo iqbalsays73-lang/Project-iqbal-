@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PROJECT IQBAL</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#101827;color:#fff;padding:16px}
+header{text-align:center;padding:20px 5px;background:#192943;border-radius:18px}
+h1{color:#62e6c5;margin:5px}
+header p{color:#c4d2e6}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+button{background:#27c9a5;color:#10212b;border:0;border-radius:9px;padding:11px;font-weight:bold;cursor:pointer}
+nav button{flex:1;min-width:90px}
+section{display:none;background:#192943;padding:16px;border-radius:15px;margin-bottom:14px}
+section.active{display:block}
+input,textarea,select{width:100%;padding:12px;margin:7px 0;border-radius:8px;border:1px solid #52647c;background:#101827;color:white}
+.item{background:#263a55;padding:10px;margin:8px 0;border-radius:8px;overflow-wrap:anywhere}
+.small{font-size:13px;color:#c4d2e6}
+</style>
+</head>
+<body>
+<header>
+<h1>🚀 PROJECT IQBAL</h1>
+<p>My Personal AI Universe</p>
+<div>📚 Study • 🎯 Goals • 📝 Notes • 💰 Budget</div>
+</header>
+
+<nav>
+<button onclick="show('home')">🏠 Home</button>
+<button onclick="show('study')">📚 Study</button>
+<button onclick="show('tasks')">✅ Tasks</button>
+<button onclick="show('notes')">📝 Notes</button>
+<button onclick="show('goals')">🎯 Goals</button>
+<button onclick="show('quiz')">🧠 Quiz</button>
+<button onclick="show('budget')">💰 Budget</button>
+</nav>
+
+<section id="home" class="active">
+<h2>👋 Welcome, Iqbal!</h2>
+<p>यह तुम्हारा अपना Personal Dashboard है।</p>
+<div class="item">📚 पढ़ाई को रोज बेहतर बनाओ।</div>
+<div class="item">✅ अपने काम पूरे करो।</div>
+<div class="item">🎯 अपने लक्ष्य की तरफ बढ़ो।</div>
+<div class="item">💡 हर दिन कुछ नया सीखो।</div>
+<p class="small">तुम्हारे सेव किए गए नोट्स और काम इसी ब्राउज़र में सुरक्षित रहेंगे।</p>
+</section>
+
+<section id="study">
+<h2>📚 Study Room</h2>
+<input id="subject" placeholder="Subject का नाम">
+<input id="topic" placeholder="आज क्या पढ़ना है?">
+<button onclick="add('studyList',['subject','topic'])">पढ़ाई जोड़ो</button>
+<div id="studyList"></div>
+</section>
+
+<section id="tasks">
+<h2>✅ My Tasks</h2>
+<input id="taskInput" placeholder="कौन-सा काम करना है?">
+<button onclick="add('taskList',['taskInput'])">काम जोड़ो</button>
+<div id="taskList"></div>
+</section>
+
+<section id="notes">
+<h2>📝 My Notes</h2>
+<input id="noteTitle" placeholder="नोट का शीर्षक">
+<textarea id="noteText" rows="4" placeholder="यहाँ अपना नोट लिखो..."></textarea>
+<button onclick="add('noteList',['noteTitle','noteText'])">नोट सेव करो</button>
+<div id="noteList"></div>
+</section>
+
+<section id="goals">
+<h2>🎯 My Goals</h2>
+<input id="goalInput" placeholder="अपना लक्ष्य लिखो">
+<button onclick="add('goalList',['goalInput'])">लक्ष्य जोड़ो</button>
+<div id="goalList"></div>
+</section>
+
+<section id="quiz">
+<h2>🧠 GK Quiz</h2>
+<p id="question"></p>
+<div id="options"></div>
+<p id="result"></p>
+<button onclick="nextQuestion()">अगला सवाल ➜</button>
+</section>
+
+<section id="budget">
+<h2>💰 Budget Tracker</h2>
+<input id="budgetName" placeholder="खर्च किस चीज का है?">
+<input id="budgetAmount" type="number" placeholder="रकम ₹">
+<button onclick="addBudget()">खर्च जोड़ो</button>
+<h3 id="total">कुल खर्च: ₹0</h3>
+<div id="budgetList"></div>
+</section>
+
+<script>
+function show(id){
+document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+function getData(key){try{return JSON.parse(localStorage.getItem(key))||[]}catch(e){return []}}
+function saveData(key,data){localStorage.setItem(key,JSON.stringify(data))}
+function render(key,id){
+let data=getData(key),box=document.getElementById(id);
+box.innerHTML='';
+data.forEach((item,i)=>{
+let div=document.createElement('div');div.className='item';
+let text=document.createElement('span');text.textContent=item.text;
+div.appendChild(text);
+if(item.done)div.style.textDecoration='line-through';
+let done=document.createElement('button');done.textContent=item.done?'↩':'✓';
+done.style.marginLeft='8px';
+done.onclick=()=>{data[i].done=!data[i].done;saveData(key,data);render(key,id)};
+let del=document.createElement('button');del.textContent='🗑';del.style.marginLeft='5px';
+del.onclick=()=>{data.splice(i,1);saveData(key,data);render(key,id)};
+div.appendChild(done);div.appendChild(del);box.appendChild(div);
+});
+}
+function add(id,fields){
+let values=fields.map(f=>document.getElementById(f).value.trim());
+if(values.some(v=>!v)){alert('पहले जानकारी भरो!');return}
+let key=id==='studyList'?'iqStudy':id==='taskList'?'iqTasks':id==='noteList'?'iqNotes':'iqGoals';
+let text=id==='studyList'?values[0]+' — '+values[1]:id==='noteList'?values[0]+': '+values[1]:values[0];
+let data=getData(key);data.push({text,done:false});saveData(key,data);
+fields.forEach(f=>document.getElementById(f).value='');render(key,id);
+}
+function addBudget(){
+let name=document.getElementById('budgetName').value.trim();
+let amount=Number(document.getElementById('budgetAmount').value);
+if(!name||amount<=0){alert('नाम और सही रकम भरो!');return}
+let data=getData('iqBudget');data.push({text:name+' — ₹'+amount,amount});
+saveData('iqBudget',data);document.getElementById('budgetName').value='';
+document.getElementById('budgetAmount').value='';renderBudget();
+}
+function renderBudget(){
+let data=getData('iqBudget');let box=document.getElementById('budgetList');box.innerHTML='';
+data.forEach((x,i)=>{let d=document.createElement('div');d.className='item';d.textContent=x.text+' ';
+let b=document.createElement('button');b.textContent='🗑';b.onclick=()=>{data.splice(i,1);saveData('iqBudget',data);renderBudget()};d.appendChild(b);box.appendChild(d)});
+document.getElementById('total').textContent='कुल खर्च: ₹'+data.reduce((s,x)=>s+x.amount,0);
+}
+const questions=[
+{q:'भारत की राजधानी क्या है?',a:['मुंबई','नई दिल्ली','लखनऊ','जयपुर'],c:1},
+{q:'भारत का संविधान कब लागू हुआ?',a:['1947','1949','1950','1952'],c:2},
+{q:'सौरमंडल का सबसे बड़ा ग्रह कौन-सा है?',a:['पृथ्वी','मंगल','बृहस्पति','शुक्र'],c:2},
+{q:'भारत का राष्ट्रीय पशु कौन है?',a:['शेर','बाघ','हाथी','घोड़ा'],c:1},
+{q:'एक सप्ताह में कितने दिन होते हैं?',a:['5','6','7','8'],c:2}
+];
+let qi=0;
+function nextQuestion(){
+let q=questions[qi%questions.length];qi++;
+document.getElementById('question').textContent=q.q;
+document.getElementById('result').textContent='';
+let box=document.getElementById('options');box.innerHTML='';
+q.a.forEach((v,i)=>{let b=document.createElement('button');b.textContent=v;b.style.margin='4px';
+b.onclick=()=>{document.getElementById('result').textContent=i===q.c?'✅ सही जवाब!':'❌ गलत। सही जवाब: '+q.a[q.c];};
+box.appendChild(b)});
+}
+render('iqStudy','studyList');
+render('iqTasks','taskList');
+render('iqNotes','noteList');
+render('iqGoals','goalList');
+renderBudget();
+nextQuestion();
+</script>
+</body>
+</html>
