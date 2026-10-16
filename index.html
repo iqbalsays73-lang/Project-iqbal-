@@ -2,1454 +2,877 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>PROJECT IQBAL | Human × AI Exam Academy</title>
 
 <style>
-*{box-sizing:border-box}
+:root{
+  --bg:#07111f;
+  --card:#101f33;
+  --card2:#162943;
+  --text:#f1f6ff;
+  --muted:#a8b9d1;
+  --gold:#ffc857;
+  --green:#41d6a3;
+  --blue:#65a9ff;
+  --red:#ff7185;
+  --border:#2a405d;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:radial-gradient(circle at top,#183b5d,#07111f 55%,#050b14);
-color:#f5f8ff;
-min-height:100vh
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,"Noto Sans Devanagari",sans-serif;
+  line-height:1.6;
 }
 
-:root{
---a:#59e1c2;
---b:#79a9ff;
---card:#10223a;
---line:#2b4867;
---muted:#afbed1
-}
-
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-
-.splash{
-min-height:100vh;
-display:grid;
-place-items:center;
-padding:20px;
-text-align:center;
-background:radial-gradient(circle at 50% 20%,#1c4768,#07111f 60%)
-}
-
-.sbox{
-max-width:850px;
-width:100%;
-padding:55px 24px;
-border:1px solid #355979;
-border-radius:30px;
-background:#0c1b2e;
-box-shadow:0 25px 90px #0009
-}
-
-.logo{
-font-size:clamp(42px,10vw,82px);
-font-weight:900;
-color:var(--a);
-letter-spacing:2px
-}
-
-.tag{
-font-size:clamp(21px,4vw,34px);
-font-weight:800;
-margin:12px 0
-}
-
-.heroText{
-color:var(--muted);
-font-size:17px;
-line-height:1.6
-}
-
-.start,.primary{
-border:0;
-background:var(--a);
-color:#062019;
-border-radius:11px;
-padding:13px 19px;
-font-weight:900
-}
-
-.start{
-margin-top:20px;
-font-size:16px
-}
-
-.hidden{display:none!important}
-
-.wrap{
-max-width:1150px;
-margin:auto;
-padding:14px
-}
-
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-padding:10px 0
+header{
+  background:#0b192a;
+  padding:18px 15px;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .brand{
-font-size:24px;
-font-weight:900;
-color:var(--a)
+  font-size:22px;
+  font-weight:900;
+  color:var(--gold);
 }
 
-.badge{
-border:1px solid var(--line);
-padding:7px 10px;
-border-radius:99px;
-color:var(--muted);
-font-size:12px
+.tagline{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:3px;
 }
 
 nav{
-display:flex;
-gap:7px;
-overflow:auto;
-position:sticky;
-top:0;
-z-index:5;
-padding:8px 0;
-background:#07111fe8;
-backdrop-filter:blur(10px)
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-top:14px;
 }
 
 nav button{
-white-space:nowrap;
-background:#10243b;
-color:#dbe8f7;
-border:1px solid var(--line);
-border-radius:10px;
-padding:10px 14px
+  flex-shrink:0;
+  padding:9px 13px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--card);
+  color:white;
+  cursor:pointer;
 }
 
+nav button:hover,
 nav button.active{
-background:var(--a);
-color:#062019
+  background:var(--gold);
+  color:#17202d;
+  font-weight:bold;
 }
 
-section{display:none}
-.active{display:block}
-
-.hero,.panel,.card{
-background:linear-gradient(145deg,#10253e,#0c1b2e);
-border:1px solid var(--line);
-border-radius:19px
+main{
+  max-width:1050px;
+  margin:auto;
+  padding:18px 13px 60px;
 }
 
 .hero{
-padding:26px;
-margin:12px 0
+  background:linear-gradient(135deg,#172f4d,#112039,#26334d);
+  padding:28px 19px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  margin-bottom:20px;
 }
 
 .hero h1{
-font-size:clamp(28px,6vw,46px);
-margin:8px 0
+  font-size:30px;
+  line-height:1.3;
+  margin-bottom:12px;
 }
 
-.muted,.small{color:var(--muted)}
+.hero h1 span{
+  color:var(--gold);
+}
 
-.small{font-size:13px}
+.hero p{
+  color:#d2deee;
+  margin-bottom:15px;
+}
+
+.btn{
+  padding:11px 15px;
+  background:var(--gold);
+  color:#111c2c;
+  border:0;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  margin:4px 3px 4px 0;
+}
+
+.btn.secondary{
+  background:var(--card2);
+  color:white;
+  border:1px solid var(--border);
+}
+
+.btn.green{
+  background:var(--green);
+}
 
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
-gap:13px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:13px;
+  margin:15px 0 24px;
 }
 
 .card{
-padding:18px
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px;
 }
 
-.card h3{margin:8px 0}
+.card h3{
+  margin-bottom:8px;
+}
 
 .card p{
-line-height:1.5;
-color:var(--muted)
+  color:var(--muted);
+  font-size:14px;
 }
 
-.icon{font-size:31px}
-
-.click{cursor:pointer}
-
-.panel{
-padding:18px;
-margin:12px 0
+.stat{
+  font-size:28px;
+  color:var(--gold);
+  font-weight:bold;
 }
 
-.row{
-display:flex;
-gap:9px;
-flex-wrap:wrap
+.section-title{
+  margin:25px 0 12px;
+  font-size:22px;
 }
 
-.row>*{
-flex:1;
-min-width:150px
+label{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin:12px 0 5px;
 }
 
 input,select,textarea{
-width:100%;
-background:#07111f;
-color:#fff;
-border:1px solid #38536f;
-border-radius:10px;
-padding:12px;
-margin:5px 0
+  width:100%;
+  padding:12px;
+  background:#091626;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:9px;
+  font-size:15px;
 }
 
-.result{
-display:grid;
-gap:9px;
-margin-top:14px
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;
 }
 
 .item{
-background:#152c47;
-border:1px solid #2c4a69;
-border-radius:12px;
-padding:14px;
-line-height:1.55
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:15px;
+  margin:10px 0;
 }
 
-.levels{
-display:flex;
-gap:7px;
-flex-wrap:wrap;
-margin:10px 0
+.item p{
+  margin:7px 0;
 }
 
-.level{
-padding:9px 12px;
-border-radius:9px;
-background:#142b45;
-border:1px solid #355370;
-color:white
+.muted{
+  color:var(--muted);
+  font-size:13px;
 }
 
-.level.on{
-background:var(--a);
-color:#062019
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  margin:3px 4px 3px 0;
+  border-radius:7px;
+  font-size:11px;
+  background:#253b58;
+  color:#d8e9ff;
 }
 
-.answer{
-color:#8ff0d5;
-font-weight:800
+.badge.gold{
+  background:#47391d;
+  color:var(--gold);
 }
 
-.expert{
-border-left:4px solid var(--b)
+.badge.green{
+  background:#123b35;
+  color:#72f0c1;
 }
 
-.warn{color:#ffd27a}
+.option{
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:12px;
+  margin:8px 0;
+  background:#13253b;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:9px;
+  cursor:pointer;
+}
 
-.quote{
-font-size:20px;
-font-weight:800;
-line-height:1.45
+.option:hover{
+  border-color:var(--gold);
+}
+
+.option.correct{
+  border-color:var(--green);
+  background:#123b35;
+}
+
+.option.wrong{
+  border-color:var(--red);
+  background:#3b202d;
+}
+
+hr{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:17px 0;
 }
 
 footer{
-text-align:center;
-padding:35px;
-color:#71849b
+  text-align:center;
+  color:var(--muted);
+  padding:25px 12px;
+  border-top:1px solid var(--border);
 }
 
-@media(max-width:600px){
-.wrap{padding:10px}
-.hero{padding:20px}
-.sbox{padding:42px 16px}
+.hidden{
+  display:none!important;
+}
+
+.notice{
+  padding:12px;
+  background:#302819;
+  border:1px solid #66532a;
+  border-radius:10px;
+  margin:12px 0;
+  font-size:13px;
+}
+
+.good{
+  color:var(--green);
+}
+
+.bad{
+  color:var(--red);
+}
+
+@media(max-width:500px){
+  .hero h1{font-size:25px}
+  .brand{font-size:19px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- START SCREEN -->
+<header>
+  <div class="brand">PROJECT IQBAL 🚀</div>
+  <div class="tagline">HUMAN × AI | Your Competitive Exam Preparation Academy</div>
 
-<div id="splash" class="splash">
-
-<div class="sbox">
-
-<div class="logo">
-PROJECT IQBAL
-</div>
-
-<div class="tag">
-For All Competitive Exams
-</div>
-
-<p class="heroText">
-
-🤝 <b>Human + AI</b>
-
-<br><br>
-
-जब मेहनत और सही guidance साथ मिलते हैं,
-
-<br>
-
-<b>GK • GS • Maths • Reasoning • Hindi</b>
-
-<br>
-
-आसान लगने लगते हैं।
-
-</p>
-
-<button class="start" onclick="enterApp()">
-🚀 ENTER PROJECT IQBAL
-</button>
-
-</div>
-
-</div>
-
-
-<!-- MAIN APP -->
-
-<main id="app" class="wrap hidden">
-
-<header class="top">
-
-<div class="brand">
-🚀 PROJECT IQBAL
-</div>
-
-<div class="badge">
-HUMAN × AI ACADEMY
-</div>
-
+  <nav id="navigation">
+    <button class="active" onclick="showPage('home',this)">🏠 Home</button>
+    <button onclick="showPage('exams',this)">📚 Exams</button>
+    <button onclick="showPage('pyq',this)">📝 PYQs</button>
+    <button onclick="showPage('tricks',this)">🧠 GK/GS Tricks</button>
+    <button onclick="showPage('notes',this)">📖 Notes</button>
+    <button onclick="showPage('test',this)">🎯 Mock Test</button>
+    <button onclick="showPage('add',this)">➕ Add Questions</button>
+    <button onclick="showPage('progress',this)">🏆 Progress</button>
+  </nav>
 </header>
 
-
-<!-- NAVIGATION -->
-
-<nav>
-
-<button class="active"
-onclick="show('home',this)">
-🏠 Home
-</button>
-
-<button onclick="show('exams',this)">
-🎓 Exams
-</button>
-
-<button onclick="show('academy',this)">
-🧠 Academy
-</button>
-
-<button onclick="show('pyq',this)">
-📚 PYQs
-</button>
-
-<button onclick="show('tricks',this)">
-⚡ Tricks
-</button>
-
-<button onclick="show('test',this)">
-🎯 Test
-</button>
-
-<button onclick="show('notes',this)">
-📝 Notes
-</button>
-
-</nav>
-
+<main>
 
 <!-- HOME -->
+<section id="home">
 
-<section id="home" class="active">
+  <div class="hero">
+    <h1>Ek Goal. Ek Mission.<br><span>Selection Ki Taiyari!</span></h1>
 
-<div class="hero">
+    <p>
+      Padhai ko systematic banao. Concepts samjho, PYQs lagao,
+      mistakes sudharo aur har din apne goal ke kareeb jao.
+    </p>
 
-<div class="small">
-THE IDEA
-</div>
+    <button class="btn" onclick="go('exams')">Apna Exam Chuno →</button>
+    <button class="btn secondary" onclick="go('test')">Mock Test Do</button>
+  </div>
 
-<h1>
-Human + AI = Smart Preparation.
-</h1>
+  <div class="grid">
+    <div class="card">
+      <div class="stat" id="totalQuestions">0</div>
+      <h3>Question Bank</h3>
+      <p>Imported aur available questions.</p>
+    </div>
 
-<p class="heroText">
+    <div class="card">
+      <div class="stat" id="totalTests">0</div>
+      <h3>Questions Attempted</h3>
+      <p>Tumhari practice ka record.</p>
+    </div>
 
-PROJECT IQBAL का लक्ष्य है कि beginner को concept समझ आए,
-average student की speed बढ़े और advanced student को
-exam-level challenge मिले।
+    <div class="card">
+      <div class="stat" id="accuracy">0%</div>
+      <h3>Accuracy</h3>
+      <p>Attempted questions mein sahi jawab.</p>
+    </div>
+  </div>
 
-</p>
+  <h2 class="section-title">🔥 Apni Preparation Shuru Karo</h2>
 
-</div>
+  <div class="grid">
+    <div class="card">
+      <h3>📝 Previous Year Questions</h3>
+      <p>Exam, year, subject aur topic se questions filter karo.</p>
+      <button class="btn" onclick="go('pyq')">PYQs Kholo</button>
+    </div>
 
+    <div class="card">
+      <h3>🧠 GK/GS Tricks</h3>
+      <p>History, Polity, Geography, Science aur Economy.</p>
+      <button class="btn" onclick="go('tricks')">Tricks Dekho</button>
+    </div>
 
-<div class="grid">
+    <div class="card">
+      <h3>📖 Personal Notes</h3>
+      <p>Apne revision notes save karo.</p>
+      <button class="btn" onclick="go('notes')">Notes Kholo</button>
+    </div>
 
-<div class="card">
+    <div class="card">
+      <h3>🎯 Mock Test</h3>
+      <p>Questions solve karo aur result check karo.</p>
+      <button class="btn" onclick="go('test')">Test Shuru Karo</button>
+    </div>
+  </div>
 
-<div class="icon">📚</div>
-
-<h3>
-Verified PYQ Zone
-</h3>
-
-<p>
-Exam → Subject → Topic → Year/Shift
-के हिसाब से PYQ practice।
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="icon">⚡</div>
-
-<h3>
-3-Level Tricks
-</h3>
-
-<p>
-Starter explanation → Exam shortcut →
-Advanced time-saving approach।
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="icon">🤖</div>
-
-<h3>
-Exam-wise AI Expert
-</h3>
-
-<p>
-हर exam के लिए अलग expert profile।
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="icon">🎯</div>
-
-<h3>
-Smart Test
-</h3>
-
-<p>
-Easy से Advanced तक progressive practice।
-</p>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="quote">
-
-“SSC CGL/CHSL को हलवा बनाना है तो shortcut नहीं,
-concept + PYQ + practice + speed चाहिए.”
-
-</div>
-
-<p class="small">
-
-PROJECT IQBAL इसी चार-step system पर बनाया जा रहा है।
-
-</p>
-
-</div>
+  <div class="notice">
+    <b>Important:</b> Is website mein abhi available questions aur
+    tumhare dwara import kiye gaye questions hi dikhaye jayenge.
+    Koi question sirf year select karne se asli PYQ nahi ban jata.
+    Verified question bank ko sahi source aur exam details ke saath add karo.
+  </div>
 
 </section>
-
 
 <!-- EXAMS -->
-
-<section id="exams">
-
-<div class="panel">
-
-<h2>
-🎓 Exam Command Center
-</h2>
-
-<p class="muted">
-एक exam चुनो। उसी के लिए पूरा preparation mode खोलो।
-</p>
-
-<div id="examGrid" class="grid"></div>
-
-</div>
-
+<section id="exams" class="hidden">
+  <h2 class="section-title">📚 Choose Your Exam</h2>
+  <p class="muted">Apna target exam select karke uske questions filter karo.</p>
+  <div id="examCards" class="grid"></div>
 </section>
-
-
-<!-- ACADEMY -->
-
-<section id="academy">
-
-<div class="panel">
-
-<h2>
-🧠 Exam Expert Academy
-</h2>
-
-<div class="row">
-
-<select id="aExam"></select>
-
-<select id="aSubject">
-
-<option>GK/GS</option>
-<option>Maths</option>
-<option>Reasoning</option>
-<option>Hindi</option>
-<option>English</option>
-<option>Polity</option>
-<option>History</option>
-<option>Geography</option>
-
-</select>
-
-</div>
-
-
-<h3>
-Learning Level
-</h3>
-
-<div class="levels">
-
-<button class="level on"
-onclick="setLevel(this,'Starter')">
-🟢 Starter
-</button>
-
-<button class="level"
-onclick="setLevel(this,'Average')">
-🟡 Average
-</button>
-
-<button class="level"
-onclick="setLevel(this,'Advanced')">
-🔴 Advanced
-</button>
-
-</div>
-
-
-<div id="levelText"
-class="item expert">
-
-<b>Starter Mode</b>
-
-<br>
-
-Concept को zero से समझो,
-फिर example और easy question।
-
-</div>
-
-
-<button class="primary"
-onclick="openExpert()">
-
-🤖 OPEN EXAM EXPERT
-
-</button>
-
-
-<div id="expertOut" class="result"></div>
-
-</div>
-
-</section>
-
 
 <!-- PYQ -->
+<section id="pyq" class="hidden">
+  <h2 class="section-title">📝 PYQ Question Bank</h2>
 
-<section id="pyq">
+  <p class="muted">
+    2020 se 2026 tak year-wise filtering available hai.
+    Sirf imported questions hi result mein aayenge.
+  </p>
 
-<div class="panel">
+  <div class="row">
+    <div>
+      <label>Exam</label>
+      <select id="filterExam"></select>
+    </div>
 
-<h2>
-📚 PYQ + One-Liner Engine
-</h2>
+    <div>
+      <label>Year</label>
+      <select id="filterYear"></select>
+    </div>
 
-<div class="row">
+    <div>
+      <label>Subject</label>
+      <select id="filterSubject"></select>
+    </div>
 
-<select id="pExam"></select>
+    <div>
+      <label>Topic</label>
+      <input id="filterTopic" placeholder="Jaise: Mughal Empire">
+    </div>
+  </div>
 
-<select id="pYear">
+  <label>Question Search</label>
+  <input id="filterSearch" placeholder="Question ya keyword likho...">
 
-<option value="all">
-All Years
-</option>
+  <button class="btn" onclick="renderPYQs()">Search Questions</button>
+  <button class="btn secondary" onclick="resetFilters()">Reset Filters</button>
 
-<option>2025</option>
-<option>2024</option>
-<option>2023</option>
-<option>2022</option>
-<option>2021</option>
-<option>2020</option>
-
-</select>
-
-<select id="pType">
-
-<option value="pyq">
-PYQ
-</option>
-
-<option value="one">
-One-Liner
-</option>
-
-<option value="trick">
-Short Trick
-</option>
-
-</select>
-
-</div>
-
-
-<button class="primary"
-onclick="generatePYQ()">
-
-🔎 GENERATE
-
-</button>
-
-
-<div id="pyqOut"
-class="result">
-</div>
-
-
-<p class="small warn">
-
-Demo bank में sample questions हैं।
-Actual PYQ को “verified” तभी दिखाएँगे जब source से verify करके database में डाला जाए।
-
-</p>
-
-</div>
-
+  <p id="pyqCount" class="muted" style="margin-top:12px"></p>
+  <div id="pyqList"></div>
 </section>
-
 
 <!-- TRICKS -->
+<section id="tricks" class="hidden">
+  <h2 class="section-title">🧠 GK/GS Tricks Academy</h2>
 
-<section id="tricks">
+  <p class="muted">
+    Topic select karo aur quick revision ke liye trick dekho.
+  </p>
 
-<div class="panel">
+  <div class="row">
+    <div>
+      <label>Subject</label>
+      <select id="trickSubject" onchange="renderTricks()"></select>
+    </div>
 
-<h2>
-⚡ Trick Lab
-</h2>
+    <div>
+      <label>Search Trick</label>
+      <input id="trickSearch" placeholder="Topic search karo" oninput="renderTricks()">
+    </div>
+  </div>
 
-<div class="row">
-
-<select id="tExam"></select>
-
-<select id="tSub">
-
-<option>Maths</option>
-<option>Reasoning</option>
-<option>GK/GS</option>
-<option>Polity</option>
-<option>History</option>
-<option>Hindi</option>
-<option>English</option>
-
-</select>
-
-</div>
-
-
-<div class="levels">
-
-<button class="level on"
-onclick="setTrickLevel(this,'Starter')">
-Starter
-</button>
-
-<button class="level"
-onclick="setTrickLevel(this,'Average')">
-Average
-</button>
-
-<button class="level"
-onclick="setTrickLevel(this,'Advanced')">
-Advanced
-</button>
-
-</div>
-
-
-<button class="primary"
-onclick="generateTrick()">
-
-⚡ SHOW SMART TRICKS
-
-</button>
-
-
-<div id="trickOut"
-class="result">
-</div>
-
-</div>
-
+  <div id="trickList"></div>
 </section>
-
-
-<!-- TEST -->
-
-<section id="test">
-
-<div class="panel">
-
-<h2>
-🎯 Progressive Test
-</h2>
-
-<div class="row">
-
-<select id="qExam"></select>
-
-<select id="qSub">
-
-<option>GK/GS</option>
-<option>Maths</option>
-<option>Reasoning</option>
-<option>Hindi</option>
-
-</select>
-
-</div>
-
-
-<div class="levels">
-
-<button class="level on"
-onclick="setQuizLevel(this,'Starter')">
-Starter
-</button>
-
-<button class="level"
-onclick="setQuizLevel(this,'Average')">
-Average
-</button>
-
-<button class="level"
-onclick="setQuizLevel(this,'Advanced')">
-Advanced
-</button>
-
-</div>
-
-
-<button class="primary"
-onclick="startTest()">
-
-🚀 START TEST
-
-</button>
-
-
-<div id="testOut"
-class="result">
-</div>
-
-</div>
-
-</section>
-
 
 <!-- NOTES -->
+<section id="notes" class="hidden">
+  <h2 class="section-title">📖 My Personal Notes</h2>
 
-<section id="notes">
+  <div class="card">
+    <label>Exam</label>
+    <select id="noteExam"></select>
 
-<div class="panel">
+    <label>Subject</label>
+    <input id="noteSubject" placeholder="Jaise: Polity">
 
-<h2>
-📝 My Revision Notes
-</h2>
+    <label>Topic / Heading</label>
+    <input id="noteTitle" placeholder="Jaise: Fundamental Rights">
 
-<input id="noteTitle"
-placeholder="Topic / Chapter">
+    <label>Notes</label>
+    <textarea id="noteText" placeholder="Yahan apne notes likho..."></textarea>
 
-<textarea id="noteText"
-rows="5"
-placeholder="अपनी short notes, tricks या mistakes लिखो...">
-</textarea>
+    <button class="btn" onclick="saveNote()">Save Notes</button>
+  </div>
 
-<button class="primary"
-onclick="saveNote()">
-
-💾 SAVE NOTE
-
-</button>
-
-<div id="noteOut"
-class="result">
-</div>
-
-</div>
-
+  <h3 class="section-title">📌 Saved Notes</h3>
+  <div id="noteList"></div>
 </section>
 
+<!-- TEST -->
+<section id="test" class="hidden">
+  <h2 class="section-title">🎯 Mock Test Centre</h2>
 
-<footer>
+  <div class="card">
+    <label>Exam</label>
+    <select id="testExam"></select>
 
-PROJECT IQBAL • Human × AI • For All Competitive Exams
+    <label>Subject</label>
+    <select id="testSubject"></select>
 
-</footer>
+    <label>Number of Questions</label>
+    <select id="testLength">
+      <option value="5">5 Questions</option>
+      <option value="10">10 Questions</option>
+      <option value="20">20 Questions</option>
+      <option value="50">50 Questions</option>
+    </select>
+
+    <p class="muted" style="margin:12px 0">
+      Test available question bank se banega. Verified PYQ aur practice
+      questions ki category question ke source par depend karegi.
+    </p>
+
+    <button class="btn" onclick="startTest()">Start Test</button>
+  </div>
+
+  <div id="testArea"></div>
+</section>
+
+<!-- ADD QUESTIONS -->
+<section id="add" class="hidden">
+  <h2 class="section-title">➕ Add Verified Questions</h2>
+
+  <div class="notice">
+    Asli PYQ add karte waqt exam, year, subject, shift aur source ki
+    details sahi bharna. Agar source verify nahi hai, question ko
+    Practice category mein rakho.
+  </div>
+
+  <div class="card">
+    <label>Question Category</label>
+    <select id="qType">
+      <option value="PYQ">Verified PYQ</option>
+      <option value="Practice">Practice Question</option>
+    </select>
+
+    <label>Exam</label>
+    <select id="qExam"></select>
+
+    <div class="row">
+      <div>
+        <label>Year</label>
+        <select id="qYear"></select>
+      </div>
+
+      <div>
+        <label>Subject</label>
+        <select id="qSubject"></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Topic</label>
+        <input id="qTopic" placeholder="Jaise: Indian Constitution">
+      </div>
+
+      <div>
+        <label>Shift / Paper</label>
+        <input id="qShift" placeholder="Official details, if known">
+      </div>
+    </div>
+
+    <label>Question</label>
+    <textarea id="qText" placeholder="Question likho..."></textarea>
+
+    <div class="row">
+      <div>
+        <label>Option A</label>
+        <input id="optA">
+      </div>
+      <div>
+        <label>Option B</label>
+        <input id="optB">
+      </div>
+      <div>
+        <label>Option C</label>
+        <input id="optC">
+      </div>
+      <div>
+        <label>Option D</label>
+        <input id="optD">
+      </div>
+    </div>
+
+    <label>Correct Answer</label>
+    <select id="qAnswer">
+      <option value="0">Option A</option>
+      <option value="1">Option B</option>
+      <option value="2">Option C</option>
+      <option value="3">Option D</option>
+    </select>
+
+    <label>Explanation</label>
+    <textarea id="qExplanation" placeholder="Answer ka explanation..."></textarea>
+
+    <label>Source / Reference</label>
+    <input id="qSource" placeholder="Official paper, PDF title ya reliable source">
+
+    <button class="btn green" onclick="addQuestion()">Save Question</button>
+  </div>
+
+  <hr>
+
+  <div class="card">
+    <h3>📥 Import Questions Using JSON</h3>
+    <p class="muted">
+      Bulk question bank ko JSON file se import kar sakte ho.
+    </p>
+
+    <label>JSON File</label>
+    <input type="file" id="jsonFile" accept=".json,application/json">
+
+    <button class="btn" onclick="importJSON()">Import JSON</button>
+
+    <button class="btn secondary" onclick="downloadTemplate()">
+      Download JSON Template
+    </button>
+
+    <p id="importMessage" class="muted"></p>
+  </div>
+
+  <hr>
+
+  <div class="card">
+    <h3>📤 Export Your Question Bank</h3>
+    <p class="muted">
+      Apne saved questions ka backup JSON file mein download karo.
+    </p>
+    <button class="btn" onclick="exportJSON()">Export Questions</button>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress" class="hidden">
+  <h2 class="section-title">🏆 Your Progress</h2>
+
+  <div class="grid">
+    <div class="card">
+      <div class="stat" id="pAttempted">0</div>
+      <p>Total questions attempted</p>
+    </div>
+
+    <div class="card">
+      <div class="stat" id="pCorrect">0</div>
+      <p>Correct answers</p>
+    </div>
+
+    <div class="card">
+      <div class="stat" id="pAccuracy">0%</div>
+      <p>Accuracy</p>
+    </div>
+  </div>
+
+  <h3 class="section-title">📊 Recent Test Results</h3>
+  <div id="resultHistory"></div>
+
+  <button class="btn secondary" onclick="clearProgress()">
+    Reset Progress
+  </button>
+</section>
 
 </main>
 
+<footer>
+  <h3 style="color:var(--gold)">PROJECT IQBAL</h3>
+  <p>Human × AI Exam Academy</p>
+  <p>Learn • Practice • Revise • Improve</p>
+  <p class="muted">Your effort matters. Keep learning every day.</p>
+</footer>
 
 <script>
+/* ==========================================
+   PROJECT IQBAL — EXAM PREPARATION PLATFORM
+   ========================================== */
 
-/* EXAMS */
-
-const exams=[
-
-"SSC CGL",
-"SSC CHSL",
-"SSC MTS",
-"SSC GD",
-"SSC CPO",
-"UPSSSC PET",
-"UPSI",
-"UPPSC",
-"UPPCS",
-"Railway NTPC",
-"Banking"
-
+const EXAMS = [
+  "SSC CHSL",
+  "SSC CGL",
+  "SSC MTS",
+  "SSC GD",
+  "SSC CPO",
+  "UPSSSC PET",
+  "UP Police / UPSI",
+  "UPPSC",
+  "UPPCS",
+  "Railway NTPC",
+  "Railway Group D",
+  "Banking",
+  "Other Exam"
 ];
 
-
-/* DEMO QUESTION BANK */
-
-const sample={
-
-"SSC CGL":[
-
-["Percentage का basic relation क्या है?","x% of y = y% of x"],
-
-["भारत का संविधान कब लागू हुआ?","26 जनवरी 1950"],
-
-["RBI की स्थापना कब हुई?","1 अप्रैल 1935"]
-
-],
-
-"SSC CHSL":[
-
-["भारत की राजधानी?","नई दिल्ली"],
-
-["राष्ट्रीय पशु?","बाघ"],
-
-["राष्ट्रीय खेल दिवस?","मेजर ध्यानचंद"]
-
-],
-
-"UPSSSC PET":[
-
-["मौलिक अधिकार किस भाग में?","भाग III"],
-
-["DPSP किस भाग में?","भाग IV"],
-
-["हरित क्रांति से प्रमुख फसल?","गेहूँ"]
-
-],
-
-"UPSI":[
-
-["अनुच्छेद 21?","जीवन और व्यक्तिगत स्वतंत्रता का संरक्षण"],
-
-["राज्यसभा का सभापति?","उपराष्ट्रपति"],
-
-["मौलिक अधिकार?","भाग III"]
-
-]
-
-};
-
-
-/* TRICK DATABASE */
-
-const trickData={
-
-Maths:{
-
-Starter:
-"Percentage को fraction में बदलो: 25%=1/4, 50%=1/2, 75%=3/4।",
-
-Average:
-"x% of y = y% of x। बड़े number पर percentage लगाना आसान हो तो order बदल दो।",
-
-Advanced:
-"Successive percentage changes में percentages को सीधे जोड़ने की गलती मत करो। Net change = a + b + ab/100 (sign सहित)।"
-
-},
-
-Reasoning:{
-
-Starter:
-"Series में सबसे पहले consecutive numbers का difference निकालो।",
-
-Average:
-"Difference के बाद multiplication/division और alternate pattern check करो।",
-
-Advanced:
-"कभी-कभी odd और even positions अलग-अलग pattern follow करती हैं। दोनों series अलग करके test करो।"
-
-},
-
-GKGS:{
-
-Starter:
-"Fact को Person + Place + Year + Event में तोड़कर याद करो।",
-
-Average:
-"Related facts को एक छोटे one-liner cluster में जोड़कर revise करो।",
-
-Advanced:
-"Statement questions में 'always', 'only', 'never' जैसे absolute words को विशेष रूप से verify करो।"
-
-},
-
-Polity:{
-
-Starter:
-"Fundamental Rights = Part III।",
-
-Average:
-"DPSP = Part IV और Fundamental Duties = Part IVA।",
-
-Advanced:
-"Article + Part + Constitutional Body को एक साथ revise करो ताकि options जल्दी eliminate हों।"
-
-},
-
-History:{
-
-Starter:
-"पहले घटनाओं की timeline बनाओ।",
-
-Average:
-"हर घटना के साथ Person + Place + Year जोड़ो।",
-
-Advanced:
-"Similar movements/sessions को compare करके chronology और differences दोनों याद करो।"
-
-},
-
-Hindi:{
-
-Starter:
-"सबसे पहले शब्द/वाक्य का context समझो।",
-
-Average:
-"संधि और समास के पहचान संकेतों से options eliminate करो।",
-
-Advanced:
-"व्याकरण के rule को option पर apply करके गलत options पहले हटाओ।"
-
-},
-
-English:{
-
-Starter:
-"Sentence में subject और verb पहचानो।",
-
-Average:
-"Context और grammar दोनों से options eliminate करो।",
-
-Advanced:
-"Error spotting में Subject-Verb, Tense, Article और Preposition को क्रम से check करो।"
-
-}
-
-};
-
-
-let level="Starter";
-let trickLevel="Starter";
-let quizLevel="Starter";
-let qi=0;
-let score=0;
-
-
-/* ENTER */
-
-function enterApp(){
-
-document.getElementById("splash")
-.classList.add("hidden");
-
-document.getElementById("app")
-.classList.remove("hidden");
-
-}
-
-
-/* NAVIGATION */
-
-function show(id,btn){
-
-document
-.querySelectorAll("main section")
-.forEach(s=>s.classList.remove("active"));
-
-document
-.getElementById(id)
-.classList.add("active");
-
-document
-.querySelectorAll("nav button")
-.forEach(b=>b.classList.remove("active"));
-
-if(btn)btn.classList.add("active");
-
-}
-
-
-/* FILL EXAM SELECTORS */
-
-function populate(){
-
-["aExam","pExam","tExam","qExam"]
-
-.forEach(id=>{
-
-const s=document.getElementById(id);
-
-exams.forEach(e=>{
-
-s.add(new Option(e,e));
-
-});
-
-});
-
-
-const grid=document.getElementById("examGrid");
-
-
-exams.forEach(e=>{
-
-const d=document.createElement("div");
-
-d.className="card click";
-
-d.innerHTML=
-
-"<div class='icon'>🎯</div>"+
-"<h3>"+e+"</h3>"+
-"<p>"+e+
-" Expert<br>"+
-"PYQ • One-Liner • Tricks • Test"+
-"</p>";
-
-d.onclick=()=>{
-
-document.getElementById("aExam").value=e;
-
-show("academy");
-
-openExpert();
-
-};
-
-grid.appendChild(d);
-
-});
-
-}
-
-
-/* ACADEMY LEVEL */
-
-function setLevel(btn,x){
-
-level=x;
-
-document
-.querySelectorAll("#academy .level")
-.forEach(b=>b.classList.remove("on"));
-
-btn.classList.add("on");
-
-
-document.getElementById("levelText")
-.innerHTML=
-
-"<b>"+x+" Mode</b><br>"+
-
-(
-
-x==="Starter"
-
-?
-
-"Concept zero से + simple example + easy practice."
-
-:
-
-x==="Average"
-
-?
-
-"Exam-level application + traps + speed improvement."
-
-:
-
-"Hard PYQ style + multi-concept thinking + time-saving approach."
-
-);
-
-}
-
-
-/* EXAM EXPERT */
-
-function openExpert(){
-
-const e=document.getElementById("aExam").value;
-
-const s=document.getElementById("aSubject").value;
-
-
-document.getElementById("expertOut").innerHTML=
-
-"<div class='item expert'>"+
-"<b>🤖 "+e+" Expert • "+s+" • "+level+"</b>"+
-"<br><span class='muted'>"+
-"इस mode में "+e+
-" के syllabus, question style, common mistakes और revision needs के हिसाब से preparation होगी."+
-"</span></div>"+
-
-"<div class='item'>"+
-"<b>Study Flow</b><br>"+
-"Concept → Example → Trick → PYQ → Timed Practice → Mistake Review"+
-"</div>";
-
-}
-
-
-/* PYQ ENGINE */
-
-function generatePYQ(){
-
-const e=document.getElementById("pExam").value;
-
-const type=document.getElementById("pType").value;
-
-const year=document.getElementById("pYear").value;
-
-
-const data=
-
-sample[e]||
-
-[
-
-["भारत की राजधानी?","नई दिल्ली"],
-
-["संविधान लागू?","26 जनवरी 1950"],
-
-["राष्ट्रीय पशु?","बाघ"]
-
+const SUBJECTS = [
+  "History",
+  "Polity",
+  "Geography",
+  "Economy",
+  "General Science",
+  "Biology",
+  "Physics",
+  "Chemistry",
+  "Static GK",
+  "Current Affairs",
+  "Mathematics",
+  "Reasoning",
+  "English",
+  "Hindi",
+  "Computer",
+  "Mixed"
 ];
 
-
-const out=document.getElementById("pyqOut");
-
-out.innerHTML="";
-
-
-if(type==="trick"){
-
-generateTrick();
-
-return;
-
-}
-
-
-data.forEach((x,i)=>{
-
-const d=document.createElement("div");
-
-d.className="item";
-
-
-if(type==="one"){
-
-d.innerHTML=
-
-"<b>ONE-LINER "+(i+1)+"</b><br>"+
-
-x[0]+" — "+
-
-"<span class='answer'>"+x[1]+"</span>";
-
-}
-
-else{
-
-d.innerHTML=
-
-"<b>PYQ Practice "+(i+1)+"</b> "+
-
-"<span class='small'>Year: "+year+"</span><br>"+
-
-x[0]+"<br>"+
-
-"<span class='answer'>उत्तर: "+x[1]+"</span><br>"+
-
-"<span class='small'>Expert Tip: पहले concept पहचानो, फिर option elimination लगाओ.</span>";
-
-}
-
-out.appendChild(d);
-
-});
-
-}
-
-
-/* TRICK LEVEL */
-
-function setTrickLevel(btn,x){
-
-trickLevel=x;
-
-document
-.querySelectorAll("#tricks .level")
-.forEach(b=>b.classList.remove("on"));
-
-btn.classList.add("on");
-
-}
-
-
-/* TRICK GENERATOR */
-
-function generateTrick(){
-
-const sub=document.getElementById("tSub").value;
-
-const key=sub==="GK/GS"?"GKGS":sub;
-
-const txt=
-
-(trickData[key]||trickData.GKGS)[trickLevel];
-
-
-document.getElementById("trickOut").innerHTML=
-
-"<div class='item expert'>"+
-"<b>🤖 "+
-document.getElementById("tExam").value+
-" Expert • "+
-sub+
-" • "+
-trickLevel+
-"</b><br>"+
-txt+
-"</div>"+
-
-"<div class='item'>"+
-"<b>⚠️ Golden Rule</b><br>"+
-"Trick तभी लगाओ जब question की condition उस trick से match करे। Blind shortcut से गलती बढ़ सकती है।"+
-"</div>";
-
-}
-
-
-/* QUIZ LEVEL */
-
-function setQuizLevel(btn,x){
-
-quizLevel=x;
-
-document
-.querySelectorAll("#test .level")
-.forEach(b=>b.classList.remove("on"));
-
-btn.classList.add("on");
-
-}
-
-
-/* TEST */
-
-function startTest(){
-
-qi=0;
-score=0;
-
-renderQ();
-
-}
-
-
-function renderQ(){
-
-const e=document.getElementById("qExam").value;
-
-const data=sample[e]||sample["SSC CGL"];
-
-const x=data[qi%data.length];
-
-
-document.getElementById("testOut").innerHTML=
-
-"<div class='item expert'>"+
-
-"<div class='small'>"+
-e+
-" • "+
-document.getElementById("qSub").value+
-" • "+
-quizLevel+
-"</div>"+
-
-"<h3>Q"+(qi+1)+". "+x[0]+"</h3>"+
-
-"<button class='primary' onclick='mark(true)'>"+
-"A. "+x[1]+
-"</button> "+
-
-"<button style='padding:12px;border-radius:10px;border:1px solid #3a5775;background:#172e49;color:white'>"+
-"B. अन्य विकल्प"+
-"</button>"+
-
-"<p id='ans'></p>"+
-
-"</div>";
-
-}
-
-
-function mark(ok){
-
-if(ok)score++;
-
-document.getElementById("ans").textContent=
-
-ok?
-
-"✅ सही जवाब!":
-
-"❌ गलत";
-
-qi++;
-
-setTimeout(renderQ,700);
-
-}
-
-
-/* NOTES */
-
-function saveNote(){
-
-const title=document
-.getElementById("noteTitle")
-.value.trim();
-
-const text=document
-.getElementById("noteText")
-.value.trim();
-
-
-if(!title||!text){
-
-alert("Topic और note भरो।");
-
-return;
-
-}
-
-
-let notes=
-
-JSON.parse(
-localStorage.getItem("iqNotes")||"[]"
-);
-
-
-notes.push({
-
-title:title,
-text:text
-
-});
-
-
-localStorage.setItem(
-"iqNotes",
-JSON.stringify(notes)
-);
-
-
-document.getElementById("noteTitle").value="";
-document.getElementById("noteText").value="";
-
-renderNotes();
-
-}
-
-
-function renderNotes(){
-
-const notes=
-
-JSON.parse(
-localStorage.getItem("iqNotes")||"[]"
-);
-
-
-document.getElementById("noteOut").innerHTML=
-
-notes.map(n=>
-
-"<div class='item'>"+
-"<b>"+n.title+"</b><br>"+
-n.text+
-"</div>"
-
-).join("");
-
-}
-
-
-/* START */
-
-populate();
-renderNotes();
-
-</script>
-
-</body>
-</html>
+const YEARS = [];
+for(let y=2020;y<=2026;y++) YEARS.push(String(y));
+
+const TRICKS = [
+  {
+    subject:"History",
+    topic:"Buddhism",
+    title:"Buddhism Quick Revision",
+    content:"चार आर्य सत्य और अष्टांगिक मार्ग बौद्ध धर्म के मुख्य अध्ययन-बिंदु हैं। बुद्ध के जीवन, बौद्ध संगीति और प्रमुख स्थलों को अलग-अलग तालिका में याद करें।",
+    exam:"All Exams"
+  },
+  {
+    subject:"History",
+    topic:"Jainism",
+    title:"Jainism Quick Revision",
+    content:"तीर्थंकरों का क्रम, महावीर स्वामी का जीवन और जैन धर्म के सिद्धांत अलग-अलग याद करें। बौद्ध और जैन धर्म की तुलना वाली तालिका revision में उपयोगी है।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Polity",
+    topic:"Constitution",
+    title:"Constitution Revision",
+    content:"संविधान के भाग, अनुच्छेद और अनुसूचियों को अलग-अलग चार्ट में पढ़ो। एक साथ बहुत सारे नंबर याद करने के बजाय रोज थोड़े-थोड़े प्रश्न हल करो।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Polity",
+    topic:"Schedules",
+    title:"भारतीय संविधान की अनुसूचियाँ",
+    content:"हर अनुसूची के लिए तीन कॉलम बनाओ: अनुसूची नंबर, विषय और उससे जुड़ा मुख्य तथ्य। फिर किताब बंद करके खुद से दोहराओ।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Geography",
+    topic:"Rivers",
+    title:"नदियों का Revision",
+    content:"नदी, उद्गम, किन राज्य/क्षेत्र से गुजरती है और कहाँ मिलती है—इन चार बिंदुओं की तालिका बनाओ। मानचित्र पर देखकर अभ्यास करने से याद रखना आसान होता है।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Geography",
+    topic:"Climate",
+    title:"Indian Climate",
+    content:"मानसून की शाखाएँ, वर्षा के वितरण और ऋतुओं को भारत के मानचित्र के साथ पढ़ो। केवल परिभाषा याद करने के बजाय कारण और परिणाम भी समझो।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Economy",
+    topic:"Banking",
+    title:"Banking Basics",
+    content:"RBI के कार्य, Repo Rate, CRR, SLR और मुद्रास्फीति की परिभाषा व प्रभाव अलग-अलग समझो। दरों में बदलाव वाले प्रश्नों के लिए नवीनतम आधिकारिक जानकारी जाँचो।",
+    exam:"All Exams"
+  },
+  {
+    subject:"General Science",
+    topic:"Physics",
+    title:"Physics Formula Revision",
+    content:"हर सूत्र के साथ उसकी इकाई और प्रतीकों का अर्थ लिखो। फिर सूत्र पर आधारित आसान प्रश्न हल करो। केवल सूत्र रटने के बजाय उसका उपयोग समझो।",
+    exam:"All Exams"
+  },
+  {
+    subject:"General Science",
+    topic:"Chemistry",
+    title:"Chemistry Revision",
+    content:"अम्ल, क्षार, लवण, धातु और अधातु के गुणों की तुलना वाली तालिका बनाओ। रोजाना छोटे प्रश्नों से दोहराव करो।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Biology",
+    topic:"Human Body",
+    title:"Human Body Revision",
+    content:"अंग, उनका मुख्य कार्य और उनसे संबंधित महत्वपूर्ण तथ्य एक तालिका में लिखो। पाचन, रक्त संचार और श्वसन तंत्र को चित्रों से समझो।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Static GK",
+    topic:"Awards",
+    title:"Awards Revision",
+    content:"पुरस्कार, क्षेत्र, संबंधित व्यक्ति और वर्ष को एक तालिका में लिखो। बदलने वाले तथ्यों को भरोसेमंद और नवीनतम स्रोत से verify करो।",
+    exam:"All Exams"
+  },
+  {
+    subject:"Current Affairs",
+    topic:"Revision",
+    title:"Current Affairs Strategy",
+    content:"Current affairs को महीने के हिसाब से बाँटो। नियुक्तियाँ, योजनाएँ, खेल, पुरस्कार और महत्वपूर्ण घटनाएँ अलग-अलग revise करो। पुराने तथ्यों को नए तथ्यों से न मिलाओ।",
+    exam:"All Exams"
+  }
+];
+
+/*
+  Ye examples PRACTICE questions hain.
+  Inhe actual previous-year questions nahi bataya gaya hai.
+  Apna verified PYQ data Add Questions se import karo.
+*/
+
+const SAMPLE_QUESTIONS = [
+  {
+    id:"practice-001",
+    type:"Practice",
+    exam:"SSC CHSL",
+    year:"",
+    subject:"Polity",
+    topic:"Constitution Basics",
+    shift:"",
+    question:"भारतीय संविधान को संविधान सभा ने कब अंगीकृत किया था?",
+    options:[
+      "15 अगस्त 1947",
+      "26 नवंबर 1949",
+      "26 जनवरी 1950",
+      "2 अक्टूबर 1949"
+    ],
+    answer:1,
+    explanation:"संविधान सभा ने भारतीय संविधान को 26 नवंबर 1949 को अंगीकृत किया था। संविधान 26 जनवरी 1950 से लागू हुआ।",
+    source:"Practice example — not an authenticated PYQ"
+  },
+  {
+    id:"practice-002",
+    type:"Practice",
+    exam:"UPSSSC PET",
+    year:"",
+    subject:"History",
+    topic:"Ancient India",
+    shift:"",
+    question:"गौतम बुद्ध को ज्ञान की प्राप्ति कहाँ हुई थी?",
+    options:[
+      "सारनाथ",
+      "कुशीनगर",
+      "बोधगया",
+      "लुंबिनी"
+    ],
+    answer:2,
+    explanation:"बौद्ध परंपरा के अनुसार गौतम बुद्ध को बोधगया में ज्ञान प्राप्त हुआ था।",
+    source:"Practice example — not an authenticated PYQ"
+  },
+  {
+    id:"practice-003",
+    type:"Practice",
+    exam:"SSC CGL",
+    year:"",
+    subject:"Mathematics",
+    topic:"Arithmetic",
+    shift:"",
+    question:"यदि किसी संख्या का 25% = 40 है, तो वह संख्या कितनी है?",
+    options:["100","120","160","200"],
+    answer:2,
+    explanation:"संख्या = 40 × 100 ÷ 25 = 160।",
+    source:"Practice example — not an authenticated PYQ"
+  },
+  {
+    id:"practice-004",
+    type:"Practice",
+    exam:"SSC CHSL",
+    year:"",
+    subject:"General Science",
+    topic:"Biology",
+    shift:"",
+    question:"मानव शरीर में रक्त को पंप करने वाला मुख्य अंग कौन-सा है?",
+    options:["फेफड़ा","हृदय","यकृत","गुर्दा"],
+    answer:1,
+    explanation:"हृदय रक्त को शरीर में पंप करने वाला मुख्य अंग है।",
+    source:"Practice example — not an authenticated PYQ"
+  },
+  {
+    id:"practice-005",
+    type:"Practice",
+    exam:"UPSSSC PET",
+    year:"",
+    subject:"Geography",
+    topic:"India",
+    shift:"",
+    qu
