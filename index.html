@@ -2,166 +2,1454 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PROJECT IQBAL</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PROJECT IQBAL | Human × AI Exam Academy</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#101827;color:#fff;padding:16px}
-header{text-align:center;padding:20px 5px;background:#192943;border-radius:18px}
-h1{color:#62e6c5;margin:5px}
-header p{color:#c4d2e6}
-nav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
-button{background:#27c9a5;color:#10212b;border:0;border-radius:9px;padding:11px;font-weight:bold;cursor:pointer}
-nav button{flex:1;min-width:90px}
-section{display:none;background:#192943;padding:16px;border-radius:15px;margin-bottom:14px}
-section.active{display:block}
-input,textarea,select{width:100%;padding:12px;margin:7px 0;border-radius:8px;border:1px solid #52647c;background:#101827;color:white}
-.item{background:#263a55;padding:10px;margin:8px 0;border-radius:8px;overflow-wrap:anywhere}
-.small{font-size:13px;color:#c4d2e6}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:radial-gradient(circle at top,#183b5d,#07111f 55%,#050b14);
+color:#f5f8ff;
+min-height:100vh
+}
+
+:root{
+--a:#59e1c2;
+--b:#79a9ff;
+--card:#10223a;
+--line:#2b4867;
+--muted:#afbed1
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
+.splash{
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:20px;
+text-align:center;
+background:radial-gradient(circle at 50% 20%,#1c4768,#07111f 60%)
+}
+
+.sbox{
+max-width:850px;
+width:100%;
+padding:55px 24px;
+border:1px solid #355979;
+border-radius:30px;
+background:#0c1b2e;
+box-shadow:0 25px 90px #0009
+}
+
+.logo{
+font-size:clamp(42px,10vw,82px);
+font-weight:900;
+color:var(--a);
+letter-spacing:2px
+}
+
+.tag{
+font-size:clamp(21px,4vw,34px);
+font-weight:800;
+margin:12px 0
+}
+
+.heroText{
+color:var(--muted);
+font-size:17px;
+line-height:1.6
+}
+
+.start,.primary{
+border:0;
+background:var(--a);
+color:#062019;
+border-radius:11px;
+padding:13px 19px;
+font-weight:900
+}
+
+.start{
+margin-top:20px;
+font-size:16px
+}
+
+.hidden{display:none!important}
+
+.wrap{
+max-width:1150px;
+margin:auto;
+padding:14px
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+padding:10px 0
+}
+
+.brand{
+font-size:24px;
+font-weight:900;
+color:var(--a)
+}
+
+.badge{
+border:1px solid var(--line);
+padding:7px 10px;
+border-radius:99px;
+color:var(--muted);
+font-size:12px
+}
+
+nav{
+display:flex;
+gap:7px;
+overflow:auto;
+position:sticky;
+top:0;
+z-index:5;
+padding:8px 0;
+background:#07111fe8;
+backdrop-filter:blur(10px)
+}
+
+nav button{
+white-space:nowrap;
+background:#10243b;
+color:#dbe8f7;
+border:1px solid var(--line);
+border-radius:10px;
+padding:10px 14px
+}
+
+nav button.active{
+background:var(--a);
+color:#062019
+}
+
+section{display:none}
+.active{display:block}
+
+.hero,.panel,.card{
+background:linear-gradient(145deg,#10253e,#0c1b2e);
+border:1px solid var(--line);
+border-radius:19px
+}
+
+.hero{
+padding:26px;
+margin:12px 0
+}
+
+.hero h1{
+font-size:clamp(28px,6vw,46px);
+margin:8px 0
+}
+
+.muted,.small{color:var(--muted)}
+
+.small{font-size:13px}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+gap:13px
+}
+
+.card{
+padding:18px
+}
+
+.card h3{margin:8px 0}
+
+.card p{
+line-height:1.5;
+color:var(--muted)
+}
+
+.icon{font-size:31px}
+
+.click{cursor:pointer}
+
+.panel{
+padding:18px;
+margin:12px 0
+}
+
+.row{
+display:flex;
+gap:9px;
+flex-wrap:wrap
+}
+
+.row>*{
+flex:1;
+min-width:150px
+}
+
+input,select,textarea{
+width:100%;
+background:#07111f;
+color:#fff;
+border:1px solid #38536f;
+border-radius:10px;
+padding:12px;
+margin:5px 0
+}
+
+.result{
+display:grid;
+gap:9px;
+margin-top:14px
+}
+
+.item{
+background:#152c47;
+border:1px solid #2c4a69;
+border-radius:12px;
+padding:14px;
+line-height:1.55
+}
+
+.levels{
+display:flex;
+gap:7px;
+flex-wrap:wrap;
+margin:10px 0
+}
+
+.level{
+padding:9px 12px;
+border-radius:9px;
+background:#142b45;
+border:1px solid #355370;
+color:white
+}
+
+.level.on{
+background:var(--a);
+color:#062019
+}
+
+.answer{
+color:#8ff0d5;
+font-weight:800
+}
+
+.expert{
+border-left:4px solid var(--b)
+}
+
+.warn{color:#ffd27a}
+
+.quote{
+font-size:20px;
+font-weight:800;
+line-height:1.45
+}
+
+footer{
+text-align:center;
+padding:35px;
+color:#71849b
+}
+
+@media(max-width:600px){
+.wrap{padding:10px}
+.hero{padding:20px}
+.sbox{padding:42px 16px}
+}
 </style>
 </head>
+
 <body>
-<header>
-<h1>🚀 PROJECT IQBAL</h1>
-<p>My Personal AI Universe</p>
-<div>📚 Study • 🎯 Goals • 📝 Notes • 💰 Budget</div>
+
+<!-- START SCREEN -->
+
+<div id="splash" class="splash">
+
+<div class="sbox">
+
+<div class="logo">
+PROJECT IQBAL
+</div>
+
+<div class="tag">
+For All Competitive Exams
+</div>
+
+<p class="heroText">
+
+🤝 <b>Human + AI</b>
+
+<br><br>
+
+जब मेहनत और सही guidance साथ मिलते हैं,
+
+<br>
+
+<b>GK • GS • Maths • Reasoning • Hindi</b>
+
+<br>
+
+आसान लगने लगते हैं।
+
+</p>
+
+<button class="start" onclick="enterApp()">
+🚀 ENTER PROJECT IQBAL
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MAIN APP -->
+
+<main id="app" class="wrap hidden">
+
+<header class="top">
+
+<div class="brand">
+🚀 PROJECT IQBAL
+</div>
+
+<div class="badge">
+HUMAN × AI ACADEMY
+</div>
+
 </header>
 
+
+<!-- NAVIGATION -->
+
 <nav>
-<button onclick="show('home')">🏠 Home</button>
-<button onclick="show('study')">📚 Study</button>
-<button onclick="show('tasks')">✅ Tasks</button>
-<button onclick="show('notes')">📝 Notes</button>
-<button onclick="show('goals')">🎯 Goals</button>
-<button onclick="show('quiz')">🧠 Quiz</button>
-<button onclick="show('budget')">💰 Budget</button>
+
+<button class="active"
+onclick="show('home',this)">
+🏠 Home
+</button>
+
+<button onclick="show('exams',this)">
+🎓 Exams
+</button>
+
+<button onclick="show('academy',this)">
+🧠 Academy
+</button>
+
+<button onclick="show('pyq',this)">
+📚 PYQs
+</button>
+
+<button onclick="show('tricks',this)">
+⚡ Tricks
+</button>
+
+<button onclick="show('test',this)">
+🎯 Test
+</button>
+
+<button onclick="show('notes',this)">
+📝 Notes
+</button>
+
 </nav>
 
+
+<!-- HOME -->
+
 <section id="home" class="active">
-<h2>👋 Welcome, Iqbal!</h2>
-<p>यह तुम्हारा अपना Personal Dashboard है।</p>
-<div class="item">📚 पढ़ाई को रोज बेहतर बनाओ।</div>
-<div class="item">✅ अपने काम पूरे करो।</div>
-<div class="item">🎯 अपने लक्ष्य की तरफ बढ़ो।</div>
-<div class="item">💡 हर दिन कुछ नया सीखो।</div>
-<p class="small">तुम्हारे सेव किए गए नोट्स और काम इसी ब्राउज़र में सुरक्षित रहेंगे।</p>
+
+<div class="hero">
+
+<div class="small">
+THE IDEA
+</div>
+
+<h1>
+Human + AI = Smart Preparation.
+</h1>
+
+<p class="heroText">
+
+PROJECT IQBAL का लक्ष्य है कि beginner को concept समझ आए,
+average student की speed बढ़े और advanced student को
+exam-level challenge मिले।
+
+</p>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card">
+
+<div class="icon">📚</div>
+
+<h3>
+Verified PYQ Zone
+</h3>
+
+<p>
+Exam → Subject → Topic → Year/Shift
+के हिसाब से PYQ practice।
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">⚡</div>
+
+<h3>
+3-Level Tricks
+</h3>
+
+<p>
+Starter explanation → Exam shortcut →
+Advanced time-saving approach।
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🤖</div>
+
+<h3>
+Exam-wise AI Expert
+</h3>
+
+<p>
+हर exam के लिए अलग expert profile।
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🎯</div>
+
+<h3>
+Smart Test
+</h3>
+
+<p>
+Easy से Advanced तक progressive practice।
+</p>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="quote">
+
+“SSC CGL/CHSL को हलवा बनाना है तो shortcut नहीं,
+concept + PYQ + practice + speed चाहिए.”
+
+</div>
+
+<p class="small">
+
+PROJECT IQBAL इसी चार-step system पर बनाया जा रहा है।
+
+</p>
+
+</div>
+
 </section>
 
-<section id="study">
-<h2>📚 Study Room</h2>
-<input id="subject" placeholder="Subject का नाम">
-<input id="topic" placeholder="आज क्या पढ़ना है?">
-<button onclick="add('studyList',['subject','topic'])">पढ़ाई जोड़ो</button>
-<div id="studyList"></div>
+
+<!-- EXAMS -->
+
+<section id="exams">
+
+<div class="panel">
+
+<h2>
+🎓 Exam Command Center
+</h2>
+
+<p class="muted">
+एक exam चुनो। उसी के लिए पूरा preparation mode खोलो।
+</p>
+
+<div id="examGrid" class="grid"></div>
+
+</div>
+
 </section>
 
-<section id="tasks">
-<h2>✅ My Tasks</h2>
-<input id="taskInput" placeholder="कौन-सा काम करना है?">
-<button onclick="add('taskList',['taskInput'])">काम जोड़ो</button>
-<div id="taskList"></div>
+
+<!-- ACADEMY -->
+
+<section id="academy">
+
+<div class="panel">
+
+<h2>
+🧠 Exam Expert Academy
+</h2>
+
+<div class="row">
+
+<select id="aExam"></select>
+
+<select id="aSubject">
+
+<option>GK/GS</option>
+<option>Maths</option>
+<option>Reasoning</option>
+<option>Hindi</option>
+<option>English</option>
+<option>Polity</option>
+<option>History</option>
+<option>Geography</option>
+
+</select>
+
+</div>
+
+
+<h3>
+Learning Level
+</h3>
+
+<div class="levels">
+
+<button class="level on"
+onclick="setLevel(this,'Starter')">
+🟢 Starter
+</button>
+
+<button class="level"
+onclick="setLevel(this,'Average')">
+🟡 Average
+</button>
+
+<button class="level"
+onclick="setLevel(this,'Advanced')">
+🔴 Advanced
+</button>
+
+</div>
+
+
+<div id="levelText"
+class="item expert">
+
+<b>Starter Mode</b>
+
+<br>
+
+Concept को zero से समझो,
+फिर example और easy question।
+
+</div>
+
+
+<button class="primary"
+onclick="openExpert()">
+
+🤖 OPEN EXAM EXPERT
+
+</button>
+
+
+<div id="expertOut" class="result"></div>
+
+</div>
+
 </section>
+
+
+<!-- PYQ -->
+
+<section id="pyq">
+
+<div class="panel">
+
+<h2>
+📚 PYQ + One-Liner Engine
+</h2>
+
+<div class="row">
+
+<select id="pExam"></select>
+
+<select id="pYear">
+
+<option value="all">
+All Years
+</option>
+
+<option>2025</option>
+<option>2024</option>
+<option>2023</option>
+<option>2022</option>
+<option>2021</option>
+<option>2020</option>
+
+</select>
+
+<select id="pType">
+
+<option value="pyq">
+PYQ
+</option>
+
+<option value="one">
+One-Liner
+</option>
+
+<option value="trick">
+Short Trick
+</option>
+
+</select>
+
+</div>
+
+
+<button class="primary"
+onclick="generatePYQ()">
+
+🔎 GENERATE
+
+</button>
+
+
+<div id="pyqOut"
+class="result">
+</div>
+
+
+<p class="small warn">
+
+Demo bank में sample questions हैं।
+Actual PYQ को “verified” तभी दिखाएँगे जब source से verify करके database में डाला जाए।
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- TRICKS -->
+
+<section id="tricks">
+
+<div class="panel">
+
+<h2>
+⚡ Trick Lab
+</h2>
+
+<div class="row">
+
+<select id="tExam"></select>
+
+<select id="tSub">
+
+<option>Maths</option>
+<option>Reasoning</option>
+<option>GK/GS</option>
+<option>Polity</option>
+<option>History</option>
+<option>Hindi</option>
+<option>English</option>
+
+</select>
+
+</div>
+
+
+<div class="levels">
+
+<button class="level on"
+onclick="setTrickLevel(this,'Starter')">
+Starter
+</button>
+
+<button class="level"
+onclick="setTrickLevel(this,'Average')">
+Average
+</button>
+
+<button class="level"
+onclick="setTrickLevel(this,'Advanced')">
+Advanced
+</button>
+
+</div>
+
+
+<button class="primary"
+onclick="generateTrick()">
+
+⚡ SHOW SMART TRICKS
+
+</button>
+
+
+<div id="trickOut"
+class="result">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TEST -->
+
+<section id="test">
+
+<div class="panel">
+
+<h2>
+🎯 Progressive Test
+</h2>
+
+<div class="row">
+
+<select id="qExam"></select>
+
+<select id="qSub">
+
+<option>GK/GS</option>
+<option>Maths</option>
+<option>Reasoning</option>
+<option>Hindi</option>
+
+</select>
+
+</div>
+
+
+<div class="levels">
+
+<button class="level on"
+onclick="setQuizLevel(this,'Starter')">
+Starter
+</button>
+
+<button class="level"
+onclick="setQuizLevel(this,'Average')">
+Average
+</button>
+
+<button class="level"
+onclick="setQuizLevel(this,'Advanced')">
+Advanced
+</button>
+
+</div>
+
+
+<button class="primary"
+onclick="startTest()">
+
+🚀 START TEST
+
+</button>
+
+
+<div id="testOut"
+class="result">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NOTES -->
 
 <section id="notes">
-<h2>📝 My Notes</h2>
-<input id="noteTitle" placeholder="नोट का शीर्षक">
-<textarea id="noteText" rows="4" placeholder="यहाँ अपना नोट लिखो..."></textarea>
-<button onclick="add('noteList',['noteTitle','noteText'])">नोट सेव करो</button>
-<div id="noteList"></div>
+
+<div class="panel">
+
+<h2>
+📝 My Revision Notes
+</h2>
+
+<input id="noteTitle"
+placeholder="Topic / Chapter">
+
+<textarea id="noteText"
+rows="5"
+placeholder="अपनी short notes, tricks या mistakes लिखो...">
+</textarea>
+
+<button class="primary"
+onclick="saveNote()">
+
+💾 SAVE NOTE
+
+</button>
+
+<div id="noteOut"
+class="result">
+</div>
+
+</div>
+
 </section>
 
-<section id="goals">
-<h2>🎯 My Goals</h2>
-<input id="goalInput" placeholder="अपना लक्ष्य लिखो">
-<button onclick="add('goalList',['goalInput'])">लक्ष्य जोड़ो</button>
-<div id="goalList"></div>
-</section>
 
-<section id="quiz">
-<h2>🧠 GK Quiz</h2>
-<p id="question"></p>
-<div id="options"></div>
-<p id="result"></p>
-<button onclick="nextQuestion()">अगला सवाल ➜</button>
-</section>
+<footer>
 
-<section id="budget">
-<h2>💰 Budget Tracker</h2>
-<input id="budgetName" placeholder="खर्च किस चीज का है?">
-<input id="budgetAmount" type="number" placeholder="रकम ₹">
-<button onclick="addBudget()">खर्च जोड़ो</button>
-<h3 id="total">कुल खर्च: ₹0</h3>
-<div id="budgetList"></div>
-</section>
+PROJECT IQBAL • Human × AI • For All Competitive Exams
+
+</footer>
+
+</main>
+
 
 <script>
-function show(id){
-document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-}
-function getData(key){try{return JSON.parse(localStorage.getItem(key))||[]}catch(e){return []}}
-function saveData(key,data){localStorage.setItem(key,JSON.stringify(data))}
-function render(key,id){
-let data=getData(key),box=document.getElementById(id);
-box.innerHTML='';
-data.forEach((item,i)=>{
-let div=document.createElement('div');div.className='item';
-let text=document.createElement('span');text.textContent=item.text;
-div.appendChild(text);
-if(item.done)div.style.textDecoration='line-through';
-let done=document.createElement('button');done.textContent=item.done?'↩':'✓';
-done.style.marginLeft='8px';
-done.onclick=()=>{data[i].done=!data[i].done;saveData(key,data);render(key,id)};
-let del=document.createElement('button');del.textContent='🗑';del.style.marginLeft='5px';
-del.onclick=()=>{data.splice(i,1);saveData(key,data);render(key,id)};
-div.appendChild(done);div.appendChild(del);box.appendChild(div);
-});
-}
-function add(id,fields){
-let values=fields.map(f=>document.getElementById(f).value.trim());
-if(values.some(v=>!v)){alert('पहले जानकारी भरो!');return}
-let key=id==='studyList'?'iqStudy':id==='taskList'?'iqTasks':id==='noteList'?'iqNotes':'iqGoals';
-let text=id==='studyList'?values[0]+' — '+values[1]:id==='noteList'?values[0]+': '+values[1]:values[0];
-let data=getData(key);data.push({text,done:false});saveData(key,data);
-fields.forEach(f=>document.getElementById(f).value='');render(key,id);
-}
-function addBudget(){
-let name=document.getElementById('budgetName').value.trim();
-let amount=Number(document.getElementById('budgetAmount').value);
-if(!name||amount<=0){alert('नाम और सही रकम भरो!');return}
-let data=getData('iqBudget');data.push({text:name+' — ₹'+amount,amount});
-saveData('iqBudget',data);document.getElementById('budgetName').value='';
-document.getElementById('budgetAmount').value='';renderBudget();
-}
-function renderBudget(){
-let data=getData('iqBudget');let box=document.getElementById('budgetList');box.innerHTML='';
-data.forEach((x,i)=>{let d=document.createElement('div');d.className='item';d.textContent=x.text+' ';
-let b=document.createElement('button');b.textContent='🗑';b.onclick=()=>{data.splice(i,1);saveData('iqBudget',data);renderBudget()};d.appendChild(b);box.appendChild(d)});
-document.getElementById('total').textContent='कुल खर्च: ₹'+data.reduce((s,x)=>s+x.amount,0);
-}
-const questions=[
-{q:'भारत की राजधानी क्या है?',a:['मुंबई','नई दिल्ली','लखनऊ','जयपुर'],c:1},
-{q:'भारत का संविधान कब लागू हुआ?',a:['1947','1949','1950','1952'],c:2},
-{q:'सौरमंडल का सबसे बड़ा ग्रह कौन-सा है?',a:['पृथ्वी','मंगल','बृहस्पति','शुक्र'],c:2},
-{q:'भारत का राष्ट्रीय पशु कौन है?',a:['शेर','बाघ','हाथी','घोड़ा'],c:1},
-{q:'एक सप्ताह में कितने दिन होते हैं?',a:['5','6','7','8'],c:2}
+
+/* EXAMS */
+
+const exams=[
+
+"SSC CGL",
+"SSC CHSL",
+"SSC MTS",
+"SSC GD",
+"SSC CPO",
+"UPSSSC PET",
+"UPSI",
+"UPPSC",
+"UPPCS",
+"Railway NTPC",
+"Banking"
+
 ];
-let qi=0;
-function nextQuestion(){
-let q=questions[qi%questions.length];qi++;
-document.getElementById('question').textContent=q.q;
-document.getElementById('result').textContent='';
-let box=document.getElementById('options');box.innerHTML='';
-q.a.forEach((v,i)=>{let b=document.createElement('button');b.textContent=v;b.style.margin='4px';
-b.onclick=()=>{document.getElementById('result').textContent=i===q.c?'✅ सही जवाब!':'❌ गलत। सही जवाब: '+q.a[q.c];};
-box.appendChild(b)});
+
+
+/* DEMO QUESTION BANK */
+
+const sample={
+
+"SSC CGL":[
+
+["Percentage का basic relation क्या है?","x% of y = y% of x"],
+
+["भारत का संविधान कब लागू हुआ?","26 जनवरी 1950"],
+
+["RBI की स्थापना कब हुई?","1 अप्रैल 1935"]
+
+],
+
+"SSC CHSL":[
+
+["भारत की राजधानी?","नई दिल्ली"],
+
+["राष्ट्रीय पशु?","बाघ"],
+
+["राष्ट्रीय खेल दिवस?","मेजर ध्यानचंद"]
+
+],
+
+"UPSSSC PET":[
+
+["मौलिक अधिकार किस भाग में?","भाग III"],
+
+["DPSP किस भाग में?","भाग IV"],
+
+["हरित क्रांति से प्रमुख फसल?","गेहूँ"]
+
+],
+
+"UPSI":[
+
+["अनुच्छेद 21?","जीवन और व्यक्तिगत स्वतंत्रता का संरक्षण"],
+
+["राज्यसभा का सभापति?","उपराष्ट्रपति"],
+
+["मौलिक अधिकार?","भाग III"]
+
+]
+
+};
+
+
+/* TRICK DATABASE */
+
+const trickData={
+
+Maths:{
+
+Starter:
+"Percentage को fraction में बदलो: 25%=1/4, 50%=1/2, 75%=3/4।",
+
+Average:
+"x% of y = y% of x। बड़े number पर percentage लगाना आसान हो तो order बदल दो।",
+
+Advanced:
+"Successive percentage changes में percentages को सीधे जोड़ने की गलती मत करो। Net change = a + b + ab/100 (sign सहित)।"
+
+},
+
+Reasoning:{
+
+Starter:
+"Series में सबसे पहले consecutive numbers का difference निकालो।",
+
+Average:
+"Difference के बाद multiplication/division और alternate pattern check करो।",
+
+Advanced:
+"कभी-कभी odd और even positions अलग-अलग pattern follow करती हैं। दोनों series अलग करके test करो।"
+
+},
+
+GKGS:{
+
+Starter:
+"Fact को Person + Place + Year + Event में तोड़कर याद करो।",
+
+Average:
+"Related facts को एक छोटे one-liner cluster में जोड़कर revise करो।",
+
+Advanced:
+"Statement questions में 'always', 'only', 'never' जैसे absolute words को विशेष रूप से verify करो।"
+
+},
+
+Polity:{
+
+Starter:
+"Fundamental Rights = Part III।",
+
+Average:
+"DPSP = Part IV और Fundamental Duties = Part IVA।",
+
+Advanced:
+"Article + Part + Constitutional Body को एक साथ revise करो ताकि options जल्दी eliminate हों।"
+
+},
+
+History:{
+
+Starter:
+"पहले घटनाओं की timeline बनाओ।",
+
+Average:
+"हर घटना के साथ Person + Place + Year जोड़ो।",
+
+Advanced:
+"Similar movements/sessions को compare करके chronology और differences दोनों याद करो।"
+
+},
+
+Hindi:{
+
+Starter:
+"सबसे पहले शब्द/वाक्य का context समझो।",
+
+Average:
+"संधि और समास के पहचान संकेतों से options eliminate करो।",
+
+Advanced:
+"व्याकरण के rule को option पर apply करके गलत options पहले हटाओ।"
+
+},
+
+English:{
+
+Starter:
+"Sentence में subject और verb पहचानो।",
+
+Average:
+"Context और grammar दोनों से options eliminate करो।",
+
+Advanced:
+"Error spotting में Subject-Verb, Tense, Article और Preposition को क्रम से check करो।"
+
 }
-render('iqStudy','studyList');
-render('iqTasks','taskList');
-render('iqNotes','noteList');
-render('iqGoals','goalList');
-renderBudget();
-nextQuestion();
+
+};
+
+
+let level="Starter";
+let trickLevel="Starter";
+let quizLevel="Starter";
+let qi=0;
+let score=0;
+
+
+/* ENTER */
+
+function enterApp(){
+
+document.getElementById("splash")
+.classList.add("hidden");
+
+document.getElementById("app")
+.classList.remove("hidden");
+
+}
+
+
+/* NAVIGATION */
+
+function show(id,btn){
+
+document
+.querySelectorAll("main section")
+.forEach(s=>s.classList.remove("active"));
+
+document
+.getElementById(id)
+.classList.add("active");
+
+document
+.querySelectorAll("nav button")
+.forEach(b=>b.classList.remove("active"));
+
+if(btn)btn.classList.add("active");
+
+}
+
+
+/* FILL EXAM SELECTORS */
+
+function populate(){
+
+["aExam","pExam","tExam","qExam"]
+
+.forEach(id=>{
+
+const s=document.getElementById(id);
+
+exams.forEach(e=>{
+
+s.add(new Option(e,e));
+
+});
+
+});
+
+
+const grid=document.getElementById("examGrid");
+
+
+exams.forEach(e=>{
+
+const d=document.createElement("div");
+
+d.className="card click";
+
+d.innerHTML=
+
+"<div class='icon'>🎯</div>"+
+"<h3>"+e+"</h3>"+
+"<p>"+e+
+" Expert<br>"+
+"PYQ • One-Liner • Tricks • Test"+
+"</p>";
+
+d.onclick=()=>{
+
+document.getElementById("aExam").value=e;
+
+show("academy");
+
+openExpert();
+
+};
+
+grid.appendChild(d);
+
+});
+
+}
+
+
+/* ACADEMY LEVEL */
+
+function setLevel(btn,x){
+
+level=x;
+
+document
+.querySelectorAll("#academy .level")
+.forEach(b=>b.classList.remove("on"));
+
+btn.classList.add("on");
+
+
+document.getElementById("levelText")
+.innerHTML=
+
+"<b>"+x+" Mode</b><br>"+
+
+(
+
+x==="Starter"
+
+?
+
+"Concept zero से + simple example + easy practice."
+
+:
+
+x==="Average"
+
+?
+
+"Exam-level application + traps + speed improvement."
+
+:
+
+"Hard PYQ style + multi-concept thinking + time-saving approach."
+
+);
+
+}
+
+
+/* EXAM EXPERT */
+
+function openExpert(){
+
+const e=document.getElementById("aExam").value;
+
+const s=document.getElementById("aSubject").value;
+
+
+document.getElementById("expertOut").innerHTML=
+
+"<div class='item expert'>"+
+"<b>🤖 "+e+" Expert • "+s+" • "+level+"</b>"+
+"<br><span class='muted'>"+
+"इस mode में "+e+
+" के syllabus, question style, common mistakes और revision needs के हिसाब से preparation होगी."+
+"</span></div>"+
+
+"<div class='item'>"+
+"<b>Study Flow</b><br>"+
+"Concept → Example → Trick → PYQ → Timed Practice → Mistake Review"+
+"</div>";
+
+}
+
+
+/* PYQ ENGINE */
+
+function generatePYQ(){
+
+const e=document.getElementById("pExam").value;
+
+const type=document.getElementById("pType").value;
+
+const year=document.getElementById("pYear").value;
+
+
+const data=
+
+sample[e]||
+
+[
+
+["भारत की राजधानी?","नई दिल्ली"],
+
+["संविधान लागू?","26 जनवरी 1950"],
+
+["राष्ट्रीय पशु?","बाघ"]
+
+];
+
+
+const out=document.getElementById("pyqOut");
+
+out.innerHTML="";
+
+
+if(type==="trick"){
+
+generateTrick();
+
+return;
+
+}
+
+
+data.forEach((x,i)=>{
+
+const d=document.createElement("div");
+
+d.className="item";
+
+
+if(type==="one"){
+
+d.innerHTML=
+
+"<b>ONE-LINER "+(i+1)+"</b><br>"+
+
+x[0]+" — "+
+
+"<span class='answer'>"+x[1]+"</span>";
+
+}
+
+else{
+
+d.innerHTML=
+
+"<b>PYQ Practice "+(i+1)+"</b> "+
+
+"<span class='small'>Year: "+year+"</span><br>"+
+
+x[0]+"<br>"+
+
+"<span class='answer'>उत्तर: "+x[1]+"</span><br>"+
+
+"<span class='small'>Expert Tip: पहले concept पहचानो, फिर option elimination लगाओ.</span>";
+
+}
+
+out.appendChild(d);
+
+});
+
+}
+
+
+/* TRICK LEVEL */
+
+function setTrickLevel(btn,x){
+
+trickLevel=x;
+
+document
+.querySelectorAll("#tricks .level")
+.forEach(b=>b.classList.remove("on"));
+
+btn.classList.add("on");
+
+}
+
+
+/* TRICK GENERATOR */
+
+function generateTrick(){
+
+const sub=document.getElementById("tSub").value;
+
+const key=sub==="GK/GS"?"GKGS":sub;
+
+const txt=
+
+(trickData[key]||trickData.GKGS)[trickLevel];
+
+
+document.getElementById("trickOut").innerHTML=
+
+"<div class='item expert'>"+
+"<b>🤖 "+
+document.getElementById("tExam").value+
+" Expert • "+
+sub+
+" • "+
+trickLevel+
+"</b><br>"+
+txt+
+"</div>"+
+
+"<div class='item'>"+
+"<b>⚠️ Golden Rule</b><br>"+
+"Trick तभी लगाओ जब question की condition उस trick से match करे। Blind shortcut से गलती बढ़ सकती है।"+
+"</div>";
+
+}
+
+
+/* QUIZ LEVEL */
+
+function setQuizLevel(btn,x){
+
+quizLevel=x;
+
+document
+.querySelectorAll("#test .level")
+.forEach(b=>b.classList.remove("on"));
+
+btn.classList.add("on");
+
+}
+
+
+/* TEST */
+
+function startTest(){
+
+qi=0;
+score=0;
+
+renderQ();
+
+}
+
+
+function renderQ(){
+
+const e=document.getElementById("qExam").value;
+
+const data=sample[e]||sample["SSC CGL"];
+
+const x=data[qi%data.length];
+
+
+document.getElementById("testOut").innerHTML=
+
+"<div class='item expert'>"+
+
+"<div class='small'>"+
+e+
+" • "+
+document.getElementById("qSub").value+
+" • "+
+quizLevel+
+"</div>"+
+
+"<h3>Q"+(qi+1)+". "+x[0]+"</h3>"+
+
+"<button class='primary' onclick='mark(true)'>"+
+"A. "+x[1]+
+"</button> "+
+
+"<button style='padding:12px;border-radius:10px;border:1px solid #3a5775;background:#172e49;color:white'>"+
+"B. अन्य विकल्प"+
+"</button>"+
+
+"<p id='ans'></p>"+
+
+"</div>";
+
+}
+
+
+function mark(ok){
+
+if(ok)score++;
+
+document.getElementById("ans").textContent=
+
+ok?
+
+"✅ सही जवाब!":
+
+"❌ गलत";
+
+qi++;
+
+setTimeout(renderQ,700);
+
+}
+
+
+/* NOTES */
+
+function saveNote(){
+
+const title=document
+.getElementById("noteTitle")
+.value.trim();
+
+const text=document
+.getElementById("noteText")
+.value.trim();
+
+
+if(!title||!text){
+
+alert("Topic और note भरो।");
+
+return;
+
+}
+
+
+let notes=
+
+JSON.parse(
+localStorage.getItem("iqNotes")||"[]"
+);
+
+
+notes.push({
+
+title:title,
+text:text
+
+});
+
+
+localStorage.setItem(
+"iqNotes",
+JSON.stringify(notes)
+);
+
+
+document.getElementById("noteTitle").value="";
+document.getElementById("noteText").value="";
+
+renderNotes();
+
+}
+
+
+function renderNotes(){
+
+const notes=
+
+JSON.parse(
+localStorage.getItem("iqNotes")||"[]"
+);
+
+
+document.getElementById("noteOut").innerHTML=
+
+notes.map(n=>
+
+"<div class='item'>"+
+"<b>"+n.title+"</b><br>"+
+n.text+
+"</div>"
+
+).join("");
+
+}
+
+
+/* START */
+
+populate();
+renderNotes();
+
 </script>
+
 </body>
 </html>
