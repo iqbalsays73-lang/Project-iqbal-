@@ -816,4 +816,522 @@
         ${String.fromCharCode(65 + question.answer)}.
         ${escapeHTML(question.options[question.answer])}
       </p>
-      <p>${escapeHTML(question.explanation || "Explanation available nahi hai.")}</p
+      <p>${escapeHTML(question.explanation || "Explanation available nahi hai.")}
+      </p>    `;
+
+    $("#nextQuestionBtn").disabled = false;
+  }
+
+
+  /* ---------- QUIZ RESULTS ---------- */
+
+  function finishPractice() {
+    quizSessionActive = false;
+
+    state.attempted += quizAttempted;
+    state.correct += quizCorrect;
+
+    const today = todayKey();
+
+    state.dailyActivity[today] =
+      (Number(state.dailyActivity[today]) || 0) + quizAttempted;
+
+    state.history.unshift({
+      id: makeId("session"),
+      date: new Date().toISOString(),
+      subject: currentQuizSubject,
+      total: quizAttempted,
+      correct: quizCorrect,
+      accuracy: percent(quizCorrect, quizAttempted)
+    });
+
+    state.history = state.history.slice(0, 100);
+
+    saveState();
+
+    $("#quizArea")?.classList.add("hidden");
+    $("#quizResults")?.classList.remove("hidden");
+
+    $("#resultAttempted").textContent = quizAttempted;
+    $("#resultCorrect").textContent = quizCorrect;
+
+    $("#resultWrong").textContent =
+      quizAttempted - quizCorrect;
+
+    $("#resultAccuracy").textContent =
+      percent(quizCorrect, quizAttempted) + "%";
+
+    $("#quizProgressBar").style.width = "100%";
+
+    renderHome();
+    renderProgress();
+
+    $("#quizResults")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    showToast("Practice complete! Shabash! 🎉");
+  }
+
+
+  function initPractice() {
+    $("#startPracticeBtn")?.addEventListener("click", () => {
+      startPractice();
+    });
+
+    $("#questionOptions")?.addEventListener("click", event => {
+      const button = event.target.closest("[data-option]");
+
+      if (!button || button.disabled) return;
+
+      answerQuestion(Number(button.dataset.option));
+    });
+
+    $("#nextQuestionBtn")?.addEventListener("click", () => {
+      if (!quizSessionActive || !answeredCurrent) return;
+
+      if (quizIndex < quizQuestions.length - 1) {
+        quizIndex++;
+        showQuestion();
+      } else {
+        finishPractice();
+      }
+    });
+
+    $("#restartPracticeBtn")?.addEventListener("click", () => {
+      startPractice();
+    });
+
+    $("#practiceSubject")?.addEventListener("change", () => {
+      $("#quizArea")?.classList.add("hidden");
+      $("#quizResults")?.classList.add("hidden");
+    });
+
+    $("#practiceDifficulty")?.addEventListener("change", () => {
+      $("#quizArea")?.classList.add("hidden");
+      $("#quizResults")?.classList.add("hidden");
+    });
+
+    $("#practiceCount")?.addEventListener("change", () => {
+      $("#quizArea")?.classList.add("hidden");
+      $("#quizResults")?.classList.add("hidden");
+    });
+  }
+
+
+  /* ---------- NOTES ---------- */
+
+  function renderNotes() {
+    const list = $("#notesList");
+    if (!list) return;
+
+    if (!state.notes.length) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <strong>Abhi koi note nahi hai.</strong>
+          <p>Apna pehla study note banao!</p>
+        </div>
+      `;
+      return;
+    }
+
+    list.innerHTML = state.notes.map(note => `
+      <article class="note-card">
+        <h3>${escapeHTML(note.title)}</h3>
+
+        <p class="note-content">
+          ${escapeHTML(note.content).replace(/\n/g, "<br>")}
+        </p>
+
+        <small>${escapeHTML(formatDate(note.updatedAt || note.createdAt))}</small>
+
+        <div class="note-actions">
+          <button
+            class="secondary-btn"
+            data-edit-note="${escapeHTML(note.id)}">
+            Edit
+          </button>
+
+          <button
+            class="secondary-btn"
+            data-delete-note="${escapeHTML(note.id)}">
+            Delete
+          </button>
+        </div>
+      </article>
+    `).join("");
+  }
+
+
+  function resetNoteForm() {
+    if ($("#noteId")) $("#noteId").value = "";
+    if ($("#noteTitle")) $("#noteTitle").value = "";
+    if ($("#noteContent")) $("#noteContent").value = "";
+
+    if ($("#saveNoteBtn")) {
+      $("#saveNoteBtn").textContent = "Save Note";
+    }
+  }
+
+
+  function saveNote() {
+    const title = ($("#noteTitle")?.value || "").trim();
+    const content = ($("#noteContent")?.value || "").trim();
+    const noteId = $("#noteId")?.value || "";
+
+    if (!title || !content) {
+      showToast("Note ka title aur content dono bharo.");
+      return;
+    }
+
+    const now = new Date().toISOString();
+
+    if (noteId) {
+      const note = state.notes.find(item => item.id === noteId);
+
+      if (note) {
+        note.title = title;
+        note.content = content;
+        note.updatedAt = now;
+      } else {
+        state.notes.unshift({
+          id: makeId("note"),
+          title,
+          content,
+          createdAt: now,
+          updatedAt: now
+        });
+      }
+    } else {
+      state.notes.unshift({
+        id: makeId("note"),
+        title,
+        content,
+        createdAt: now,
+        updatedAt: now
+      });
+    }
+
+    saveState();
+    renderNotes();
+    resetNoteForm();
+
+    showToast("Note save ho gaya! ✓");
+  }
+
+
+  function editNote(noteId) {
+    const note = state.notes.find(item => item.id === noteId);
+
+    if (!note) return;
+
+    $("#noteId").value = note.id;
+    $("#noteTitle").value = note.title;
+    $("#noteContent").value = note.content;
+
+    $("#saveNoteBtn").textContent = "Update Note";
+
+    $("#noteTitle")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+
+
+  function deleteNote(noteId) {
+    const note = state.notes.find(item => item.id === noteId);
+
+    if (!note) return;
+
+    if (!window.confirm("Kya tum ye note delete karna chahte ho?")) {
+      return;
+    }
+
+    state.notes = state.notes.filter(item => item.id !== noteId);
+
+    saveState();
+    renderNotes();
+
+    showToast("Note delete ho gaya.");
+  }
+
+
+  function initNotes() {
+    $("#saveNoteBtn")?.addEventListener("click", saveNote);
+
+    $("#clearNoteFormBtn")?.addEventListener("click", resetNoteForm);
+
+    $("#notesList")?.addEventListener("click", event => {
+      const editButton = event.target.closest("[data-edit-note]");
+      const deleteButton = event.target.closest("[data-delete-note]");
+
+      if (editButton) {
+        editNote(editButton.dataset.editNote);
+      }
+
+      if (deleteButton) {
+        deleteNote(deleteButton.dataset.deleteNote);
+      }
+    });
+  }
+
+
+  /* ---------- PROGRESS ---------- */
+
+  function renderProgress() {
+    const attempted = $("#progressAttempted");
+    const correct = $("#progressCorrect");
+    const accuracy = $("#progressAccuracy");
+    const completed = $("#progressTopics");
+
+    if (attempted) attempted.textContent = state.attempted;
+    if (correct) correct.textContent = state.correct;
+
+    if (accuracy) {
+      accuracy.textContent =
+        percent(state.correct, state.attempted) + "%";
+    }
+
+    if (completed) {
+      completed.textContent = state.completedTopics.length;
+    }
+
+    const historyList = $("#historyList");
+
+    if (!historyList) return;
+
+    if (!state.history.length) {
+      historyList.innerHTML = `
+        <div class="empty-state">
+          <strong>Abhi practice history nahi hai.</strong>
+          <p>Practice set solve karoge toh yahan progress dikhegi.</p>
+        </div>
+      `;
+      return;
+    }
+
+    historyList.innerHTML = state.history.map(item => `
+      <article class="history-card">
+        <strong>${escapeHTML(item.subject || "All Subjects")}</strong>
+
+        <p>
+          ${Number(item.correct) || 0} correct out of
+          ${Number(item.total) || 0}
+        </p>
+
+        <p>Accuracy: ${Number(item.accuracy) || 0}%</p>
+
+        <small>${escapeHTML(formatDate(item.date))}</small>
+      </article>
+    `).join("");
+  }
+
+
+  /* ---------- EXPORT / IMPORT ---------- */
+
+  function exportData() {
+    const backup = {
+      version: 3,
+      exportedAt: new Date().toISOString(),
+      state
+    };
+
+    const blob = new Blob(
+      [JSON.stringify(backup, null, 2)],
+      { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "project-iqbal-backup.json";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
+
+    showToast("Backup download ho gaya.");
+  }
+
+
+  function importData(file) {
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      try {
+        const backup = JSON.parse(reader.result);
+        const imported = backup.state || backup;
+
+        if (
+          !imported ||
+          typeof imported !== "object" ||
+          !Array.isArray(imported.notes) ||
+          !Array.isArray(imported.history)
+        ) {
+          throw new Error("Invalid backup");
+        }
+
+        if (!window.confirm(
+          "Import karne se current progress replace ho sakti hai. Continue?"
+        )) {
+          return;
+        }
+
+        state = {
+          ...structuredCloneSafe(DEFAULT_STATE),
+          ...imported,
+          notes: Array.isArray(imported.notes) ? imported.notes : [],
+          completedTopics: Array.isArray(imported.completedTopics)
+            ? imported.completedTopics : [],
+          history: Array.isArray(imported.history)
+            ? imported.history : [],
+          dailyActivity:
+            imported.dailyActivity &&
+            typeof imported.dailyActivity === "object"
+              ? imported.dailyActivity : {}
+        };
+
+        saveState();
+
+        renderHome();
+        renderExams();
+        renderSubjects();
+        renderNotes();
+        renderProgress();
+
+        showToast("Backup import ho gaya!");
+      } catch (error) {
+        showToast("Backup file sahi nahi hai.");
+        console.error(error);
+      }
+    };
+
+    reader.readAsText(file);
+  }
+
+
+  function resetProgress() {
+    if (!window.confirm(
+      "Kya tum apni practice progress reset karna chahte ho? Notes aur selected exam safe rahenge."
+    )) {
+      return;
+    }
+
+    state.attempted = 0;
+    state.correct = 0;
+    state.completedTopics = [];
+    state.history = [];
+    state.dailyActivity = {};
+
+    saveState();
+
+    renderHome();
+    renderProgress();
+    renderSubjects();
+
+    showToast("Practice progress reset ho gayi.");
+  }
+
+
+  function initDataTools() {
+    $("#exportDataBtn")?.addEventListener("click", exportData);
+
+    $("#importDataInput")?.addEventListener("change", event => {
+      const file = event.target.files?.[0];
+
+      if (file) importData(file);
+
+      event.target.value = "";
+    });
+
+    $("#resetProgressBtn")?.addEventListener("click", resetProgress);
+
+    $("#saveDailyTargetBtn")?.addEventListener("click", saveDailyTarget);
+  }
+
+
+  /* ---------- GENERAL BUTTONS ---------- */
+
+  function initGeneralButtons() {
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-action]");
+
+      if (!button) return;
+
+      switch (button.dataset.action) {
+        case "open-exams":
+          showPage("exams");
+          break;
+
+        case "open-subjects":
+          showPage("subjects");
+          break;
+
+        case "open-practice":
+          showPage("practice");
+          break;
+
+        case "open-notes":
+          showPage("notes");
+          break;
+
+        case "open-progress":
+          showPage("progress");
+          break;
+
+        case "open-home":
+          showPage("home");
+          break;
+
+        case "start-practice":
+          showPage("practice");
+          startPractice();
+          break;
+
+        case "back-to-subjects":
+          currentSubject = null;
+          currentTopic = null;
+          renderSubjects();
+          break;
+
+        default:
+          break;
+      }
+    });
+  }
+
+
+  /* ---------- INITIALIZE APP ---------- */
+
+  function initApp() {
+    initNavigation();
+    initExams();
+    initSubjects();
+    initPractice();
+    initNotes();
+    initDataTools();
+    initGeneralButtons();
+
+    renderHome();
+    renderExams();
+    renderSubjects();
+    renderNotes();
+    renderProgress();
+
+    console.log("PROJECT IQBAL: App initialized successfully.");
+  }
+
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initApp, { once: true });
+  } else {
+    initApp();
+  }
+
+})();
