@@ -1,0 +1,754 @@
+<!DOCTYPE html>  <html lang="hi">    <head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<meta name="theme-color" content="#101827">    
+<title>PROJECT IQBAL | Human × AI Exam Academy</title>  <style>    
+:root{    
+  --bg:#0b1120;    
+  --panel:#151f32;    
+  --panel2:#1c2940;    
+  --text:#f4f7ff;    
+  --muted:#a9b6cc;    
+  --accent:#65e6b4;    
+  --blue:#7ba7ff;    
+  --border:#2c3a53;    
+  --danger:#ff7d8b;    
+}    
+*{box-sizing:border-box}    
+body{    
+  margin:0;background:var(--bg);color:var(--text);    
+  font-family:Arial,"Noto Sans Devanagari",sans-serif;    
+  line-height:1.6    
+}    
+button,input,select,textarea{font:inherit}    
+button{cursor:pointer}    
+header{    
+  padding:20px 16px;    
+  background:linear-gradient(135deg,#142743,#123a43);    
+  border-bottom:1px solid var(--border)    
+}    
+.header-inner{max-width:1200px;margin:auto}    
+.brand{font-size:25px;font-weight:900;letter-spacing:.4px}    
+.brand span{color:var(--accent)}    
+.subtitle{color:var(--muted);font-size:14px}    
+nav{    
+  display:flex;gap:8px;overflow-x:auto;padding:12px;    
+  background:#101827;border-bottom:1px solid var(--border);    
+  position:sticky;top:0;z-index:5    
+}    
+nav button{    
+  flex-shrink:0;background:var(--panel);color:var(--text);    
+  border:1px solid var(--border);border-radius:10px;padding:9px 13px    
+}    
+nav button.active,nav button:hover{    
+  background:var(--accent);color:#071c17    
+}    
+main{max-width:1200px;margin:auto;padding:18px}    
+h1,h2,h3{line-height:1.3}    
+h1{font-size:clamp(25px,4vw,40px)}    
+h2{font-size:23px}    
+.muted{color:var(--muted)}    
+.hero{    
+  padding:26px;border-radius:20px;    
+  background:linear-gradient(135deg,#1b2b46,#123a43);    
+  border:1px solid var(--border);margin-bottom:20px    
+}    
+.hero p{max-width:700px;color:#d4deee}    
+.actions{display:flex;gap:10px;flex-wrap:wrap}    
+.btn{    
+  padding:11px 16px;border-radius:10px;border:0;    
+  font-weight:bold;background:var(--accent);color:#062018    
+}    
+.btn.secondary{    
+  background:var(--panel2);color:var(--text);    
+  border:1px solid var(--border)    
+}    
+.grid{    
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));    
+  gap:14px    
+}    
+.card{    
+  background:var(--panel);border:1px solid var(--border);    
+  border-radius:15px;padding:17px    
+}    
+.card h3{margin-top:0}    
+.exam-card,.subject-card{transition:.15s}    
+.exam-card:hover,.subject-card:hover{    
+  border-color:var(--accent);transform:translateY(-2px)    
+}    
+input,select,textarea{    
+  width:100%;padding:12px;border-radius:10px;    
+  border:1px solid var(--border);background:#0f192a;    
+  color:var(--text);margin:5px 0 12px    
+}    
+label{display:block;font-weight:bold;font-size:14px}    
+.section{display:none}    
+.section.active{display:block}    
+.stat{    
+  padding:16px;background:var(--panel);    
+  border:1px solid var(--border);border-radius:14px    
+}    
+.stat strong{font-size:27px;color:var(--accent);display:block}    
+.progress-track{    
+  height:10px;background:#26334a;border-radius:20px;overflow:hidden    
+}    
+.progress-fill{height:100%;width:0;background:var(--accent)}    
+.option{    
+  display:block;width:100%;text-align:left;margin:9px 0;    
+  padding:12px;background:var(--panel2);color:var(--text);    
+  border:1px solid var(--border);border-radius:10px    
+}    
+.option:hover{border-color:var(--blue)}    
+.option.correct{border-color:var(--accent);background:#153b35}    
+.option.wrong{border-color:var(--danger);background:#442630}    
+#feedback{margin-top:12px;font-weight:bold}    
+.note{white-space:pre-wrap;color:#e0e8f6}    
+.small{font-size:13px}    
+footer{    
+  max-width:1200px;margin:auto;padding:24px 18px;    
+  color:var(--muted);border-top:1px solid var(--border)    
+}    
+.notice{    
+  border-left:4px solid var(--blue);padding:12px;    
+  background:var(--panel);border-radius:8px    
+}    
+@media(max-width:600px){    
+  main{padding:12px}    
+  .hero{padding:19px}    
+  .brand{font-size:21px}    
+}    
+</style>  </head>  <body>    
+<header>    
+  <div class="header-inner">    
+    <div class="brand">PROJECT <span>IQBAL</span></div>    
+    <div class="subtitle">HUMAN × AI EXAM ACADEMY · Seekho · Practice Karo · Improve Karo</div>    
+  </div>    
+</header>  <nav id="navigation">    
+  <button class="active" data-page="home">🏠 Home</button>    
+  <button data-page="exams">🎯 Exams</button>    
+  <button data-page="subjects">📚 Subjects</button>    
+  <button data-page="practice">📝 Practice</button>    
+  <button data-page="notes">📖 My Notes</button>    
+  <button data-page="progress">📈 Progress</button>    
+</nav>  <main>    
+<section id="home" class="section active">    
+  <div class="hero">    
+    <h1>Apni taiyari ko do ek nayi direction! 🚀</h1>    
+    <p>    
+      Government exams ki taiyari ek jagah. Apna exam chuno,    
+      subject padho, questions solve karo aur apni progress track karo.    
+    </p>    
+    <div class="actions">    
+      <button class="btn" onclick="showPage('exams')">Apna Exam Chuno</button>    
+      <button class="btn secondary" onclick="showPage('practice')">Practice Shuru Karo</button>    
+    </div>    
+  </div>    <h2>📊 Tumhari Study Dashboard</h2>    
+  <div class="grid">    
+    <div class="stat"><strong id="homeAnswered">0</strong>Questions Attempted</div>    
+    <div class="stat"><strong id="homeCorrect">0</strong>Correct Answers</div>    
+    <div class="stat"><strong id="homeAccuracy">0%</strong>Accuracy</div>    
+  </div>    <h2>🔥 Popular Exam Rooms</h2>    
+  <div id="homeExams" class="grid"></div>    <div class="notice" style="margin-top:20px">    
+    <b>Yaad rakho:</b> Regular practice, revision aur mistakes ko samajhna    
+    preparation ko strong banata hai. Selection ki guarantee koi website nahi de sakti.    
+  </div>    
+</section>  <section id="exams" class="section">    
+  <h1>🎯 Exam Selection</h1>    
+  <p class="muted">Apna target exam select karo.</p>    
+  <input id="examSearch" placeholder="Exam search karo..." oninput="renderExams()">    
+  <div id="examList" class="grid"></div>    
+  <div id="selectedExam" class="card" style="margin-top:18px">    
+    Abhi koi exam select nahi kiya.    
+  </div>    
+</section>  <section id="subjects" class="section">    
+  <h1>📚 Subject Library</h1>    
+  <p class="muted">Subject chuno aur available study content dekho.</p>    
+  <input id="subjectSearch" placeholder="Subject search karo..." oninput="renderSubjects()">    
+  <div id="subjectList" class="grid"></div>    
+  <div id="subjectDetail" style="margin-top:18px"></div>    
+</section>  <section id="practice" class="section">    
+  <h1>📝 Practice Arena</h1>    
+  <div class="grid">    
+    <div>    
+      <label for="practiceSubject">Subject</label>    
+      <select id="practiceSubject">    
+        <option value="All">All Subjects</option>    
+        <option value="Maths">Maths</option>    
+        <option value="Reasoning">Reasoning</option>    
+        <option value="Polity">Polity</option>    
+        <option value="History">History</option>    
+        <option value="Science">Science</option>    
+        <option value="Geography">Geography</option>    
+        <option value="Computer">Computer</option>    
+      </select>    
+    </div>    
+    <div>    
+      <label for="questionCount">Questions</label>    
+      <select id="questionCount">    
+        <option value="10">10 Questions</option>    
+        <option value="20">20 Questions</option>    
+        <option value="50">50 Questions</option>    
+        <option value="all">All Available Questions</option>    
+      </select>    
+    </div>    
+  </div>    
+  <div class="actions">    
+    <button class="btn" onclick="startPractice()">Start Practice</button>    
+    <button class="btn secondary" onclick="resetPractice()">Reset</button>    
+  </div>    
+  <div id="quiz" class="card" style="margin-top:18px">    
+    Practice shuru karne ke liye Start Practice dabao.    
+  </div>    
+</section>  <section id="notes" class="section">    
+  <h1>📖 My Notes</h1>    
+  <p class="muted">Apne revision notes yahan likho. Ye isi browser mein save honge.</p>    
+  <label for="noteTitle">Note ka title</label>    
+  <input id="noteTitle" placeholder="Jaise: Fundamental Rights">    
+  <label for="noteBody">Notes</label>    
+  <textarea id="noteBody" rows="7" placeholder="Apne notes yahan likho..."></textarea>    
+  <button class="btn" onclick="saveNote()">Save Note</button>    
+  <div id="notesList" class="grid" style="margin-top:18px"></div>    
+</section>  <section id="progress" class="section">    
+  <h1>📈 My Progress</h1>    
+  <div class="grid">    
+    <div class="stat"><strong id="pAttempted">0</strong>Total Attempted</div>    
+    <div class="stat"><strong id="pCorrect">0</strong>Correct</div>    
+    <div class="stat"><strong id="pWrong">0</strong>Incorrect</div>    
+    <div class="stat"><strong id="pAccuracy">0%</strong>Accuracy</div>    
+  </div>    
+  <h2>Accuracy</h2>    
+  <div class="progress-track"><div id="accuracyBar" class="progress-fill"></div></div>    
+  <h2>Recent Activity</h2>    
+  <div id="activity" class="card">Abhi practice history nahi hai.</div>    
+  <button class="btn secondary" onclick="exportProgress()">Download Progress Backup</button>    
+  <button class="btn secondary" onclick="clearProgress()">Reset Progress</button>    
+</section>    
+</main>  <footer>    
+  <b>PROJECT IQBAL</b> · Free learning initiative<br>    
+  <span class="small">    
+    Study content ko official syllabus se match karna zaroori hai.    
+    Practice questions automatically official PYQs nahi hote.    
+  </span>    
+</footer>  <script>    
+"use strict";    const EXAMS = [
+{name:"SSC CHSL",category:"SSC",subjects:["Maths","Reasoning","English","General Awareness","Computer"]},
+{name:"SSC CGL",category:"SSC",subjects:["Maths","Reasoning","English","General Awareness","Computer"]},
+{name:"SSC MTS",category:"SSC",subjects:["Maths","Reasoning","English","General Awareness"]},
+{name:"SSC GD",category:"SSC",subjects:["Maths","Reasoning","Hindi/English","General Awareness"]},
+{name:"SSC CPO",category:"SSC",subjects:["Maths","Reasoning","English","General Awareness"]},
+{name:"UPSSSC PET",category:"Uttar Pradesh",subjects:["History","Geography","Polity","Economy","Science","Reasoning","Maths","Hindi"]},
+{name:"UP Police Constable",category:"Uttar Pradesh",subjects:["General Knowledge","Hindi","Numerical Ability","Reasoning"]},
+{name:"UP Police SI",category:"Uttar Pradesh",subjects:["General Hindi","Law/Constitution","Numerical Ability","Reasoning"]},
+{name:"Railway NTPC",category:"Railway",subjects:["Maths","Reasoning","General Awareness","Science"]},
+{name:"Railway Group D",category:"Railway",subjects:["Maths","Reasoning","General Science","General Awareness"]},
+{name:"Railway ALP",category:"Railway",subjects:["Maths","Reasoning","Science","Technical Subjects"]},
+{name:"IBPS Banking",category:"Banking",subjects:["Quantitative Aptitude","Reasoning","English","Banking Awareness"]},
+{name:"SBI Clerk",category:"Banking",subjects:["Quantitative Aptitude","Reasoning","English","Banking Awareness"]},
+{name:"UPPSC PCS",category:"State PCS",subjects:["History","Geography","Polity","Economy","Science","Current Affairs"]},
+{name:"CTET",category:"Teaching",subjects:["Child Development","Pedagogy","Language","Mathematics","EVS"]},
+{name:"NDA",category:"Defence",subjects:["Maths","English","General Knowledge","Science"]},
+{name:"CDS",category:"Defence",subjects:["English","General Knowledge","Maths"]},
+{name:"Other Government Exams",category:"Other",subjects:["General Knowledge","Maths","Reasoning","Language"]}
+];
+
+const SUBJECTS = [
+{name:"Maths",icon:"➗",topics:["Number System","Simplification","Percentage","Ratio and Proportion","Average","Profit and Loss","Simple Interest","Compound Interest","Time and Work","Speed Time Distance","Algebra","Geometry","Mensuration","Data Interpretation"]},
+{name:"Reasoning",icon:"🧩",topics:["Number Series","Alphabet Series","Analogy","Classification","Coding-Decoding","Blood Relations","Direction Sense","Ranking","Syllogism","Venn Diagrams","Non-Verbal Reasoning"]},
+{name:"History",icon:"🏛️",topics:["Ancient India","Indus Valley Civilization","Vedic Period","Buddhism and Jainism","Mauryan Empire","Gupta Empire","Medieval India","Delhi Sultanate","Mughal Empire","Modern India","Freedom Movement"]},
+{name:"Geography",icon:"🌍",topics:["Earth and Solar System","Latitude and Longitude","Indian Rivers","Mountains and Plateaus","Climate","Soils","Agriculture","Natural Resources","World Geography"]},
+{name:"Polity",icon:"⚖️",topics:["Constitutional History","Constituent Assembly","Preamble","Fundamental Rights","Fundamental Duties","Directive Principles","President","Prime Minister","Parliament","Supreme Court","Constitutional Amendments","Schedules"]},
+{name:"Economy",icon:"📈",topics:["Basic Economics","GDP","Inflation","Banking","RBI","Budget","Taxation","Poverty and Unemployment","Government Schemes"]},
+{name:"Science",icon:"🔬",topics:["Physics Basics","Motion and Force","Work and Energy","Heat and Light","Chemistry Basics","Acids and Bases","Metals and Non-metals","Cell Biology","Human Body","Nutrition","Environment"]},
+{name:"Computer",icon:"💻",topics:["Computer Fundamentals","Hardware and Software","Input and Output Devices","Memory","Operating Systems","MS Office","Internet","Cyber Safety"]},
+{name:"English",icon:"🔤",topics:["Parts of Speech","Tenses","Articles","Prepositions","Subject-Verb Agreement","Active and Passive Voice","Direct and Indirect Speech","Vocabulary","Reading Comprehension"]},
+{name:"Hindi",icon:"अ",topics:["संज्ञा","सर्वनाम","विशेषण","क्रिया","संधि","समास","उपसर्ग और प्रत्यय","पर्यायवाची","विलोम","मुहावरे","वाक्य शुद्धि"]},
+{name:"Static GK",icon:"📚",topics:["National Symbols","Books and Authors","Awards","Sports","Important Days","Organizations","Dance and Culture"]},
+{name:"Current Affairs",icon:"🗞️",topics:["National News","International News","Economy","Sports","Science and Technology","Government Schemes"]}
+];
+
+/* Sample questions are practice questions, not claimed to be official PYQs. */
+const QUESTIONS = [
+{s:"Maths",q:"25% of 240 = ?",o:["40","50","60","80"],a:2,e:"25% = 1/4; 240 ÷ 4 = 60."},
+{s:"Maths",q:"If 3x = 27, then x = ?",o:["6","7","8","9"],a:3,e:"Both sides ko 3 se divide karo: x = 9."},
+{s:"Maths",q:"12 × 15 = ?",o:["160","170","180","190"],a:2,e:"12 × (10 + 5) = 120 + 60 = 180."},
+{s:"Maths",q:"A number ka 10% is 35. Number kya hai?",o:["250","300","350","400"],a:2,e:"Number = 35 × 100 ÷ 10 = 350."},
+{s:"Maths",q:"2, 4, 8, 16, ?",o:["18","24","30","32"],a:3,e:"Har baar number ko 2 se multiply kiya gaya hai."},
+{s:"Reasoning",q:"2, 5, 8, 11, ?",o:["12","13","14","15"],a:2,e:"Har baar +3 ho raha hai; answer 14."},
+{s:"Reasoning",q:"A, C, E, G, ?",o:["H","I","J","K"],a:1,e:"Ek letter chhodkar agla letter: A, C, E, G, I."},
+{s:"Reasoning",q:"Book : Read :: Food : ?",o:["Cook","Eat","Write","Buy"],a:1,e:"Book ko read karte hain; food ko eat karte hain."},
+{s:"Polity",q:"Bharat ka Samvidhan kab lagu hua?",o:["15 August 1947","26 January 1950","26 November 1949","2 October 1950"],a:1,e:"Samvidhan 26 January 1950 ko lagu hua."},
+{s:"Polity",q:"Fundamental Rights Samvidhan ke kis Part mein hain?",o:["Part I","Part II","Part III","Part IV"],a:2,e:"Fundamental Rights Part III mein hain."},
+{s:"History",q:"Maurya Empire ke founder kaun the?",o:["Ashoka","Chandragupta Maurya","Harsha","Samudragupta"],a:1,e:"Chandragupta Maurya ne Maurya Empire ki sthapna ki."},
+{s:"History",q:"Buddhism ke founder kaun maane jaate hain?",o:["Mahavira","Gautama Buddha","Ashoka","Chanakya"],a:1,e:"Gautama Buddha ne Buddhism ki shiksha di."},
+{s:"Science",q:"Plants photosynthesis ke liye kaunsi gas lete hain?",o:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],a:2,e:"Photosynthesis mein plants carbon dioxide use karte hain."},
+{s:"Science",q:"Force ki SI unit kya hai?",o:["Joule","Watt","Newton","Pascal"],a:2,e:"Force ki SI unit Newton hai."},
+{s:"Geography",q:"Bharat ki sabse lambi nadi jo poori tarah Bharat mein bahti hai?",o:["Ganga","Godavari","Yamuna","Narmada"],a:1,e:"Godavari ko aksar longest river flowing entirely within India kaha jata hai."},
+{s:"Computer",q:"CPU ka full form kya hai?",o:["Central Processing Unit","Computer Personal Unit","Central Program Utility","Control Processing User"],a:0,e:"CPU = Central Processing Unit."},
+{s:"Computer",q:"Keyboard kis type ka device hai?",o:["Output","Input","Storage","Network"],a:1,e:"Keyboard ek input device hai."}
+];
+
+const STORE="project_iqbal_v1";
+let state=loadState();
+let activeQuestions=[];
+let questionIndex=0;
+let sessionCorrect=0;
+let answeredThisQuestion=false;
+
+function loadState(){
+try{
+return JSON.parse(localStorage.getItem(STORE))||{
+selectedExam:"SSC CHSL",attempted:0,correct:0,wrong:0,
+notes:[],activity:[]
+};
+}catch(e){
+return {selectedExam:"SSC CHSL",attempted:0,correct:0,wrong:0,notes:[],activity:[]};
+}
+}
+function saveState(){
+try{localStorage.setItem(STORE,JSON.stringify(state));}
+catch(e){alert("Browser storage available nahi hai. Notes ka backup rakhna.");}
+updateStats();
+}
+function esc(value){
+return String(value).replace(/[&<>"']/g,c=>({
+"&":"&","<":"<",">":">",'"':""","'":"'"
+}[c]));
+}
+function showPage(id){
+document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll("nav button").forEach(b=>{
+b.classList.toggle("active",b.dataset.page===id);
+});
+if(id==="progress")renderActivity();
+if(id==="notes")renderNotes();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("nav button").forEach(b=>{
+b.addEventListener("click",()=>showPage(b.dataset.page));
+});
+
+function examCard(exam){
+return `<article class="card exam-card">
+<div class="muted small">${esc(exam.category)}</div>
+<h3>${esc(exam.name)}</h3>
+<p class="muted small">${exam.subjects.length} listed subjects</p>
+<button class="btn secondary" onclick="selectExam('${esc(exam.name)}')">Open Exam</button>
+
+  </article>`;    
+}    
+function renderExams(){    
+  const q=(document.getElementById("examSearch").value||"").toLowerCase();    
+  document.getElementById("examList").innerHTML=EXAMS    
+    .filter(e=>(e.name+" "+e.category).toLowerCase().includes(q))    
+    .map(examCard).join("")||"<p>Koi exam nahi mila.</p>";    
+}    
+function selectExam(name){    
+  const exam=EXAMS.find(e=>e.name===name);    
+  if(!exam)return;    
+  state.selectedExam=name;    
+  saveState();    
+  document.getElementById("selectedExam").innerHTML=`    
+    <h2>🎯 ${esc(exam.name)}</h2>    
+    <p class="muted">Listed subjects. Official notification se syllabus verify karein.</p>    
+    <div class="actions">${exam.subjects.map(s=>    
+      `<button class="btn secondary" onclick="openSubject('${esc(s)}')">${esc(s)}</button>`    
+    ).join("")}</div>`;    
+  showPage("exams");    
+}    
+function openSubject(name){    
+  showPage("subjects");    
+  document.getElementById("subjectSearch").value=name;    
+  renderSubjects();    
+  const found=SUBJECTS.find(s=>s.name.toLowerCase()===name.toLowerCase());    
+  if(found)renderSubjectDetail(found.name);    
+  else document.getElementById("subjectDetail").innerHTML=    
+    `<div class="card"><h2>${esc(name)}</h2><p>Is subject ke liye detailed notes abhi add hone hain.</p></div>`;    
+}    
+function renderSubjectDetail(name){
+  const subject = SUBJECTS.find(s => s.name === name);
+  const box = document.getElementById("subjectDetail");
+
+  if(!subject){
+    box.innerHTML = `
+      <div class="card">
+        <h2>${esc(name)}</h2>
+        <p>Is subject ka detailed content jald add kiya jayega.</p>
+      </div>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <div class="card">
+      <h2>${subject.icon} ${esc(subject.name)}</h2>
+      <p class="muted">Apna topic chuno aur padhai shuru karo.</p>
+      <label for="topicSelect">Topic select karo</label>
+      <select id="topicSelect">
+        ${subject.topics.map((t,i)=>
+          `<option value="${i}">${esc(t)}</option>`
+        ).join("")}
+      </select>
+      <button class="btn" onclick="showTopic('${esc(subject.name)}')">
+        Topic Padho
+      </button>
+      <div id="topicContent" style="margin-top:18px"></div>
+    </div>`;
+
+  showTopic(name);
+}
+
+function showTopic(name){
+  const subject = SUBJECTS.find(s => s.name === name);
+  const box = document.getElementById("topicContent");
+  if(!subject || !box) return;
+
+  const select = document.getElementById("topicSelect");
+  const topic = subject.topics[Number(select.value)];
+
+  const content = getTopicContent(name,topic);
+
+  box.innerHTML = `
+    <div class="card">
+      <h3>📘 ${esc(topic)}</h3>
+      <div class="note">${esc(content.notes)}</div>
+      <hr style="border-color:var(--border);margin:18px 0">
+      <h3>⚡ Short Trick / Revision</h3>
+      <div class="note">${esc(content.trick)}</div>
+      <button class="btn secondary"
+        onclick="markTopicDone('${esc(name)}','${esc(topic)}')">
+        ✅ Topic Complete Mark Karo
+      </button>
+      <p id="topicStatus" class="muted small"></p>
+    </div>`;
+}
+
+function getTopicContent(subject,topic){
+  const data = {
+    "Preamble":{
+      notes:"Bharatiya Samvidhan ki Preamble ko Hindi mein Uddeshika kaha jata hai. Ismein Samvidhan ke mukhya aadarsh aur lakshya diye gaye hain.",
+      trick:"Revision: Sovereign, Socialist, Secular, Democratic, Republic. In shabdon ko roz revise karo."
+    },
+    "Fundamental Rights":{
+      notes:"Fundamental Rights Samvidhan ke Part III mein, Articles 12 se 35 tak diye gaye hain. Ye nagrikon ki swatantrata aur adhikaron ki raksha karte hain.",
+      trick:"Part III = Fundamental Rights. Part IV = Directive Principles. Dono ko confuse mat karna."
+    },
+    "Fundamental Duties":{
+      notes:"Fundamental Duties Article 51A mein hain. Inhe 42nd Constitutional Amendment, 1976 ke madhyam se joda gaya tha. Baad mein 86th Amendment se ek aur duty jodi gayi.",
+      trick:"Duties = Article 51A. Rights aur Duties ke Articles alag yaad rakho."
+    },
+    "Percentage":{
+      notes:"Percentage ka matlab hota hai prati 100. x% of y = (x × y) / 100. Udaharan: 25% of 240 = 25 × 240 / 100 = 60.",
+      trick:"10% nikalne ke liye 10 se divide karo. 5% = 10% ka aadha. 25% = 1/4. 50% = aadha."
+    },
+    "Profit and Loss":{
+      notes:"Profit = Selling Price − Cost Price. Loss = Cost Price − Selling Price. Profit percentage = Profit / Cost Price × 100.",
+      trick:"Profit ya loss percentage nikalte samay aam taur par Cost Price denominator mein aata hai."
+    },
+    "Average":{
+      notes:"Average = Sabhi values ka sum ÷ Total values. Agar 10, 20 aur 30 ka average nikalna ho, to (10+20+30)/3 = 20.",
+      trick:"Total = Average × Number of values."
+    },
+    "Number System":{
+      notes:"Number system mein natural numbers, whole numbers, integers, rational numbers aur irrational numbers jaise prakaar aate hain.",
+      trick:"Divisibility rules aur prime numbers ka regular revision karo. Ye calculation fast karne mein madad karte hain."
+    },
+    "Constitutional History":{
+      notes:"Bharatiya Samvidhan ke vikas mein British period ke kai Acts mahatvapurn hain. Government of India Act 1935 ne Samvidhan ke kai prashasnik features ko prabhavit kiya.",
+      trick:"Important Acts ko year aur feature ke saath timeline mein revise karo."
+    },
+    "Indus Valley Civilization":{
+      notes:"Sindhu Ghati Sabhyata ek prachin nagariya sabhyata thi. Harappa aur Mohenjo-daro iske pramukh sthalon mein shamil hain.",
+      trick:"Sites ko unki khas visheshta ke saath yaad karo; jaise Great Bath — Mohenjo-daro."
+    },
+    "Photosynthesis":{
+      notes:"Photosynthesis mein hare paudhe sunlight aur chlorophyll ki madad se carbon dioxide aur water se food banate hain. Is process mein oxygen release hoti hai.",
+      trick:"CO₂ + Water + Sunlight → Food + Oxygen. Equation ko samajhkar yaad karo."
+    },
+    "Computer Fundamentals":{
+      notes:"Computer data ko input ke roop mein leta hai, processing karta hai aur output deta hai. CPU ka full form Central Processing Unit hai.",
+      trick:"IPO cycle: Input → Processing → Output."
+    },
+    "Tenses":{
+      notes:"English grammar mein Present, Past aur Future teen basic time categories hain. Har category mein Simple, Continuous, Perfect aur Perfect Continuous forms padhe jate hain.",
+      trick:"Tense identify karne ke liye sentence ka time aur helping verb dono check karo."
+    }
+  };
+
+  if(data[topic]) return data[topic];
+
+  return {
+    notes:topic+" ke liye pehle basic definition, important facts, examples aur exam-oriented questions padho. Apne exam ki latest official syllabus notification se topic verify karo.",
+    trick:"Revision trick: Topic ki definition padho, 5 important points likho, phir 10 practice questions solve karo. Ye general study method hai, topic-specific shortcut nahi."
+  };
+}
+
+function markTopicDone(subject,topic){
+  if(!state.completedTopics) state.completedTopics=[];
+
+  const key = subject+"::"+topic;
+  if(!state.completedTopics.includes(key)){
+    state.completedTopics.push(key);
+    saveState();
+  }
+
+  const status = document.getElementById("topicStatus");
+  if(status) status.textContent="✅ Topic complete mark ho gaya!";
+}
+
+function renderExams(){
+  const q=(document.getElementById("examSearch").value||"").toLowerCase();
+  document.getElementById("examList").innerHTML=EXAMS
+    .filter(e=>(e.name+" "+e.category).toLowerCase().includes(q))
+    .map(examCard).join("") || "<p>Koi exam nahi mila.</p>";
+}
+
+function renderHomeExams(){
+  const box=document.getElementById("homeExams");
+  if(!box) return;
+  box.innerHTML=EXAMS.slice(0,6).map(examCard).join("");
+}
+
+function startPractice(){
+  const subject=document.getElementById("practiceSubject").value;
+  const count=document.getElementById("questionCount").value;
+
+  let pool=QUESTIONS.filter(q=>subject==="All"||q.s===subject);
+
+  if(pool.length===0){
+    document.getElementById("quiz").innerHTML=
+      "<p>Is subject ke liye abhi questions available nahi hain.</p>";
+    return;
+  }
+
+  activeQuestions=[...pool].sort(()=>Math.random()-0.5);
+
+  if(count!=="all"){
+    activeQuestions=activeQuestions.slice(0,Number(count));
+  }
+
+  questionIndex=0;
+  sessionCorrect=0;
+  answeredThisQuestion=false;
+
+  showQuestion();
+}
+
+function showQuestion(){
+  const box=document.getElementById("quiz");
+
+  if(questionIndex>=activeQuestions.length){
+    const total=activeQuestions.length;
+    const accuracy=total?Math.round(sessionCorrect/total*100):0;
+
+    box.innerHTML=`
+      <h2>🎉 Practice Complete!</h2>
+      <p>Total Questions: ${total}</p>
+      <p>Correct Answers: ${sessionCorrect}</p>
+      <p>Incorrect Answers: ${total-sessionCorrect}</p>
+      <p>Accuracy: ${accuracy}%</p>
+      <button class="btn" onclick="startPractice()">Dobara Practice Karo</button>`;
+
+    state.activity.unshift({
+      date:new Date().toLocaleString("en-IN"),
+      total:total,
+      correct:sessionCorrect,
+      accuracy:accuracy
+    });
+
+    state.activity=state.activity.slice(0,20);
+    saveState();
+    return;
+  }
+
+  answeredThisQuestion=false;
+  const q=activeQuestions[questionIndex];
+
+  box.innerHTML=`
+    <div class="muted small">
+      Question ${questionIndex+1} / ${activeQuestions.length}
+    </div>
+    <h3>${esc(q.q)}</h3>
+    <div id="options">
+      ${q.o.map((option,i)=>`
+        <button class="option" onclick="answerQuestion(${i})">
+          ${String.fromCharCode(65+i)}. ${esc(option)}
+        </button>
+      `).join("")}
+    </div>
+    <div id="feedback"></div>
+    <button id="nextQuestion" class="btn" style="display:none"
+      onclick="questionIndex++;showQuestion()">
+      Next Question →
+    </button>`;
+}
+
+function answerQuestion(index){
+  if(answeredThisQuestion) return;
+  answeredThisQuestion=true;
+
+  const q=activeQuestions[questionIndex];
+  const buttons=document.querySelectorAll("#options .option");
+  buttons.forEach(b=>b.disabled=true);
+
+  if(index===q.a){
+    sessionCorrect++;
+    state.correct++;
+    document.getElementById("feedback").innerHTML=
+      "✅ Sahi jawab! "+esc(q.e);
+  }else{
+    state.wrong++;
+    document.getElementById("feedback").innerHTML=
+      "❌ Sahi jawab: "+esc(q.o[q.a])+"<br>"+esc(q.e);
+  }
+
+  state.attempted++;
+  if(buttons[q.a]) buttons[q.a].classList.add("correct");
+  if(index!==q.a && buttons[index]) buttons[index].classList.add("wrong");
+
+  saveState();
+  document.getElementById("nextQuestion").style.display="inline-block";
+}
+
+function resetPractice(){
+  activeQuestions=[];
+  questionIndex=0;
+  document.getElementById("quiz").innerHTML=
+    "Practice shuru karne ke liye Start Practice dabao.";
+}
+
+function saveNote(){
+  const title=document.getElementById("noteTitle").value.trim();
+  const body=document.getElementById("noteBody").value.trim();
+
+  if(!title||!body){
+    alert("Note ka title aur content dono likho.");
+    return;
+  }
+
+  state.notes.unshift({
+    id:Date.now(),
+    title:title,
+    body:body,
+    date:new Date().toLocaleDateString("en-IN")
+  });
+
+  saveState();
+  document.getElementById("noteTitle").value="";
+  document.getElementById("noteBody").value="";
+  renderNotes();
+}
+
+function renderNotes(){
+  const box=document.getElementById("notesList");
+  if(!box) return;
+
+  if(!state.notes.length){
+    box.innerHTML="<p class='muted'>Abhi koi note save nahi hai.</p>";
+    return;
+  }
+
+  box.innerHTML=state.notes.map(n=>`
+    <article class="card">
+      <h3>${esc(n.title)}</h3>
+      <div class="note">${esc(n.body)}</div>
+      <p class="muted small">${esc(n.date||"")}</p>
+      <button class="btn secondary" onclick="deleteNote(${Number(n.id)})">
+        Delete Note
+      </button>
+    </article>
+  `).join("");
+}
+
+function deleteNote(id){
+  if(!confirm("Kya tum ye note delete karna chahte ho?")) return;
+  state.notes=state.notes.filter(n=>n.id!==id);
+  saveState();
+  renderNotes();
+}
+
+function updateStats(){
+  const accuracy=state.attempted
+    ?Math.round(state.correct/state.attempted*100):0;
+
+  const set=(id,value)=>{
+    const el=document.getElementById(id);
+    if(el)el.textContent=value;
+  };
+
+  set("homeAnswered",state.attempted);
+  set("homeCorrect",state.correct);
+  set("homeAccuracy",accuracy+"%");
+  set("pAttempted",state.attempted);
+  set("pCorrect",state.correct);
+  set("pWrong",state.wrong);
+  set("pAccuracy",accuracy+"%");
+
+  const bar=document.getElementById("accuracyBar");
+  if(bar)bar.style.width=accuracy+"%";
+}
+
+function renderActivity(){
+  const box=document.getElementById("activity");
+  if(!box)return;
+
+  if(!state.activity.length){
+    box.textContent="Abhi practice history nahi hai.";
+    return;
+  }
+
+  box.innerHTML=state.activity.map(a=>`
+    <div style="padding:10px 0;border-bottom:1px solid var(--border)">
+      <b>${esc(a.date)}</b><br>
+      Questions: ${Number(a.total)} · Correct: ${Number(a.correct)}
+      · Accuracy: ${Number(a.accuracy)}%
+    </div>
+  `).join("");
+}
+
+function exportProgress(){
+  const blob=new Blob(
+    [JSON.stringify(state,null,2)],
+    {type:"application/json"}
+  );
+
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="project-iqbal-backup.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function clearProgress(){
+  if(!confirm("Kya tum apni poori practice progress reset karna chahte ho? Notes delete nahi honge."))return;
+
+  state.attempted=0;
+  state.correct=0;
+  state.wrong=0;
+  state.activity=[];
+  saveState();
+  renderActivity();
+}
+
+renderExams();
+renderSubjects();
+renderHomeExams();
+renderNotes();
+updateStats();
+
+if(state.selectedExam){
+  const savedExam=EXAMS.find(e=>e.name===state.selectedExam);
+  if(savedExam){
+    document.getElementById("selectedExam").innerHTML=`
+      <h2>🎯 ${esc(savedExam.name)}</h2>
+      <p class="muted">Selected exam. Official syllabus verify karein.</p>
+      <div class="actions">
+        ${savedExam.subjects.map(s=>
+          `<button class="btn secondary" onclick="openSubject('${esc(s)}')">${esc(s)}</button>`
+        ).join("")}
+      </div>`;
+  }
+}
+</script>
+</body>
+</html>
