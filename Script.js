@@ -1,199 +1,171 @@
-/* =====================================================
-   PROJECT IQBAL — MAIN ENGINE
-   File: script.js
-   ===================================================== */
-
 "use strict";
 
 (() => {
   const DATA = window.IQBAL_DATA;
 
-  if (!DATA || !Array.isArray(DATA.exams) ||
-      !Array.isArray(DATA.subjects) ||
-      !Array.isArray(DATA.questions)) {
-    console.error("PROJECT IQBAL: data.js load nahi hua.");
+  if (
+    !DATA ||
+    !Array.isArray(DATA.exams) ||
+    !Array.isArray(DATA.subjects) ||
+    !Array.isArray(DATA.questions)
+  ) {
+    console.error("PROJECT IQBAL: Data.js load nahi hua.");
     return;
   }
 
-  const $ = (selector, root = document) =>
-    root.querySelector(selector);
-
-  const $$ = (selector, root = document) =>
-    [...root.querySelectorAll(selector)];
+  const $ = (selector) => document.querySelector(selector);
+  const $$ = (selector) => [...document.querySelectorAll(selector)];
 
   const STORAGE_KEY = "project_iqbal_v3";
 
-  const DEFAULT_STATE = {
-    selectedExam: "",
-    notes: [],
+  const defaultState = {
+    selectedExam: "chsl",
     attempted: 0,
     correct: 0,
     completedTopics: [],
+    notes: [],
     history: [],
     dailyTarget: 20,
-    dailyActivity: {}
+    dailyActivity: {},
+    answers: []
   };
+
+  function loadState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+      if (!saved || typeof saved !== "object") {
+        return { ...defaultState };
+      }
+
+      return {
+        ...defaultState,
+        ...saved,
+        completedTopics: Array.isArray(saved.completedTopics)
+          ? saved.completedTopics : [],
+        notes: Array.isArray(saved.notes) ? saved.notes : [],
+        history: Array.isArray(saved.history) ? saved.history : [],
+        answers: Array.isArray(saved.answers) ? saved.answers : [],
+        dailyActivity: saved.dailyActivity || {}
+      };
+    } catch (error) {
+      console.error("Saved data load nahi hua:", error);
+      return { ...defaultState };
+    }
+  }
 
   let state = loadState();
 
-  let activeExamCategory = "All";
   let currentSubject = null;
   let currentTopic = null;
+  let currentQuestions = [];
+  let currentQuestionIndex = 0;
+  let currentQuizAnswers = [];
+  let quizFinished = false;
+  let currentNoteEditingId = null;
 
-  let quizQuestions = [];
-  let quizIndex = 0;
-  let quizAttempted = 0;
-  let quizCorrect = 0;
-  let answeredCurrent = false;
-  let quizSessionActive = false;
-  let currentQuizSubject = "All";
-
-  let toastTimer = null;
-
-
-  /* ---------- SAFE HELPERS ---------- */
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (error) {
+      console.error("Progress save nahi hua:", error);
+      showToast("Data save nahi ho saka. Browser storage check karein.");
+    }
+  }
 
   function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, character => ({
+    return String(value ?? "").replace(/[&<>"']/g, (char) => ({
       "&": "&amp;",
       "<": "&lt;",
       ">": "&gt;",
       '"': "&quot;",
       "'": "&#39;"
-    })[character]);
-  }
-
-  function makeId(prefix = "id") {
-    return prefix + "_" +
-      Date.now().toString(36) + "_" +
-      Math.random().toString(36).slice(2, 9);
-  }
-
-  function todayKey() {
-    const now = new Date();
-    return [
-      now.getFullYear(),
-      String(now.getMonth() + 1).padStart(2, "0"),
-      String(now.getDate()).padStart(2, "0")
-    ].join("-");
-  }
-
-  function formatDate(value) {
-    const date = new Date(value);
-
-    if (Number.isNaN(date.getTime())) {
-      return "Unknown date";
-    }
-
-    return date.toLocaleString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    });
-  }
-
-  function percent(correct, total) {
-    return total > 0
-      ? Math.round((correct / total) * 100)
-      : 0;
-  }
-
-  function shuffle(items) {
-    const copy = [...items];
-
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-
-    return copy;
+    })[char]);
   }
 
   function showToast(message) {
     const toast = $("#toast");
-
     if (!toast) return;
 
     toast.textContent = message;
     toast.classList.add("show");
 
-    clearTimeout(toastTimer);
+    clearTimeout(showToast.timer);
 
-    toastTimer = setTimeout(() => {
+    showToast.timer = setTimeout(() => {
       toast.classList.remove("show");
     }, 2600);
   }
 
-  function loadState() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+  function todayKey() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
 
-      if (!saved) {
-        return structuredCloneSafe(DEFAULT_STATE);
+    return `${year}-${month}-${day}`;
+  }
+
+  function recordDailyActivity() {
+    const key = todayKey();
+
+    if (!state.dailyActivity[key]) {
+      state.dailyActivity[key] = 0;
+    }
+
+    state.dailyActivity[key]++;
+  }
+
+  function getTodayAttempts() {
+    return Number(state.dailyActivity[todayKey()] || 0);
+  }
+
+  function getAccuracy() {
+    return state.attempted
+      ? Math.round((state.correct / state.attempted) * 100)
+      : 0;
+  }
+
+  function findExam(id) {
+    return DATA.exams.find((exam) => exam.id === id);
+  }
+
+  function findSubject(id) {
+    return DATA.subjects.find((subject) => subject.id === id);
+  }
+
+  function findTopic(topicId) {
+    for (const subject of DATA.subjects) {
+      const topic = subject.topics.find((item) => item.id === topicId);
+
+      if (topic) {
+        return { subject, topic };
       }
-
-      const parsed = JSON.parse(saved);
-
-      return {
-        ...structuredCloneSafe(DEFAULT_STATE),
-        ...parsed,
-        notes: Array.isArray(parsed.notes) ? parsed.notes : [],
-        completedTopics: Array.isArray(parsed.completedTopics)
-          ? parsed.completedTopics : [],
-        history: Array.isArray(parsed.history) ? parsed.history : [],
-        dailyActivity:
-          parsed.dailyActivity &&
-          typeof parsed.dailyActivity === "object"
-            ? parsed.dailyActivity : {}
-      };
-    } catch (error) {
-      console.error("Saved data read nahi ho saka:", error);
-      return structuredCloneSafe(DEFAULT_STATE);
     }
+
+    return null;
   }
 
-  function structuredCloneSafe(value) {
-    return JSON.parse(JSON.stringify(value));
-  }
-
-  function saveState() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      return true;
-    } catch (error) {
-      console.error("Data save nahi hua:", error);
-      showToast("Storage full ya unavailable hai. Backup le lo.");
-      return false;
-    }
-  }
-
-
-  /* ---------- NAVIGATION ---------- */
-
-  function showPage(pageName) {
-    const page = $("#page-" + pageName);
-
-    if (!page) return;
-
-    $$(".page").forEach(item => {
-      item.classList.toggle("active", item === page);
+  function navigate(pageName) {
+    $$(".page").forEach((page) => {
+      page.classList.toggle("active", page.id === `page-${pageName}`);
     });
 
-    $$(".nav-btn").forEach(button => {
+    $$("#mainNav [data-page]").forEach((button) => {
       button.classList.toggle(
         "active",
         button.dataset.page === pageName
       );
     });
 
-    $("#mainNav")?.classList.remove("mobile-open");
+    const nav = $("#mainNav");
 
-    const menu = $("#menuToggle");
-    if (menu) menu.setAttribute("aria-expanded", "false");
+    if (nav) {
+      nav.classList.remove("open");
+    }
 
-    if (pageName === "home") renderHome();
+    renderDashboard();
+
     if (pageName === "exams") renderExams();
     if (pageName === "subjects") renderSubjects();
     if (pageName === "notes") renderNotes();
@@ -202,296 +174,298 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function initNavigation() {
-    document.addEventListener("click", event => {
-      const button = event.target.closest("[data-page]");
-
-      if (!button) return;
-
-      const pageName = button.dataset.page;
-
-      if (pageName) {
-        showPage(pageName);
-      }
+  function setupNavigation() {
+    $$("#mainNav [data-page]").forEach((button) => {
+      button.addEventListener("click", () => {
+        navigate(button.dataset.page);
+      });
     });
 
-    $("#menuToggle")?.addEventListener("click", () => {
-      const nav = $("#mainNav");
-      const isOpen = nav.classList.toggle("mobile-open");
+    const menuToggle = $("#menuToggle");
+    const nav = $("#mainNav");
 
-      $("#menuToggle").setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
+    if (menuToggle && nav) {
+      menuToggle.addEventListener("click", () => {
+        nav.classList.toggle("open");
+      });
+    }
+
+    $$("[data-open-page]").forEach((button) => {
+      button.addEventListener("click", () => {
+        navigate(button.dataset.openPage);
+      });
     });
   }
 
+  function renderDashboard() {
+    const exam = findExam(state.selectedExam);
 
-  /* ---------- EXAMS ---------- */
+    const name = $("#selectedExamName");
+    const description = $("#selectedExamDescription");
 
-  function getSelectedExam() {
-    return DATA.exams.find(exam =>
-      exam.id === state.selectedExam
-    ) || null;
+    if (name) {
+      name.textContent = exam ? exam.name : "Government Exams";
+    }
+
+    if (description) {
+      description.textContent = exam
+        ? exam.description
+        : "Choose an exam and start learning.";
+    }
+
+    setText("#homeAttempted", state.attempted);
+    setText("#homeCorrect", state.correct);
+    setText("#homeAccuracy", `${getAccuracy()}%`);
+
+    const targetInput = $("#dailyTarget");
+
+    if (targetInput && document.activeElement !== targetInput) {
+      targetInput.value = state.dailyTarget;
+    }
+
+    const target = Math.max(1, Number(state.dailyTarget) || 20);
+    const today = getTodayAttempts();
+    const percentage = Math.min(100, Math.round((today / target) * 100));
+
+    const bar = $("#dailyProgressBar");
+
+    if (bar) {
+      bar.style.width = `${percentage}%`;
+    }
+
+    const progressText = $("#dailyProgressText");
+
+    if (progressText) {
+      progressText.textContent =
+        `${today} / ${target} questions completed today (${percentage}%)`;
+    }
+  }
+
+  function setText(selector, value) {
+    const element = $(selector);
+
+    if (element) {
+      element.textContent = value;
+    }
+  }
+
+  function setupDailyTarget() {
+    const button = $("#saveDailyTargetBtn");
+
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+      const input = $("#dailyTarget");
+      const target = Number(input?.value);
+
+      if (!Number.isFinite(target) || target < 1 || target > 10000) {
+        showToast("Daily target 1 se 10000 ke beech rakhein.");
+        return;
+      }
+
+      state.dailyTarget = Math.floor(target);
+      saveState();
+      renderDashboard();
+      showToast("Daily target save ho gaya!");
+    });
   }
 
   function renderExams() {
     const grid = $("#examGrid");
+
     if (!grid) return;
 
-    const search = ($("#examSearch")?.value || "")
-      .trim()
-      .toLowerCase();
+    const search = ($("#examSearch")?.value || "").toLowerCase();
+    const activeCategory =
+      $(".exam-filter.active")?.dataset.category || "All";
 
-    const exams = DATA.exams.filter(exam => {
+    const exams = DATA.exams.filter((exam) => {
       const matchesSearch =
         exam.name.toLowerCase().includes(search) ||
         exam.description.toLowerCase().includes(search);
 
       const matchesCategory =
-        activeExamCategory === "All" ||
-        exam.category === activeExamCategory;
+        activeCategory === "All" ||
+        exam.category === activeCategory;
 
       return matchesSearch && matchesCategory;
     });
 
-    if (!exams.length) {
-      grid.innerHTML = `
-        <div class="empty-state">
-          <strong>No exams found</strong>
-          <p>Search badal kar try karo.</p>
-        </div>`;
-      return;
+    grid.innerHTML = exams.length
+      ? exams.map((exam) => `
+          <article class="exam-card">
+            <div class="card-icon">📘</div>
+            <h3>${escapeHTML(exam.name)}</h3>
+            <p>${escapeHTML(exam.description)}</p>
+            <span class="badge">${escapeHTML(exam.category)}</span>
+            <button class="btn btn-primary select-exam"
+                    data-exam-id="${escapeHTML(exam.id)}">
+              Open Exam
+            </button>
+          </article>
+        `).join("")
+      : `<p class="empty-state">Koi exam nahi mila.</p>`;
+
+    $$(".select-exam").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selectedExam = button.dataset.examId;
+        saveState();
+        renderDashboard();
+        renderSubjects();
+        navigate("subjects");
+      });
+    });
+  }
+
+  function setupExamFilters() {
+    const search = $("#examSearch");
+
+    if (search) {
+      search.addEventListener("input", renderExams);
     }
 
-    grid.innerHTML = exams.map(exam => `
-      <article class="exam-card ${
-        state.selectedExam === exam.id ? "selected" : ""
-      }">
-        <div class="exam-icon">${escapeHTML(exam.icon)}</div>
+    $$("#examCategories [data-category]").forEach((button) => {
+      button.addEventListener("click", () => {
+        $$("#examCategories [data-category]").forEach((item) => {
+          item.classList.remove("active");
+        });
 
-        <h3>${escapeHTML(exam.name)}</h3>
-
-        <p>${escapeHTML(exam.description)}</p>
-
-        <span class="exam-category">
-          ${escapeHTML(exam.category)}
-        </span>
-
-        <button
-          class="primary-btn card-action"
-          data-select-exam="${escapeHTML(exam.id)}">
-          ${
-            state.selectedExam === exam.id
-              ? "Selected ✓"
-              : "Select Exam →"
-          }
-        </button>
-      </article>
-    `).join("");
-  }
-
-  function selectExam(examId) {
-    const exam = DATA.exams.find(item => item.id === examId);
-
-    if (!exam) return;
-
-    state.selectedExam = examId;
-    saveState();
-
-    renderExams();
-    renderHome();
-    renderSubjects();
-
-    showToast(exam.name + " selected!");
-
-    showPage("home");
-  }
-
-  function initExams() {
-    $("#examSearch")?.addEventListener("input", renderExams);
-
-    $("#examCategories")?.addEventListener("click", event => {
-      const button = event.target.closest("[data-category]");
-
-      if (!button) return;
-
-      activeExamCategory = button.dataset.category;
-
-      $$("#examCategories .filter-btn").forEach(item => {
-        item.classList.toggle("active", item === button);
+        button.classList.add("active");
+        renderExams();
       });
-
-      renderExams();
     });
-
-    $("#examGrid")?.addEventListener("click", event => {
-      const button = event.target.closest("[data-select-exam]");
-
-      if (button) {
-        selectExam(button.dataset.selectExam);
-      }
-    });
-  }
-
-
-  /* ---------- SUBJECTS ---------- */
-
-  function findSubject(subjectId) {
-    return DATA.subjects.find(subject =>
-      subject.id === subjectId
-    ) || null;
   }
 
   function renderSubjects() {
     const grid = $("#subjectGrid");
+
     if (!grid) return;
 
-    const selectedExam = getSelectedExam();
+    const search = ($("#subjectSearch")?.value || "").toLowerCase();
 
-    $("#subjectsExamName").textContent =
-      selectedExam
-        ? selectedExam.name
-        : "Common Subjects";
+    const title = $("#subjectsExamName");
+    const exam = findExam(state.selectedExam);
 
-    const search = ($("#subjectSearch")?.value || "")
-      .trim()
-      .toLowerCase();
+    if (title) {
+      title.textContent = exam ? exam.name : "All Exams";
+    }
 
-    const filtered = DATA.subjects.filter(subject => {
-      const nameMatches =
-        subject.name.toLowerCase().includes(search);
+    const subjects = DATA.subjects.filter((subject) => {
+      const inName = subject.name.toLowerCase().includes(search);
 
-      const topicMatches = subject.topics.some(topic =>
+      const inTopic = subject.topics.some((topic) =>
         topic.name.toLowerCase().includes(search)
       );
 
-      return !search || nameMatches || topicMatches;
+      return inName || inTopic;
     });
 
-    grid.classList.toggle("hidden", Boolean(currentSubject));
-    $("#topicArea")?.classList.toggle("hidden", !currentSubject);
-    $("#lessonArea")?.classList.add("hidden");
+    grid.innerHTML = subjects.length
+      ? subjects.map((subject) => {
+          const completed = subject.topics.filter((topic) =>
+            state.completedTopics.includes(topic.id)
+          ).length;
 
-    grid.innerHTML = filtered.length
-      ? filtered.map(subject => `
-          <article class="subject-card">
-            <div class="subject-icon">
-              ${escapeHTML(subject.icon)}
-            </div>
+          return `
+            <article class="subject-card">
+              <div class="card-icon">${escapeHTML(subject.icon || "📚")}</div>
+              <h3>${escapeHTML(subject.name)}</h3>
+              <p>${subject.topics.length} topics</p>
+              <p>${completed} topics completed</p>
+              <button class="btn btn-primary open-subject"
+                      data-subject-id="${escapeHTML(subject.id)}">
+                Open Subject
+              </button>
+            </article>
+          `;
+        }).join("")
+      : `<p class="empty-state">Koi subject nahi mila.</p>`;
 
-            <h3>${escapeHTML(subject.name)}</h3>
+    $$(".open-subject").forEach((button) => {
+      button.addEventListener("click", () => {
+        openSubject(button.dataset.subjectId);
+      });
+    });
+  }
 
-            <p>${escapeHTML(subject.description)}</p>
+  function setupSubjectSearch() {
+    const search = $("#subjectSearch");
 
-            <p>${subject.topics.length} study topics</p>
-
-            <button
-              class="secondary-btn"
-              data-open-subject="${escapeHTML(subject.id)}">
-              Explore Subject →
-            </button>
-          </article>
-        `).join("")
-      : `
-        <div class="empty-state">
-          <strong>No subject found</strong>
-          <p>Dusra keyword try karo.</p>
-        </div>`;
-
-    if (currentSubject) {
-      renderTopics();
+    if (search) {
+      search.addEventListener("input", renderSubjects);
     }
   }
 
   function openSubject(subjectId) {
     currentSubject = findSubject(subjectId);
-    currentTopic = null;
 
     if (!currentSubject) return;
 
-    renderSubjects();
+    const topicArea = $("#topicArea");
+    const lessonArea = $("#lessonArea");
+    const grid = $("#subjectGrid");
 
-    $("#topicArea")?.scrollIntoView({
+    if (grid) grid.classList.add("hidden");
+    if (topicArea) topicArea.classList.remove("hidden");
+    if (lessonArea) lessonArea.classList.add("hidden");
+
+    setText("#currentSubjectTitle", currentSubject.name);
+
+    renderTopics();
+
+    topicArea?.scrollIntoView({
       behavior: "smooth",
       block: "start"
     });
   }
 
   function renderTopics() {
-    if (!currentSubject) return;
-
-    $("#currentSubjectTitle").textContent =
-      currentSubject.name;
-
-    const search = ($("#subjectSearch")?.value || "")
-      .trim()
-      .toLowerCase();
-
-    const topics = currentSubject.topics.filter(topic =>
-      !search ||
-      topic.name.toLowerCase().includes(search) ||
-      currentSubject.name.toLowerCase().includes(search)
-    );
-
     const list = $("#topicList");
 
-    list.innerHTML = topics.length
-      ? topics.map((topic, index) => {
-          const key = currentSubject.id + ":" + topic.id;
-          const completed = state.completedTopics.includes(key);
+    if (!list || !currentSubject) return;
 
-          return `
-            <button
-              class="topic-item"
-              data-open-topic="${escapeHTML(topic.id)}">
+    list.innerHTML = currentSubject.topics.map((topic) => {
+      const completed = state.completedTopics.includes(topic.id);
 
-              <span class="topic-number">${index + 1}</span>
+      return `
+        <article class="topic-item">
+          <div>
+            <h3>${escapeHTML(topic.name)}</h3>
+            <p>${completed ? "✓ Completed" : "Not completed"}</p>
+          </div>
+          <button class="btn btn-secondary open-topic"
+                  data-topic-id="${escapeHTML(topic.id)}">
+            Study
+          </button>
+        </article>
+      `;
+    }).join("");
 
-              <span class="topic-info">
-                <strong>${escapeHTML(topic.name)}</strong>
-                <small>
-                  ${completed ? "Completed ✓" : "Open study material →"}
-                </small>
-              </span>
-
-              <span class="topic-status">
-                ${completed ? "✓" : "›"}
-              </span>
-            </button>
-          `;
-        }).join("")
-      : `
-        <div class="empty-state">
-          <strong>No matching topic</strong>
-          <p>Search badal kar dekho.</p>
-        </div>`;
+    $$(".open-topic").forEach((button) => {
+      button.addEventListener("click", () => {
+        openTopic(button.dataset.topicId);
+      });
+    });
   }
 
   function openTopic(topicId) {
-    if (!currentSubject) return;
-
-    const topic = currentSubject.topics.find(item =>
-      item.id === topicId
+    const found = currentSubject?.topics.find(
+      (topic) => topic.id === topicId
     );
 
-    if (!topic) return;
+    if (!found) return;
 
-    currentTopic = topic;
+    currentTopic = found;
 
-    $("#lessonTitle").textContent = topic.name;
+    setText("#lessonTitle", found.name);
 
-    // Lesson content comes from our authored data.
-    $("#lessonBody").innerHTML = topic.content;
+    const body = $("#lessonBody");
+
+    if (body) {
+      body.innerHTML = found.content || "<p>Notes available nahi hain.</p>";
+    }
 
     $("#lessonArea")?.classList.remove("hidden");
-
-    $("#markLessonBtn").textContent =
-      state.completedTopics.includes(
-        currentSubject.id + ":" + topic.id
-      )
-        ? "Mark as Incomplete"
-        : "Mark as Completed ✓";
 
     $("#lessonArea")?.scrollIntoView({
       behavior: "smooth",
@@ -499,839 +473,317 @@
     });
   }
 
-  function toggleTopicCompletion() {
-    if (!currentSubject || !currentTopic) return;
-
-    const key = currentSubject.id + ":" + currentTopic.id;
-    const index = state.completedTopics.indexOf(key);
-
-    if (index >= 0) {
-      state.completedTopics.splice(index, 1);
-      showToast("Topic marked incomplete.");
-    } else {
-      state.completedTopics.push(key);
-      showToast("Topic completed! Well done.");
-    }
-
-    saveState();
-    renderTopics();
-    renderProgress();
-    renderHome();
-
-    $("#markLessonBtn").textContent =
-      state.completedTopics.includes(key)
-        ? "Mark as Incomplete"
-        : "Mark as Completed ✓";
-  }
-
-  function initSubjects() {
-    $("#subjectSearch")?.addEventListener("input", () => {
-      renderSubjects();
-    });
-
-    $("#subjectGrid")?.addEventListener("click", event => {
-      const button = event.target.closest("[data-open-subject]");
-
-      if (button) {
-        openSubject(button.dataset.openSubject);
-      }
-    });
-
-    $("#topicList")?.addEventListener("click", event => {
-      const button = event.target.closest("[data-open-topic]");
-
-      if (button) {
-        openTopic(button.dataset.openTopic);
-      }
-    });
-
+  function setupTopicNavigation() {
     $("#backToSubjects")?.addEventListener("click", () => {
+      $("#topicArea")?.classList.add("hidden");
+      $("#lessonArea")?.classList.add("hidden");
+      $("#subjectGrid")?.classList.remove("hidden");
       currentSubject = null;
-      currentTopic = null;
-      renderSubjects();
     });
 
     $("#backToTopics")?.addEventListener("click", () => {
       $("#lessonArea")?.classList.add("hidden");
-      currentTopic = null;
-
       $("#topicArea")?.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
     });
 
-    $("#markLessonBtn")?.addEventListener(
-      "click",
-      toggleTopicCompletion
-    );
+    $("#markLessonBtn")?.addEventListener("click", () => {
+      if (!currentTopic) return;
+
+      if (!state.completedTopics.includes(currentTopic.id)) {
+        state.completedTopics.push(currentTopic.id);
+        saveState();
+      }
+
+      renderTopics();
+      renderSubjects();
+      renderProgress();
+      showToast("Topic completed mark ho gaya!");
+    });
 
     $("#practiceTopicBtn")?.addEventListener("click", () => {
-      if (!currentSubject || !currentTopic) return;
+      if (!currentTopic) return;
 
-      const subjectMap = {
-        maths: "Maths",
-        reasoning: "Reasoning",
-        history: "History",
-        geography: "Geography",
-        polity: "Polity",
-        science: "Science",
-        economy: "Economy",
-        hindi: "Hindi",
-        english: "English",
-        computer: "Computer",
-        gk: "GK"
-      };
+      navigate("practice");
 
-      $("#practiceSubject").value =
-        subjectMap[currentSubject.id] || "All";
+      const subject = currentSubject?.name || "All";
+      const select = $("#practiceSubject");
 
-      $("#practiceDifficulty").value = "All";
-      $("#practiceCount").value = "All";
+      if (select) {
+        select.value = subject;
+      }
 
       startPractice(currentTopic.id);
-      showPage("practice");
     });
-  }
-
-
-  /* ---------- DAILY TARGET ---------- */
-
-  function saveDailyTarget() {
-    const input = $("#dailyTarget");
-
-    const value = Number(input.value);
-
-    if (!Number.isInteger(value) || value < 1 || value > 1000) {
-      showToast("Target 1 se 1000 ke beech integer hona chahiye.");
-      return;
-    }
-
-    state.dailyTarget = value;
-
-    saveState();
-    renderHome();
-
-    showToast("Daily target save ho gaya.");
-  }
-
-  function getTodayActivity() {
-    return Number(state.dailyActivity[todayKey()] || 0);
-  }
-
-  function renderDailyTarget() {
-    const target = Math.max(1, Number(state.dailyTarget) || 20);
-    const done = getTodayActivity();
-
-    $("#dailyTarget").value = target;
-
-    $("#dailyProgressBar").style.width =
-      Math.min(100, (done / target) * 100) + "%";
-
-    $("#dailyProgressText").textContent =
-      `${done} / ${target} questions completed today`;
-  }
-
-
-  /* ---------- HOME DASHBOARD ---------- */
-
-  function renderHome() {
-    const exam = getSelectedExam();
-
-    $("#selectedExamName").textContent =
-      exam ? exam.name : "Abhi exam select karo";
-
-    $("#selectedExamDescription").textContent =
-      exam
-        ? exam.description + " — study shuru karne ke liye Subjects kholo."
-        : "Apna target exam choose karke preparation shuru karo.";
-
-    $("#homeAttempted").textContent = state.attempted;
-    $("#homeCorrect").textContent = state.correct;
-
-    $("#homeAccuracy").textContent =
-      percent(state.correct, state.attempted) + "%";
-
-    renderDailyTarget();
-  }
-
-
-  /* ---------- PRACTICE ENGINE ---------- */
-
-  function getSubjectNameFromId(id) {
-    const subject = findSubject(id);
-    return subject ? subject.name : "All";
   }
 
   function getPracticePool(topicId = null) {
-    const selectedSubject = $("#practiceSubject").value;
-    const difficulty = $("#practiceDifficulty").value;
+    const subjectFilter = $("#practiceSubject")?.value || "All";
+    const difficultyFilter = $("#practiceDifficulty")?.value || "All";
 
-    return DATA.questions.filter(question => {
+    return DATA.questions.filter((question) => {
+      const matchesTopic = !topicId || question.topic === topicId;
+
       const matchesSubject =
-        selectedSubject === "All" ||
-        question.subject === selectedSubject;
+        subjectFilter === "All" ||
+        question.subject.toLowerCase() === subjectFilter.toLowerCase();
 
       const matchesDifficulty =
-        difficulty === "All" ||
-        question.difficulty === difficulty;
+        difficultyFilter === "All" ||
+        question.difficulty.toLowerCase() === difficultyFilter.toLowerCase();
 
-      const matchesTopic =
-        !topicId ||
-        question.topic === topicId;
-
-      return matchesSubject && matchesDifficulty && matchesTopic;
+      return matchesTopic && matchesSubject && matchesDifficulty;
     });
   }
 
+  function shuffle(items) {
+    const array = [...items];
+
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
+  }
+
   function startPractice(topicId = null) {
-    const pool = getPracticePool(topicId);
+    let pool = getPracticePool(topicId);
 
     if (!pool.length) {
-      showToast("Is filter ke liye abhi questions available nahi hain.");
+      showToast("Is filter mein abhi questions available nahi hain.");
       return;
     }
 
-    const countValue = $("#practiceCount").value;
+    pool = shuffle(pool);
 
-    const count = countValue === "All"
-      ? pool.length
-      : Number(countValue);
+    const countValue = $("#practiceCount")?.value || "10";
 
-    quizQuestions = shuffle(pool).slice(0, count);
+    if (countValue !== "All") {
+      const count = Number(countValue);
 
-    quizIndex = 0;
-    quizAttempted = 0;
-    quizCorrect = 0;
-    answeredCurrent = false;
-    quizSessionActive = true;
+      if (Number.isFinite(count) && count > 0) {
+        pool = pool.slice(0, count);
+      }
+    }
 
-    currentQuizSubject = $("#practiceSubject").value;
+    currentQuestions = pool;
+    currentQuestionIndex = 0;
+    currentQuizAnswers = [];
+    quizFinished = false;
 
-    $("#quizArea").classList.remove("hidden");
-    $("#quizResults").classList.add("hidden");
+    $("#quizArea")?.classList.remove("hidden");
+    $("#quizResults")?.classList.add("hidden");
 
-    showQuestion();
+    renderQuestion();
 
-    $("#quizArea").scrollIntoView({
+    $("#quizArea")?.scrollIntoView({
       behavior: "smooth",
       block: "start"
     });
   }
 
-  function showQuestion() {
-    const question = quizQuestions[quizIndex];
+  function renderQuestion() {
+    const question = currentQuestions[currentQuestionIndex];
 
     if (!question) {
-      finishPractice();
+      finishQuiz();
       return;
     }
 
-    answeredCurrent = false;
+    setText("#quizSubjectLabel", question.subject);
+    setText(
+      "#quizQuestionCounter",
+      `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`
+    );
 
-    $("#quizSubjectLabel").textContent = question.subject;
+    setText("#questionDifficulty", question.difficulty || "Practice");
+    setText("#questionExamLabel", question.type || "Practice");
+    setText("#questionText", question.question);
 
-    $("#quizQuestionCounter").textContent =
-      `Question ${quizIndex + 1} of ${quizQuestions.length}`;
+    const progress = $("#quizProgressBar");
 
-    $("#quizProgressBar").style.width =
-      ((quizIndex / quizQuestions.length) * 100) + "%";
+    if (progress) {
+      progress.style.width =
+        `${((currentQuestionIndex + 1) / currentQuestions.length) * 100}%`;
+    }
 
-    $("#questionDifficulty").textContent =
-      question.difficulty;
+    const options = $("#questionOptions");
+    const feedback = $("#answerFeedback");
+    const nextButton = $("#nextQuestionBtn");
 
-    $("#questionExamLabel").textContent =
-      question.type === "PYQ"
-        ? `PYQ${question.year ? " · " + question.year : ""}`
-        : "Practice Question";
+    if (feedback) {
+      feedback.innerHTML = "";
+      feedback.classList.add("hidden");
+    }
 
-    $("#questionText").textContent = question.question;
+    if (nextButton) {
+      nextButton.disabled = true;
+      nextButton.textContent =
+        currentQuestionIndex === currentQuestions.length - 1
+          ? "Finish Test"
+          : "Next Question";
+    }
 
-    $("#questionOptions").innerHTML =
-      question.options.map((option, index) => `
-        <button
-          class="option-btn"
-          data-option="${index}">
+    if (!options) return;
 
-          <span class="option-letter">
-            ${String.fromCharCode(65 + index)}
-          </span>
+    options.innerHTML = question.options.map((option, index) => `
+      <button class="option-button"
+              data-option-index="${index}">
+        <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+        <span>${escapeHTML(option)}</span>
+      </button>
+    `).join("");
 
-          <span>${escapeHTML(option)}</span>
-        </button>
-      `).join("");
-
-    $("#answerFeedback").className = "answer-feedback hidden";
-    $("#answerFeedback").textContent = "";
-
-    $("#nextQuestionBtn").disabled = true;
-
-    $("#nextQuestionBtn").textContent =
-      quizIndex === quizQuestions.length - 1
-        ? "Finish Practice ✓"
-        : "Next Question →";
+    $$(".option-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        answerQuestion(Number(button.dataset.optionIndex));
+      });
+    });
   }
 
   function answerQuestion(selectedIndex) {
-    if (answeredCurrent) return;
+    if (quizFinished) return;
 
-    const question = quizQuestions[quizIndex];
+    const question = currentQuestions[currentQuestionIndex];
 
     if (!question) return;
 
-    answeredCurrent = true;
-    quizAttempted++;
+    const options = $$(".option-button");
+
+    if (options.some((button) => button.disabled)) return;
 
     const correct = selectedIndex === question.answer;
 
-    if (correct) {
-      quizCorrect++;
-    }
-
-    const buttons = $$("#questionOptions .option-btn");
-
-    buttons.forEach((button, index) => {
+    options.forEach((button, index) => {
       button.disabled = true;
 
       if (index === question.answer) {
         button.classList.add("correct");
-      } else if (index === selectedIndex && !correct) {
+      }
+
+      if (index === selectedIndex && !correct) {
         button.classList.add("incorrect");
       }
     });
 
+    currentQuizAnswers.push({
+      questionId: question.id,
+      subject: question.subject,
+      topic: question.topic,
+      selected: selectedIndex,
+      answer: question.answer,
+      correct
+    });
+
+    state.attempted++;
+
+    if (correct) {
+      state.correct++;
+    }
+
+    recordDailyActivity();
+    saveState();
+
     const feedback = $("#answerFeedback");
 
-    feedback.classList.remove("hidden");
-    feedback.classList.add(
-      correct ? "correct-feedback" : "incorrect-feedback"
-    );
+    if (feedback) {
+      feedback.classList.remove("hidden");
 
-    feedback.innerHTML = `
-      <strong>
-        ${correct ? "Correct Answer! ✓" : "Incorrect Answer"}
-      </strong>
-      <p>
-        Correct option:
-        ${String.fromCharCode(65 + question.answer)}.
-        ${escapeHTML(question.options[question.answer])}
-      </p>
-      <p>${escapeHTML(question.explanation || "Explanation available nahi hai.")}
-      </p>    `;
+      feedback.innerHTML = `
+        <strong>${correct ? "Correct Answer! ✓" : "Incorrect Answer"}</strong>
+        <p>Correct option: ${String.fromCharCode(65 + question.answer)}.
+        ${escapeHTML(question.options[question.answer])}</p>
+        <p>${escapeHTML(question.explanation || "Explanation available nahi hai.")}</p>
+      `;
+    }
 
-    $("#nextQuestionBtn").disabled = false;
+    const nextButton = $("#nextQuestionBtn");
+
+    if (nextButton) {
+      nextButton.disabled = false;
+    }
+
+    renderDashboard();
+    renderProgress();
   }
 
+  function skipQuestion() {
+    if (quizFinished) return;
 
-  /* ---------- QUIZ RESULTS ---------- */
+    const question = currentQuestions[currentQuestionIndex];
 
-  function finishPractice() {
-    quizSessionActive = false;
+    if (!question) return;
 
-    state.attempted += quizAttempted;
-    state.correct += quizCorrect;
+    const options = $$(".option-button");
 
-    const today = todayKey();
+    if (options.some((button) => button.disabled)) return;
 
-    state.dailyActivity[today] =
-      (Number(state.dailyActivity[today]) || 0) + quizAttempted;
+    options.forEach((button) => {
+      button.disabled = true;
+
+      if (Number(button.dataset.optionIndex) === question.answer) {
+        button.classList.add("correct");
+      }
+    });
+
+    currentQuizAnswers.push({
+      questionId: question.id,
+      subject: question.subject,
+      topic: question.topic,
+      selected: null,
+      answer: question.answer,
+      correct: false,
+      skipped: true
+    });
+
+    const feedback = $("#answerFeedback");
+
+    if (feedback) {
+      feedback.classList.remove("hidden");
+
+      feedback.innerHTML = `
+        <strong>Question skipped</strong>
+        <p>Correct answer: ${escapeHTML(question.options[question.answer])}</p>
+        <p>${escapeHTML(question.explanation || "")}</p>
+      `;
+    }
+
+    const nextButton = $("#nextQuestionBtn");
+
+    if (nextButton) {
+      nextButton.disabled = false;
+    }
+  }
+
+  function finishQuiz() {
+    if (quizFinished) return;
+
+    quizFinished = true;
+
+    const total = currentQuizAnswers.length;
+    const correct = currentQuizAnswers.filter((answer) => answer.correct).length;
+    const accuracy = total ? Math.round((correct / total) * 100) : 0;
 
     state.history.unshift({
-      id: makeId("session"),
       date: new Date().toISOString(),
-      subject: currentQuizSubject,
-      total: quizAttempted,
-      correct: quizCorrect,
-      accuracy: percent(quizCorrect, quizAttempted)
+      total,
+      correct,
+      accuracy,
+      exam: state.selectedExam
     });
 
     state.history = state.history.slice(0, 100);
+
+    state.answers.push(...currentQuizAnswers);
+    state.answers = state.answers.slice(-2000);
 
     saveState();
 
     $("#quizArea")?.classList.add("hidden");
     $("#quizResults")?.classList.remove("hidden");
 
-    $("#resultAttempted").textContent = quizAttempted;
-    $("#resultCorrect").textContent = quizCorrect;
-
-    $("#resultWrong").textContent =
-      quizAttempted - quizCorrect;
-
-    $("#resultAccuracy").textContent =
-      percent(quizCorrect, quizAttempted) + "%";
-
-    $("#quizProgressBar").style.width = "100%";
-
-    renderHome();
-    renderProgress();
-
-    $("#quizResults")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-    showToast("Practice complete! Shabash! 🎉");
-  }
-
-
-  function initPractice() {
-    $("#startPracticeBtn")?.addEventListener("click", () => {
-      startPractice();
-    });
-
-    $("#questionOptions")?.addEventListener("click", event => {
-      const button = event.target.closest("[data-option]");
-
-      if (!button || button.disabled) return;
-
-      answerQuestion(Number(button.dataset.option));
-    });
-
-    $("#nextQuestionBtn")?.addEventListener("click", () => {
-      if (!quizSessionActive || !answeredCurrent) return;
-
-      if (quizIndex < quizQuestions.length - 1) {
-        quizIndex++;
-        showQuestion();
-      } else {
-        finishPractice();
-      }
-    });
-
-    $("#restartPracticeBtn")?.addEventListener("click", () => {
-      startPractice();
-    });
-
-    $("#practiceSubject")?.addEventListener("change", () => {
-      $("#quizArea")?.classList.add("hidden");
-      $("#quizResults")?.classList.add("hidden");
-    });
-
-    $("#practiceDifficulty")?.addEventListener("change", () => {
-      $("#quizArea")?.classList.add("hidden");
-      $("#quizResults")?.classList.add("hidden");
-    });
-
-    $("#practiceCount")?.addEventListener("change", () => {
-      $("#quizArea")?.classList.add("hidden");
-      $("#quizResults")?.classList.add("hidden");
-    });
-  }
-
-
-  /* ---------- NOTES ---------- */
-
-  function renderNotes() {
-    const list = $("#notesList");
-    if (!list) return;
-
-    if (!state.notes.length) {
-      list.innerHTML = `
-        <div class="empty-state">
-          <strong>Abhi koi note nahi hai.</strong>
-          <p>Apna pehla study note banao!</p>
-        </div>
-      `;
-      return;
-    }
-
-    list.innerHTML = state.notes.map(note => `
-      <article class="note-card">
-        <h3>${escapeHTML(note.title)}</h3>
-
-        <p class="note-content">
-          ${escapeHTML(note.content).replace(/\n/g, "<br>")}
-        </p>
-
-        <small>${escapeHTML(formatDate(note.updatedAt || note.createdAt))}</small>
-
-        <div class="note-actions">
-          <button
-            class="secondary-btn"
-            data-edit-note="${escapeHTML(note.id)}">
-            Edit
-          </button>
-
-          <button
-            class="secondary-btn"
-            data-delete-note="${escapeHTML(note.id)}">
-            Delete
-          </button>
-        </div>
-      </article>
-    `).join("");
-  }
-
-
-  function resetNoteForm() {
-    if ($("#noteId")) $("#noteId").value = "";
-    if ($("#noteTitle")) $("#noteTitle").value = "";
-    if ($("#noteContent")) $("#noteContent").value = "";
-
-    if ($("#saveNoteBtn")) {
-      $("#saveNoteBtn").textContent = "Save Note";
-    }
-  }
-
-
-  function saveNote() {
-    const title = ($("#noteTitle")?.value || "").trim();
-    const content = ($("#noteContent")?.value || "").trim();
-    const noteId = $("#noteId")?.value || "";
-
-    if (!title || !content) {
-      showToast("Note ka title aur content dono bharo.");
-      return;
-    }
-
-    const now = new Date().toISOString();
-
-    if (noteId) {
-      const note = state.notes.find(item => item.id === noteId);
-
-      if (note) {
-        note.title = title;
-        note.content = content;
-        note.updatedAt = now;
-      } else {
-        state.notes.unshift({
-          id: makeId("note"),
-          title,
-          content,
-          createdAt: now,
-          updatedAt: now
-        });
-      }
-    } else {
-      state.notes.unshift({
-        id: makeId("note"),
-        title,
-        content,
-        createdAt: now,
-        updatedAt: now
-      });
-    }
-
-    saveState();
-    renderNotes();
-    resetNoteForm();
-
-    showToast("Note save ho gaya! ✓");
-  }
-
-
-  function editNote(noteId) {
-    const note = state.notes.find(item => item.id === noteId);
-
-    if (!note) return;
-
-    $("#noteId").value = note.id;
-    $("#noteTitle").value = note.title;
-    $("#noteContent").value = note.content;
-
-    $("#saveNoteBtn").textContent = "Update Note";
-
-    $("#noteTitle")?.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  }
-
-
-  function deleteNote(noteId) {
-    const note = state.notes.find(item => item.id === noteId);
-
-    if (!note) return;
-
-    if (!window.confirm("Kya tum ye note delete karna chahte ho?")) {
-      return;
-    }
-
-    state.notes = state.notes.filter(item => item.id !== noteId);
-
-    saveState();
-    renderNotes();
-
-    showToast("Note delete ho gaya.");
-  }
-
-
-  function initNotes() {
-    $("#saveNoteBtn")?.addEventListener("click", saveNote);
-
-    $("#clearNoteFormBtn")?.addEventListener("click", resetNoteForm);
-
-    $("#notesList")?.addEventListener("click", event => {
-      const editButton = event.target.closest("[data-edit-note]");
-      const deleteButton = event.target.closest("[data-delete-note]");
-
-      if (editButton) {
-        editNote(editButton.dataset.editNote);
-      }
-
-      if (deleteButton) {
-        deleteNote(deleteButton.dataset.deleteNote);
-      }
-    });
-  }
-
-
-  /* ---------- PROGRESS ---------- */
-
-  function renderProgress() {
-    const attempted = $("#progressAttempted");
-    const correct = $("#progressCorrect");
-    const accuracy = $("#progressAccuracy");
-    const completed = $("#progressTopics");
-
-    if (attempted) attempted.textContent = state.attempted;
-    if (correct) correct.textContent = state.correct;
-
-    if (accuracy) {
-      accuracy.textContent =
-        percent(state.correct, state.attempted) + "%";
-    }
-
-    if (completed) {
-      completed.textContent = state.completedTopics.length;
-    }
-
-    const historyList = $("#historyList");
-
-    if (!historyList) return;
-
-    if (!state.history.length) {
-      historyList.innerHTML = `
-        <div class="empty-state">
-          <strong>Abhi practice history nahi hai.</strong>
-          <p>Practice set solve karoge toh yahan progress dikhegi.</p>
-        </div>
-      `;
-      return;
-    }
-
-    historyList.innerHTML = state.history.map(item => `
-      <article class="history-card">
-        <strong>${escapeHTML(item.subject || "All Subjects")}</strong>
-
-        <p>
-          ${Number(item.correct) || 0} correct out of
-          ${Number(item.total) || 0}
-        </p>
-
-        <p>Accuracy: ${Number(item.accuracy) || 0}%</p>
-
-        <small>${escapeHTML(formatDate(item.date))}</small>
-      </article>
-    `).join("");
-  }
-
-
-  /* ---------- EXPORT / IMPORT ---------- */
-
-  function exportData() {
-    const backup = {
-      version: 3,
-      exportedAt: new Date().toISOString(),
-      state
-    };
-
-    const blob = new Blob(
-      [JSON.stringify(backup, null, 2)],
-      { type: "application/json" }
-    );
-
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "project-iqbal-backup.json";
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    URL.revokeObjectURL(url);
-
-    showToast("Backup download ho gaya.");
-  }
-
-
-  function importData(file) {
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      try {
-        const backup = JSON.parse(reader.result);
-        const imported = backup.state || backup;
-
-        if (
-          !imported ||
-          typeof imported !== "object" ||
-          !Array.isArray(imported.notes) ||
-          !Array.isArray(imported.history)
-        ) {
-          throw new Error("Invalid backup");
-        }
-
-        if (!window.confirm(
-          "Import karne se current progress replace ho sakti hai. Continue?"
-        )) {
-          return;
-        }
-
-        state = {
-          ...structuredCloneSafe(DEFAULT_STATE),
-          ...imported,
-          notes: Array.isArray(imported.notes) ? imported.notes : [],
-          completedTopics: Array.isArray(imported.completedTopics)
-            ? imported.completedTopics : [],
-          history: Array.isArray(imported.history)
-            ? imported.history : [],
-          dailyActivity:
-            imported.dailyActivity &&
-            typeof imported.dailyActivity === "object"
-              ? imported.dailyActivity : {}
-        };
-
-        saveState();
-
-        renderHome();
-        renderExams();
-        renderSubjects();
-        renderNotes();
-        renderProgress();
-
-        showToast("Backup import ho gaya!");
-      } catch (error) {
-        showToast("Backup file sahi nahi hai.");
-        console.error(error);
-      }
-    };
-
-    reader.readAsText(file);
-  }
-
-
-  function resetProgress() {
-    if (!window.confirm(
-      "Kya tum apni practice progress reset karna chahte ho? Notes aur selected exam safe rahenge."
-    )) {
-      return;
-    }
-
-    state.attempted = 0;
-    state.correct = 0;
-    state.completedTopics = [];
-    state.history = [];
-    state.dailyActivity = {};
-
-    saveState();
-
-    renderHome();
-    renderProgress();
-    renderSubjects();
-
-    showToast("Practice progress reset ho gayi.");
-  }
-
-
-  function initDataTools() {
-    $("#exportDataBtn")?.addEventListener("click", exportData);
-
-    $("#importDataInput")?.addEventListener("change", event => {
-      const file = event.target.files?.[0];
-
-      if (file) importData(file);
-
-      event.target.value = "";
-    });
-
-    $("#resetProgressBtn")?.addEventListener("click", resetProgress);
-
-    $("#saveDailyTargetBtn")?.addEventListener("click", saveDailyTarget);
-  }
-
-
-  /* ---------- GENERAL BUTTONS ---------- */
-
-  function initGeneralButtons() {
-    document.addEventListener("click", event => {
-      const button = event.target.closest("[data-action]");
-
-      if (!button) return;
-
-      switch (button.dataset.action) {
-        case "open-exams":
-          showPage("exams");
-          break;
-
-        case "open-subjects":
-          showPage("subjects");
-          break;
-
-        case "open-practice":
-          showPage("practice");
-          break;
-
-        case "open-notes":
-          showPage("notes");
-          break;
-
-        case "open-progress":
-          showPage("progress");
-          break;
-
-        case "open-home":
-          showPage("home");
-          break;
-
-        case "start-practice":
-          showPage("practice");
-          startPractice();
-          break;
-
-        case "back-to-subjects":
-          currentSubject = null;
-          currentTopic = null;
-          renderSubjects();
-          break;
-
-        default:
-          break;
-      }
-    });
-  }
-
-
-  /* ---------- INITIALIZE APP ---------- */
-
-  function initApp() {
-    initNavigation();
-    initExams();
-    initSubjects();
-    initPractice();
-    initNotes();
-    initDataTools();
-    initGeneralButtons();
-
-    renderHome();
-    renderExams();
-    renderSubjects();
-    renderNotes();
-    renderProgress();
-
-    console.log("PROJECT IQBAL: App initialized successfully.");
-  }
-
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initApp, { once: true });
-  } else {
-    initApp();
-  }
-
-})();
+    setText("#resultAttempted", total);
+    setText("#resultCo
