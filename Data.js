@@ -542,4 +542,517 @@ window.IQBAL_DATA = {
           content: `
             <h3>Chemistry Basics</h3>
             <p>Atom element ki chemical properties ko represent karne wali basic unit hai.</p>
-            <p>pH 7 se kam: acidic; 7: neutral; 7 se zyada: basic, standard c
+            <p>pH 7 se kam: acidic; 7: neutral; 7 se zyada: basic, standard conditions mein.</p>
+            <p>Water ka chemical formula H₂O hai.</p>
+          `
+        },
+        {
+          id: "biology",
+          name: "Biology Basics",
+          content: `
+            <h3>Biology Basics</h3>
+            <p>Cell life ki basic structural aur functional unit hai.</p>
+            <p>Human heart mein four chambers hote hain.</p>
+            <p>Plants photosynthesis ke through food banate hain.</p>
+            <p>Kidneys blood filtration mein important role nibhati hain.</p>
+          `
+        }
+      ]
+    },
+
+    {
+      id: "economy",
+      name: "Economy",
+      icon: "📈",
+      topics: [
+        {
+          id: "economy-basics",
+          name: "Indian Economy Basics",
+          content: `
+            <h3>Indian Economy Basics</h3>
+            <p>GDP ek specified period mein country ke andar produce hue final goods aur services ki value measure karta hai.</p>
+            <p>Inflation ka matlab general price level mein sustained increase hai.</p>
+            <p>RBI India ka central bank hai.</p>
+            <p>Budget government ke estimated receipts aur expenditure ka statement hai.</p>
+          `
+        },
+        {
+          id: "banking",
+          name: "Banking Basics",
+          content: `
+            <h3>Banking Basics</h3>
+            <p>RBI monetary policy aur banking system mein important role nibhata hai.</p>
+            <p>Repo rate woh rate hai jis par RBI eligible securities ke against banks ko short-term funds lend karta hai.</p>
+            <p>CRR ka full form Cash Reserve Ratio hai.</p>
+            <p>SLR ka full form Statutory Liquidity Ratio hai.</p>
+          `
+        }
+      ]
+    },
+
+    {
+      id: "hindi",
+      name: "Hindi",
+      icon: "📚",
+      topics: [
+        {
+          id: "hindi-grammar",
+          name: "Hindi Grammar Basics",
+          content: `
+            <h3>Hindi Grammar</h3>
+            <p>Sangya kisi vyakti, vastu, sthan ya bhav ka naam hai.</p>
+            <p>Sarvanam sangya ke sthan par prayog hota hai.</p>
+            <p>Visheshan sangya ya sarvanam ki visheshta batata hai.</p>
+            <p>Kriya kisi kaam ya avastha ko batati hai.</p>
+          `
+        },
+        {
+          id: "sandhi",
+          name: "Sandhi",
+          content: `
+            <h3>Sandhi</h3>
+            <p>Do varnon ke mel se hone wale parivartan ko Sandhi kehte hain.</p>
+            <p>Main types: Swar Sandhi, Vyanjan Sandhi aur Visarg Sandhi.</p>
+            <p>Sandhi aur Samas ko confuse na karein; dono alag concepts hain.</p>
+          `
+        },
+        {
+          id: "samas",
+          name: "Samas",
+          content: `
+            <h3>Samas</h3>
+            <p>Do ya adhik shabdon ko milakar sankshipt shabd banane ki prakriya Samas hai.</p>
+            <p>Main types: Avyayibhav, Tatpurush, Karmadharaya, Dwandwa, Dvigu aur Bahuvrihi.</p>
+          `
+        }
+      ]
+    },
+
+    {
+      id: "english",
+      name: "English",
+      icon: "🔤",
+      topics: [
+        {
+          id: "grammar",
+          name: "English Grammar",
+          content: `
+            <h3>English Grammar</h3>
+            <p>Noun names a person, place, thing or idea.</p>
+            <p>Pronoun is used in place of a noun.</p>
+            <p>Verb expresses an action or state.</p>
+            <p>Adjective describes a noun or pronoun.</p>
+          `
+        },
+        {
+          id: "vocabulary",
+          name: "Vocabulary",
+          content: `
+            <h3>Vocabulary</h3>
+            <p>Synonyms have similar meanings.</p>
+            <p>Antonyms have opposite meanings.</p>
+            <p>Learn words with their meaning and example sentences.</p>
+          `
+        }
+      ]
+    },
+
+    {
+      id: "computer",
+      name: "Computer",
+      icon: "💻",
+      topics: [
+        {
+          id: "computer-basics",
+          name: "Computer Fundamentals",
+          content: `
+            <h3>Computer Fundamentals</h3>
+            <p>CPU stands for Central Processing Unit.</p>
+            <p>RAM is volatile memory.</p>
+            <p>ROM is non-volatile memory.</p>
+            <p>Operating system manages computer hardware and software resources.</p>
+          `
+        }
+      ]
+    },
+
+    {
+      id: "gk",
+      name: "General Knowledge",
+      icon: "🌟",
+      topics: [
+        {
+          id: "static-gk",
+          name: "Static GK Basics",
+          content: `
+            <h3>Static GK</h3>
+            <p>Static GK mein national symbols, important places, books and authors, awards aur organisations jaise topics aate hain.</p>
+            <p>Current affairs ko exam ke relevant period ke hisaab se alag se update karna chahiye.</p>
+          `
+        }
+      ]
+    }
+
+  ],
+
+  questions: [
+
+    {
+      id: "math-001",
+      subject: "Maths",
+      topic: "percentage",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "200 ka 25% kitna hoga?",
+      options: ["25", "40", "50", "75"],
+      answer: 2,
+      explanation: "200 × 25 / 100 = 50."
+    },
+
+    {
+      id: "math-002",
+      subject: "Maths",
+      topic: "number-system",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "12 aur 18 ka HCF kya hai?",
+      options: ["2", "3", "6", "9"],
+      answer: 2,
+      explanation: "12 aur 18 dono ka greatest common factor 6 hai."
+    },
+
+    {
+      id: "math-003",
+      subject: "Maths",
+      topic: "percentage",
+      difficulty: "Medium",
+      type: "Practice",
+      year: null,
+      question: "Kisi number ka 20% = 60 hai. Number kya hai?",
+      options: ["120", "240", "300", "360"],
+      answer: 2,
+      explanation: "Number = 60 × 100 / 20 = 300."
+    },
+
+    {
+      id: "math-004",
+      subject: "Maths",
+      topic: "ratio",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "10:15 ka simplest form kya hai?",
+      options: ["1:2", "2:3", "3:5", "5:6"],
+      answer: 1,
+      explanation: "Dono terms ko 5 se divide karne par 2:3 milta hai."
+    },
+
+    {
+      id: "math-005",
+      subject: "Maths",
+      topic: "profit-loss",
+      difficulty: "Medium",
+      type: "Practice",
+      year: null,
+      question: "Cost Price ₹400 aur Selling Price ₹500 hai. Profit percentage kitna hai?",
+      options: ["20%", "25%", "30%", "40%"],
+      answer: 1,
+      explanation: "Profit = 100. Profit% = 100/400 × 100 = 25%."
+    },
+
+    {
+      id: "math-006",
+      subject: "Maths",
+      topic: "average",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "4, 6, 8 aur 10 ka average kya hai?",
+      options: ["6", "7", "8", "9"],
+      answer: 1,
+      explanation: "Sum 28 hai. Average = 28/4 = 7."
+    },
+
+    {
+      id: "math-007",
+      subject: "Maths",
+      topic: "time-work",
+      difficulty: "Medium",
+      type: "Practice",
+      year: null,
+      question: "A ek kaam 10 din mein karta hai. Uska ek din ka work kya hai?",
+      options: ["1/5", "1/10", "1/15", "10"],
+      answer: 1,
+      explanation: "Ek din ka work = 1/10."
+    },
+
+    {
+      id: "math-008",
+      subject: "Maths",
+      topic: "speed-distance",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "60 km ki distance 2 hours mein cover ki. Speed kya hai?",
+      options: ["20 km/h", "30 km/h", "40 km/h", "60 km/h"],
+      answer: 1,
+      explanation: "Speed = 60/2 = 30 km/h."
+    },
+
+    {
+      id: "math-009",
+      subject: "Maths",
+      topic: "algebra",
+      difficulty: "Medium",
+      type: "Practice",
+      year: null,
+      question: "(a + b)² ka correct expansion kya hai?",
+      options: ["a²+b²", "a²−2ab+b²", "a²+2ab+b²", "a²−b²"],
+      answer: 2,
+      explanation: "(a+b)² = a² + 2ab + b²."
+    },
+
+    {
+      id: "reason-001",
+      subject: "Reasoning",
+      topic: "series",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "2, 4, 6, 8, ?",
+      options: ["9", "10", "11", "12"],
+      answer: 1,
+      explanation: "Har baar 2 add ho raha hai. Answer 10."
+    },
+
+    {
+      id: "reason-002",
+      subject: "Reasoning",
+      topic: "analogy",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Bird : Fly :: Fish : ?",
+      options: ["Run", "Swim", "Walk", "Jump"],
+      answer: 1,
+      explanation: "Bird flies; fish swims."
+    },
+
+    {
+      id: "reason-003",
+      subject: "Reasoning",
+      topic: "coding",
+      difficulty: "Medium",
+      type: "Practice",
+      year: null,
+      question: "Agar CAT ko DBU likha jaye, toh DOG ko kaise likhenge?",
+      options: ["EPH", "EOG", "FPH", "DPH"],
+      answer: 0,
+      explanation: "Har letter ko ek position aage shift kiya gaya hai: D→E, O→P, G→H."
+    },
+
+    {
+      id: "reason-004",
+      subject: "Reasoning",
+      topic: "ranking",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Ek line mein Ravi left se 5th aur right se 7th hai. Total persons kitne hain?",
+      options: ["10", "11", "12", "13"],
+      answer: 1,
+      explanation: "Total = 5 + 7 − 1 = 11."
+    },
+
+    {
+      id: "history-001",
+      subject: "History",
+      topic: "ivc",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Great Bath kis Harappan site se associated hai?",
+      options: ["Lothal", "Harappa", "Mohenjo-daro", "Kalibangan"],
+      answer: 2,
+      explanation: "Great Bath Mohenjo-daro se associated hai."
+    },
+
+    {
+      id: "history-002",
+      subject: "History",
+      topic: "vedic",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Sabse purana Veda kaunsa maana jata hai?",
+      options: ["Samaveda", "Rigveda", "Yajurveda", "Atharvaveda"],
+      answer: 1,
+      explanation: "Rigveda sabse purana Veda maana jata hai."
+    },
+
+    {
+      id: "history-003",
+      subject: "History",
+      topic: "buddhism",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Gautama Buddha ko enlightenment kahan mila tha?",
+      options: ["Sarnath", "Lumbini", "Bodh Gaya", "Kushinagar"],
+      answer: 2,
+      explanation: "Bodh Gaya enlightenment se associated hai."
+    },
+
+    {
+      id: "history-004",
+      subject: "History",
+      topic: "modern",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Indian National Congress ki sthapna kis saal hui?",
+      options: ["1885", "1905", "1919", "1942"],
+      answer: 0,
+      explanation: "Indian National Congress ki sthapna 1885 mein hui."
+    },
+
+    {
+      id: "geo-001",
+      subject: "Geography",
+      topic: "earth",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Earth Sun se kaunsa planet hai?",
+      options: ["First", "Second", "Third", "Fourth"],
+      answer: 2,
+      explanation: "Earth Sun se third planet hai."
+    },
+
+    {
+      id: "geo-002",
+      subject: "Geography",
+      topic: "rivers",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Inmein se kaunsi river westward flow karti hai?",
+      options: ["Godavari", "Krishna", "Narmada", "Kaveri"],
+      answer: 2,
+      explanation: "Narmada westward flow karne wali major Peninsular river hai."
+    },
+
+    {
+      id: "polity-001",
+      subject: "Polity",
+      topic: "constitution",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Indian Constitution kab enforce hua?",
+      options: ["15 August 1947", "26 November 1949", "26 January 1950", "2 October 1950"],
+      answer: 2,
+      explanation: "Constitution 26 January 1950 ko enforce hua."
+    },
+
+    {
+      id: "polity-002",
+      subject: "Polity",
+      topic: "fundamental-rights",
+      difficulty: "Medium",
+      type: "Practice",
+      year: null,
+      question: "Fundamental Rights Constitution ke kis Part mein hain?",
+      options: ["Part I", "Part II", "Part III", "Part IV"],
+      answer: 2,
+      explanation: "Fundamental Rights Part III mein hain."
+    },
+
+    {
+      id: "science-001",
+      subject: "Science",
+      topic: "physics",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Force ka SI unit kya hai?",
+      options: ["Joule", "Newton", "Watt", "Pascal"],
+      answer: 1,
+      explanation: "Force ka SI unit Newton hai."
+    },
+
+    {
+      id: "science-002",
+      subject: "Science",
+      topic: "biology",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Life ki basic structural aur functional unit kya hai?",
+      options: ["Tissue", "Organ", "Cell", "System"],
+      answer: 2,
+      explanation: "Cell life ki basic structural aur functional unit hai."
+    },
+
+    {
+      id: "economy-001",
+      subject: "Economy",
+      topic: "banking",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "India ka central bank kaunsa hai?",
+      options: ["SBI", "RBI", "NABARD", "SEBI"],
+      answer: 1,
+      explanation: "Reserve Bank of India (RBI) India ka central bank hai."
+    },
+
+    {
+      id: "hindi-001",
+      subject: "Hindi",
+      topic: "sandhi",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Sandhi ke mukhya bhed kitne maane jaate hain?",
+      options: ["2", "3", "4", "6"],
+      answer: 1,
+      explanation: "Mukhya bhed Swar Sandhi, Vyanjan Sandhi aur Visarg Sandhi hain."
+    },
+
+    {
+      id: "english-001",
+      subject: "English",
+      topic: "grammar",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "Which word is a noun?",
+      options: ["Quickly", "Beautiful", "Teacher", "Run"],
+      answer: 2,
+      explanation: "Teacher is a noun because it names a person."
+    },
+
+    {
+      id: "computer-001",
+      subject: "Computer",
+      topic: "computer-basics",
+      difficulty: "Easy",
+      type: "Practice",
+      year: null,
+      question: "CPU ka full form kya hai?",
+      options: [
+        "Central Processing Unit",
+        "Computer Personal Unit",
+        "Central Program Utility",
+        "Control Processing User"
+      ],
+      answer: 0,
+      explanation: "CPU ka full form Central Processing Unit hai."
+    }
+
+  ]
+
+};
