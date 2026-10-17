@@ -3,277 +3,733 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#071426">
+<meta name="theme-color" content="#0b1120">
+
 <title>PROJECT IQBAL | Human × AI Exam Academy</title>
+
 <style>
-:root{
-  --bg:#071426;--panel:#101f35;--panel2:#162943;--line:#263c59;
-  --text:#f1f5ff;--muted:#a9bad1;--gold:#f6c453;--blue:#60a5fa;
-  --green:#48d597;--red:#ff7272;--radius:18px
+:root {
+  --bg: #0b1120;
+  --panel: #151f32;
+  --panel2: #1c2940;
+  --text: #f1f5f9;
+  --muted: #a8b5c9;
+  --primary: #38bdf8;
+  --green: #34d399;
+  --border: #2b3a52;
+  --danger: #fb7185;
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Arial,sans-serif}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-header{position:sticky;top:0;z-index:10;background:#071426f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
-.top{max-width:1200px;margin:auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-weight:900;font-size:17px;letter-spacing:.4px}
-.brand span{color:var(--gold)}
-.brand small{display:block;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:1.2px}
-.menu{display:flex;gap:7px;overflow-x:auto;padding:0 12px 12px;max-width:1200px;margin:auto;scrollbar-width:thin}
-.navbtn,.btn{border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:10px 13px;white-space:nowrap}
-.navbtn.active,.btn.primary{background:var(--gold);border-color:var(--gold);color:#172033;font-weight:800}
-.btn.secondary{background:var(--panel2)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-main{max-width:1200px;margin:auto;padding:22px 15px 70px}
-.hero{padding:27px 22px;border:1px solid #344967;border-radius:24px;background:radial-gradient(circle at 85% 10%,#234a72 0,transparent 38%),linear-gradient(135deg,#142b47,#0c192d);margin-bottom:18px}
-.eyebrow{color:var(--gold);font-size:12px;font-weight:800;letter-spacing:1.6px}
-h1{font-size:clamp(27px,5vw,43px);line-height:1.14;margin:12px 0}
-h2{font-size:23px;margin:0 0 14px}
-h3{margin:0 0 9px}
-p{line-height:1.65}
-.muted{color:var(--muted)}
-.gold{color:var(--gold)}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;min-width:0}
-.card p{margin:7px 0;color:var(--muted)}
-.stat{font-size:27px;font-weight:900;color:var(--gold)}
-.section{margin-top:25px}
-.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.row>*{flex:0 0 auto}
-input,select,textarea{background:#08172a;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;max-width:100%}
-.search{width:100%;margin-bottom:13px}
-select{max-width:100%}
-.topic-list{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-.chip{padding:8px 11px;border:1px solid var(--line);border-radius:30px;background:var(--panel2);color:var(--text)}
-.chip.active{background:var(--gold);color:#172033;border-color:var(--gold);font-weight:800}
-.lesson{border-left:3px solid var(--gold);padding:10px 13px;background:#0b1a2e;border-radius:0 12px 12px 0;margin:12px 0}
-.mnemonic{border:1px dashed #617c9f;padding:12px;border-radius:12px;margin-top:10px}
-.option{display:block;width:100%;text-align:left;padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);margin:9px 0}
-.option:hover{border-color:var(--gold)}
-.option.correct{border-color:var(--green);background:#123a31}
-.option.wrong{border-color:var(--red);background:#3b202b}
-.feedback{padding:13px;border-radius:12px;margin-top:12px;background:#0b1a2e;border:1px solid var(--line);line-height:1.6}
-.progress{height:8px;background:#24364d;border-radius:20px;overflow:hidden;margin:12px 0}
-.progress div{height:100%;background:var(--green);width:0;transition:width .2s}
-.badge{display:inline-block;border:1px solid var(--line);padding:5px 8px;border-radius:8px;color:var(--muted);font-size:12px;margin:3px}
-hr{border:0;border-top:1px solid var(--line);margin:18px 0}
-.small{font-size:12px}
-footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:12px}
-.hidden{display:none!important}
-.notice{padding:13px;background:#302a19;border:1px solid #675329;border-radius:12px;color:#ffe4a1;line-height:1.6}
-.success{color:var(--green)}.danger{color:var(--red)}
-a{color:var(--blue)}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.hero{padding:21px 16px}.card{padding:14px}.top{padding:12px}}
-@media(max-width:430px){.grid{grid-template-columns:1fr}.brand{font-size:15px}.navbtn{padding:9px 11px;font-size:13px}main{padding-top:15px}}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #101827;
+  border-bottom: 1px solid var(--border);
+  padding: 15px;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.logo small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: normal;
+}
+
+nav {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+nav button, .btn {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 8px 12px;
+  background: var(--panel);
+  color: var(--text);
+}
+
+nav button.active,
+.btn.primary {
+  background: var(--primary);
+  color: #06111c;
+  border-color: var(--primary);
+  font-weight: bold;
+}
+
+.container {
+  width: min(1200px, 94%);
+  margin: 25px auto;
+}
+
+.hero {
+  padding: 35px 25px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #172a45, #102036);
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-size: clamp(27px, 5vw, 43px);
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 700px;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 18px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 13px;
+}
+
+.section-title {
+  margin: 25px 0 15px;
+  font-size: 23px;
+}
+
+input, select, textarea {
+  background: #0c1628;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 11px;
+  border-radius: 9px;
+  width: 100%;
+  margin: 6px 0 12px;
+}
+
+label {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+button:hover, .btn:hover {
+  filter: brightness(1.15);
+}
+
+.subject-btn, .topic-btn {
+  width: 100%;
+  text-align: left;
+  margin: 5px 0;
+  padding: 12px;
+  border-radius: 9px;
+  background: var(--panel2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.subject-btn:hover, .topic-btn:hover {
+  border-color: var(--primary);
+}
+
+.topic-btn.selected {
+  border-color: var(--green);
+}
+
+.badge {
+  display: inline-block;
+  background: #123b50;
+  color: #7dd3fc;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.stat {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--green);
+}
+
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px;
+  margin: 8px 0;
+  background: var(--panel2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.option.correct {
+  border-color: var(--green);
+  background: #10372f;
+}
+
+.option.wrong {
+  border-color: var(--danger);
+  background: #401d2a;
+}
+
+.answer-box {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 9px;
+  background: #102d2b;
+  border: 1px solid #236b58;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.progress-track {
+  height: 10px;
+  border-radius: 20px;
+  background: #273449;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--green);
+  width: 0%;
+  transition: width .3s;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+  margin-top: 35px;
+}
+
+@media(max-width:600px) {
+  .hero { padding: 25px 18px; }
+  .logo { font-size: 18px; }
+  nav { width: 100%; }
+  nav button { flex: 1; }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="top">
-    <div class="brand">PROJECT <span>IQBAL</span><small>HUMAN × AI EXAM ACADEMY</small></div>
-    <span class="badge">LEARN • PRACTICE • IMPROVE</span>
+  <div class="header-inner">
+    <div class="logo">
+      PROJECT IQBAL
+      <small>HUMAN × AI EXAM ACADEMY</small>
+    </div>
+
+    <nav>
+      <button class="active" data-page="home">Home</button>
+      <button data-page="study">Subjects</button>
+      <button data-page="practice">Practice</button>
+      <button data-page="notes">My Notes</button>
+      <button data-page="progress">Progress</button>
+    </nav>
   </div>
-  <nav class="menu" id="navigation"></nav>
 </header>
 
-<main id="app"></main>
+<main class="container">
+
+  <!-- HOME -->
+  <section id="home" class="page">
+    <div class="hero">
+      <span class="badge">YOUR EXAM PREPARATION HUB</span>
+      <h1>Ek jagah, taiyari har exam ki!</h1>
+      <p>
+        Syllabus, topic-wise notes, short tricks, practice questions
+        aur apni preparation track karo.
+      </p>
+
+      <label for="examSelect">Apna exam select karo</label>
+      <select id="examSelect"></select>
+
+      <button class="btn primary" id="startStudy">
+        Padhai shuru karo →
+      </button>
+    </div>
+
+    <h2 class="section-title">Tumhara Dashboard</h2>
+
+    <div class="grid">
+      <div class="card">
+        <div class="stat" id="statAnswered">0</div>
+        <div class="muted">Questions attempted</div>
+      </div>
+
+      <div class="card">
+        <div class="stat" id="statCorrect">0</div>
+        <div class="muted">Correct answers</div>
+      </div>
+
+      <div class="card">
+        <div class="stat" id="statNotes">0</div>
+        <div class="muted">Saved notes</div>
+      </div>
+
+      <div class="card">
+        <div class="stat" id="statAccuracy">0%</div>
+        <div class="muted">Accuracy</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Exam Categories</h2>
+    <div id="examCards" class="grid"></div>
+  </section>
+
+  <!-- SUBJECTS -->
+  <section id="study" class="page hidden">
+    <h1>Subjects & Syllabus</h1>
+    <p class="muted">Exam aur subject select karke topics kholo.</p>
+
+    <label for="studyExam">Exam</label>
+    <select id="studyExam"></select>
+
+    <label for="subjectSearch">Subject search</label>
+    <input id="subjectSearch" placeholder="Jaise Maths, History, Polity...">
+
+    <div class="grid">
+      <div class="card">
+        <h3>Subjects</h3>
+        <div id="subjectList"></div>
+      </div>
+
+      <div class="card">
+        <h3 id="topicHeading">Topic select karo</h3>
+        <div id="topicList"></div>
+        <div id="topicContent" class="hidden"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section id="practice" class="page hidden">
+    <h1>Practice Zone</h1>
+    <p class="muted">
+      Topic-wise questions solve karo aur apna score dekho.
+    </p>
+
+    <label for="practiceExam">Exam</label>
+    <select id="practiceExam"></select>
+
+    <label for="practiceSubject">Subject</label>
+    <select id="practiceSubject"></select>
+
+    <label for="practiceTopic">Topic</label>
+    <select id="practiceTopic"></select>
+
+    <button class="btn primary" id="beginQuiz">Practice shuru karo</button>
+
+    <div id="quizArea" class="card hidden">
+      <div class="badge" id="quizCount"></div>
+      <h3 id="questionText"></h3>
+      <div id="options"></div>
+      <div id="explanation"></div>
+
+      <button class="btn primary hidden" id="nextQuestion">
+        Agla question →
+      </button>
+
+      <div id="quizResult"></div>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="page hidden">
+    <h1>My Notes</h1>
+    <p class="muted">Apne important notes save karo.</p>
+
+    <div class="card">
+      <label for="noteTitle">Note ka title</label>
+      <input id="noteTitle" placeholder="Jaise: Constitution ke important articles">
+
+      <label for="noteText">Note likho</label>
+      <textarea id="noteText" rows="6" placeholder="Apne notes yahan likho..."></textarea>
+
+      <button class="btn primary" id="saveNote">Note save karo</button>
+    </div>
+
+    <div id="notesList"></div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section id="progress" class="page hidden">
+    <h1>My Progress</h1>
+    <div class="card">
+      <h3>Overall accuracy</h3>
+      <div class="progress-track">
+        <div class="progress-fill" id="accuracyBar"></div>
+      </div>
+      <p id="accuracyText" class="muted">0% accuracy</p>
+    </div>
+
+    <div class="card">
+      <h3>Preparation summary</h3>
+      <p id="progressSummary"></p>
+    </div>
+
+    <div class="card">
+      <h3>Backup</h3>
+      <p class="muted small">
+        Apne notes aur progress ka backup download kar sakte ho.
+      </p>
+      <button class="btn primary" id="exportData">Backup download</button>
+      <label for="importFile">Backup restore karo</label>
+      <input type="file" id="importFile" accept=".json">
+    </div>
+  </section>
+
+</main>
 
 <footer>
-  PROJECT IQBAL · Learn from basics, practise topic-wise, revise your mistakes.<br>
-  अभ्यास प्रश्नों को आधिकारिक PYQ तभी मानें जब उनका मूल स्रोत सत्यापित हो।
+  PROJECT IQBAL · Human × AI Exam Academy
+  <p class="small">Apni mehnat jaari rakho. Roz thoda behtar bano.</p>
 </footer>
 
 <script>
 "use strict";
 
-/* =========================================================
-   PROJECT IQBAL
-   Single-file learning app.
-   Practice questions are labelled practice, not official PYQs.
-   Add verified question banks through the Import section.
-========================================================= */
+/*
+  WEBSITE DATA
+  Abhi basic sample content diya gaya hai.
+  Agli data files mein hum topic-wise detailed notes aur
+  verified/source-labelled PYQs add kar sakte hain.
+*/
 
 const EXAMS = [
- "SSC CGL","SSC CHSL","SSC MTS","SSC GD","SSC CPO",
- "UPSSSC PET","UP Police / UPSI","UPPSC / UPPCS",
- "Railway NTPC","Railway Group D","Banking","Other Exams"
+  "SSC CHSL",
+  "SSC CGL",
+  "SSC MTS",
+  "SSC GD",
+  "SSC CPO",
+  "UPSSSC PET",
+  "UP Police Constable",
+  "UP Police SI",
+  "Railway NTPC",
+  "Railway Group D",
+  "Railway ALP",
+  "IBPS Clerk",
+  "SBI Clerk",
+  "UPPSC PCS",
+  "CTET",
+  "NDA",
+  "CDS"
 ];
 
-const NAV = [
- ["home","🏠 Home"],["exams","🎯 Exams"],["tricks","⚡ Short Tricks"],
- ["practice","📝 Practice Sets"],["mock","⏱ Mock Test"],
- ["pyq","📚 PYQs"],["notes","📒 My Notes"],["progress","📈 Progress"]
-];
+const SUBJECTS = {
+  "Mathematics": {
+    "Number System": {
+      notes: "Natural numbers: 1, 2, 3... Whole numbers mein 0 bhi hota hai. Integers mein negative aur positive poornank hote hain. Rational numbers ko p/q ke roop mein likh sakte hain, jahan q ≠ 0.",
+      trick: "Divisibility rules yaad rakho: 2 ke liye last digit even; 3 ke liye digits ka sum 3 se divisible; 5 ke liye last digit 0 ya 5.",
+      formula: "Dividend = Divisor × Quotient + Remainder"
+    },
+    "Percentage": {
+      notes: "Percentage ka matlab prati 100 hota hai. Kisi sankhya ka x% nikalne ke liye sankhya ko x/100 se multiply karo.",
+      trick: "10% = 1/10, 20% = 1/5, 25% = 1/4, 50% = 1/2, 75% = 3/4.",
+      formula: "Percentage = (Part / Whole) × 100"
+    },
+    "Profit and Loss": {
+      notes: "CP ka matlab Cost Price aur SP ka matlab Selling Price. SP > CP ho toh profit, SP < CP ho toh loss.",
+      trick: "Profit ya loss percentage hamesha CP par calculate hota hai, jab tak question mein kuch aur na diya ho.",
+      formula: "Profit% = Profit/CP × 100; Loss% = Loss/CP × 100"
+    },
+    "Ratio and Proportion": {
+      notes: "Ratio do quantities ki tulna hai. 2:3 ka matlab pehli quantity 2 parts aur doosri 3 parts.",
+      trick: "Agar total parts pata hain, toh ek part = total quantity / total parts.",
+      formula: "a:b = a/b"
+    },
+    "Average": {
+      notes: "Average sabhi observations ke sum ko observations ki sankhya se divide karne par milta hai.",
+      trick: "Total = Average × Number of observations.",
+      formula: "Average = Sum / Count"
+    },
+    "Simple Interest": {
+      notes: "Simple interest mein interest sirf original principal par calculate hota hai.",
+      trick: "Time years mein ho toh direct formula use karo. Months diye hon toh months/12 years banao.",
+      formula: "SI = (P × R × T) / 100"
+    },
+    "Time and Work": {
+      notes: "Agar koi vyakti kaam x din mein karta hai, toh ek din ka kaam 1/x hoga.",
+      trick: "Saath mein kaam karte waqt individual one-day work add karo.",
+      formula: "Combined work rate = 1/x + 1/y"
+    },
+    "Speed, Time and Distance": {
+      notes: "Speed batati hai ki ek unit time mein kitni distance cover hoti hai.",
+      trick: "km/h ko m/s mein badalne ke liye 5/18 se multiply karo; m/s ko km/h mein badalne ke liye 18/5 se.",
+      formula: "Speed = Distance/Time"
+    },
+    "Algebra": {
+      notes: "Algebra mein variables aur constants ka use hota hai. Like terms mein same variables aur same powers hote hain.",
+      trick: "(a+b)² = a²+2ab+b² aur (a-b)² = a²-2ab+b² ko yaad rakho.",
+      formula: "a²-b² = (a-b)(a+b)"
+    },
+    "Geometry": {
+      notes: "Triangle ke teen interior angles ka sum 180° hota hai. Straight line par angles ka sum 180° hota hai.",
+      trick: "Triangle ke questions mein angle sum aur exterior angle property check karo.",
+      formula: "Triangle angle sum = 180°"
+    }
+  },
 
-const TOPICS = {
- "इतिहास":[
-  {title:"बौद्ध धर्म के चार सत्य",level:"Beginner",
-   explain:"बुद्ध के अनुसार जीवन में दुःख है, दुःख का कारण तृष्णा है, दुःख का निरोध संभव है और निरोध का मार्ग अष्टांगिक मार्ग है।",
-   trick:"याद रखो: दुःख → कारण → छुटकारा → रास्ता।",
-   example:"चार आर्य सत्य में चौथा सत्य अष्टांगिक मार्ग है।"},
-  {title:"बौद्ध धर्म का अष्टांगिक मार्ग",level:"Beginner",
-   explain:"सम्यक दृष्टि, संकल्प, वाणी, कर्म, आजीविका, प्रयास, स्मृति और समाधि।",
-   trick:"8 चीजें याद करो: दृष्टि-संकल्प-वाणी-कर्म, आजीविका-प्रयास-स्मृति-समाधि। पहले चार, फिर चार।",
-   example:"बुद्ध का अष्टांगिक मार्ग मध्यम मार्ग की शिक्षा से जुड़ा है।"},
-  {title:"जैन धर्म के त्रिरत्न",level:"Beginner",
-   explain:"सम्यक दर्शन, सम्यक ज्ञान और सम्यक चरित्र जैन धर्म के तीन रत्न हैं।",
-   trick:"द-ज्ञा-च: दर्शन, ज्ञान, चरित्र।",
-   example:"जैन धर्म के त्रिरत्नों में सम्यक चरित्र शामिल है।"},
-  {title:"मौर्य वंश",level:"Beginner",
-   explain:"चंद्रगुप्त मौर्य ने मौर्य साम्राज्य की स्थापना की। बिंदुसार उनके उत्तराधिकारी और अशोक प्रमुख मौर्य शासक थे।",
-   trick:"क्रम: चंद्रगुप्त → बिंदुसार → अशोक। नामों का क्रम ही याद रखो।",
-   example:"कलिंग युद्ध के बाद अशोक के जीवन में बड़ा परिवर्तन आया।"},
-  {title:"मुगल शासकों का क्रम",level:"Beginner",
-   explain:"मुख्य क्रम: बाबर, हुमायूँ, अकबर, जहाँगीर, शाहजहाँ, औरंगज़ेब।",
-   trick:"बा-हु-अ-ज-शा-औ: हर नाम का पहला हिस्सा बोलकर दोहराओ।",
-   example:"अकबर, हुमायूँ का पुत्र था।"},
-  {title:"1857 का विद्रोह",level:"Beginner",
-   explain:"विद्रोह के प्रमुख केंद्रों में मेरठ, दिल्ली, कानपुर, लखनऊ और झाँसी शामिल थे। अलग-अलग केंद्रों पर अलग नेतृत्व था।",
-   trick:"केंद्रों का अभ्यास नक्शे पर करो: मेरठ-दिल्ली, कानपुर-लखनऊ, झाँसी।",
-   example:"लखनऊ में बेगम हजरत महल ने नेतृत्व किया।"}
- ],
- "भूगोल":[
-  {title:"भारत की प्रमुख पर्वत श्रेणियाँ",level:"Beginner",
-   explain:"हिमालय उत्तर में स्थित प्रमुख नवीन वलित पर्वत तंत्र है। अरावली भारत की प्राचीन पर्वत श्रेणियों में गिनी जाती है।",
-   trick:"अरावली = प्राचीन; हिमालय = नवीन वलित पर्वत। इस अंतर को बार-बार दोहराओ।",
-   example:"हिमालय भारत के उत्तरी भाग में फैला है।"},
-  {title:"भारत की प्रमुख नदियाँ",level:"Beginner",
-   explain:"गंगा, यमुना, ब्रह्मपुत्र, गोदावरी, कृष्णा, कावेरी, नर्मदा और ताप्ती महत्त्वपूर्ण नदियाँ हैं।",
-   trick:"नदी को केवल नाम से नहीं, उद्गम + बहाव + मुहाना से याद करो।",
-   example:"नर्मदा पश्चिम की ओर बहने वाली प्रमुख नदी है।"},
-  {title:"कर्क रेखा से जुड़े राज्य",level:"Beginner",
-   explain:"कर्क रेखा भारत के आठ राज्यों से गुजरती है: गुजरात, राजस्थान, मध्य प्रदेश, छत्तीसगढ़, झारखंड, पश्चिम बंगाल, त्रिपुरा और मिजोरम।",
-   trick:"पश्चिम से पूर्व की ओर नक्शे पर आठों राज्य क्रम से ढूँढो; नक्शा याद करने का सबसे आसान तरीका यही है।",
-   example:"कर्क रेखा मध्य प्रदेश से गुजरती है।"},
-  {title:"मिट्टियों के प्रकार",level:"Beginner",
-   explain:"भारत में जलोढ़, काली, लाल-पीली, लैटराइट, मरुस्थलीय और पर्वतीय मिट्टियाँ प्रमुख हैं।",
-   trick:"मिट्टी को क्षेत्र व उपयोग के साथ जोड़ो: काली—कपास; जलोढ़—मैदानी कृषि।",
-   example:"काली मिट्टी कपास की खेती के लिए अनुकूल मानी जाती है।"},
-  {title:"वायुमंडल की परतें",level:"Beginner",
-   explain:"क्षोभमंडल, समतापमंडल, मध्यमंडल, तापमंडल और बहिर्मंडल प्रमुख परतें हैं।",
-   trick:"क्षो-स-म-ता-बहि: नामों को ऊपर से नीचे या नीचे से ऊपर एक ही क्रम में बोलकर याद करो।",
-   example:"अधिकांश मौसमी घटनाएँ क्षोभमंडल में होती हैं।"}
- ],
- "राजव्यवस्था":[
-  {title:"मौलिक अधिकार",level:"Beginner",
-   explain:"भारतीय संविधान के भाग III में अनुच्छेद 12 से 35 तक मौलिक अधिकारों का वर्णन है। वर्तमान में छह व्यापक श्रेणियाँ हैं।",
-   trick:"भाग III = अधिकार। अनुच्छेद 14 समानता और अनुच्छेद 21 जीवन व व्यक्तिगत स्वतंत्रता से संबंधित है।",
-   example:"अनुच्छेद 21 जीवन और व्यक्तिगत स्वतंत्रता के संरक्षण से संबंधित है।"},
-  {title:"मौलिक कर्तव्य",level:"Beginner",
-   explain:"मौलिक कर्तव्य संविधान के भाग IVA, अनुच्छेद 51A में दिए गए हैं। वर्तमान में 11 मौलिक कर्तव्य हैं।",
-   trick:"अधिकार = भाग III; कर्तव्य = भाग IVA। दोनों को अलग-अलग जोड़ी की तरह याद करो।",
-   example:"मौलिक कर्तव्य अनुच्छेद 51A में हैं।"},
-  {title:"राष्ट्रपति और प्रधानमंत्री",level:"Beginner",
-   explain:"राष्ट्रपति संघ का संवैधानिक प्रमुख है। प्रधानमंत्री मंत्रिपरिषद का प्रमुख और सरकार के कामकाज का नेतृत्व करता है।",
-   trick:"राष्ट्रपति = संवैधानिक प्रमुख; प्रधानमंत्री = मंत्रिपरिषद का प्रमुख।",
-   example:"प्रधानमंत्री की नियुक्ति राष्ट्रपति करता है।"},
-  {title:"संसद",level:"Beginner",
-   explain:"भारतीय संसद में राष्ट्रपति, राज्यसभा और लोकसभा शामिल हैं।",
-   trick:"संसद = राष्ट्रपति + दो सदन।",
-   example:"लोकसभा को संसद का निम्न सदन कहा जाता है।"},
-  {title:"संविधान संशोधन",level:"Beginner",
-   explain:"संविधान संशोधन की मुख्य प्रक्रिया अनुच्छेद 368 में दी गई है। संशोधनों के लिए अलग-अलग प्रकार के बहुमत लागू हो सकते हैं।",
-   trick:"अनुच्छेद 368 को संविधान संशोधन के साथ जोड़कर याद करो।",
-   example:"संविधान संशोधन प्रक्रिया अनुच्छेद 368 से जुड़ी है।"}
- ],
- "अर्थव्यवस्था":[
-  {title:"GDP का अर्थ",level:"Beginner",
-   explain:"GDP एक निश्चित अवधि में देश की भौगोलिक सीमा के भीतर उत्पादित अंतिम वस्तुओं और सेवाओं के कुल मौद्रिक मूल्य को मापती है।",
-   trick:"GDP = देश की सीमा के भीतर उत्पादन। नागरिक की राष्ट्रीयता नहीं, उत्पादन की जगह याद रखो।",
-   example:"भारत की सीमा के भीतर उत्पादित अंतिम सेवाएँ भारत की GDP में गिनी जाती हैं।"},
-  {title:"RBI की भूमिका",level:"Beginner",
-   explain:"भारतीय रिजर्व बैंक देश का केंद्रीय बैंक है। यह मौद्रिक नीति, मुद्रा जारी करने और बैंकिंग व्यवस्था से जुड़े महत्त्वपूर्ण कार्य करता है।",
-   trick:"RBI = Central Bank; SBI जैसे वाणिज्यिक बैंक अलग श्रेणी हैं।",
-   example:"RBI मौद्रिक नीति से जुड़ा प्रमुख संस्थान है।"},
-  {title:"महँगाई",level:"Beginner",
-   explain:"सामान्य मूल्य स्तर में लगातार वृद्धि को महँगाई कहा जाता है। इससे मुद्रा की क्रय शक्ति घट सकती है।",
-   trick:"महँगाई बढ़े → उसी पैसे से सामान्यतः कम सामान।",
-   example:"वस्तुओं के सामान्य मूल्य स्तर में वृद्धि महँगाई है।"}
- ],
- "विज्ञान":[
-  {title:"कोशिका के अंगक",level:"Beginner",
-   explain:"केंद्रक आनुवंशिक जानकारी रखता है; माइटोकॉन्ड्रिया ऊर्जा उत्पादन में महत्त्वपूर्ण है; राइबोसोम प्रोटीन संश्लेषण करते हैं।",
-   trick:"माइटोकॉन्ड्रिया = ऊर्जा; राइबोसोम = प्रोटीन; केंद्रक = DNA की मुख्य जानकारी।",
-   example:"माइटोकॉन्ड्रिया को कोशिका का ऊर्जा-गृह कहा जाता है।"},
-  {title:"विटामिन और कमी",level:"Beginner",
-   explain:"विटामिन A की कमी से रतौंधी, B1 की कमी से बेरी-बेरी, C की कमी से स्कर्वी और D की कमी से बच्चों में रिकेट्स हो सकता है।",
-   trick:"A—आँखें; B1—बेरी-बेरी; C—स्कर्वी; D—हड्डियाँ।",
-   example:"विटामिन C की कमी स्कर्वी से जुड़ी है।"},
-  {title:"बल और गति",level:"Beginner",
-   explain:"न्यूटन का पहला नियम जड़त्व, दूसरा नियम बल-संवेग परिवर्तन और तीसरा नियम क्रिया-प्रतिक्रिया से संबंधित है।",
-   trick:"पहला = जड़त्व; दूसरा = F = ma (विशेष परिस्थितियों में); तीसरा = क्रिया-प्रतिक्रिया।",
-   example:"चलती बस के अचानक रुकने पर यात्री आगे की ओर झुक सकता है।"},
-  {title:"अम्ल और क्षार",level:"Beginner",
-   explain:"सामान्य जलीय विलयन में pH 7 से कम अम्लीय, 7 उदासीन और 7 से अधिक क्षारीय होता है।",
-   trick:"7 से नीचे Acid, 7 Neutral, 7 से ऊपर Base।",
-   example:"शुद्ध पानी लगभग उदासीन होता है।"},
-  {title:"ध्वनि",level:"Beginner",
-   explain:"ध्वनि को फैलने के लिए माध्यम चाहिए; निर्वात में ध्वनि नहीं फैलती। आवृत्ति की इकाई हर्ट्ज है।",
-   trick:"आवृत्ति = Hertz (Hz); ध्वनि = माध्यम जरूरी।",
-   example:"ध्वनि निर्वात में यात्रा नहीं कर सकती।"},
-  {title:"मानव रक्त",level:"Beginner",
-   explain:"लाल रक्त कोशिकाएँ ऑक्सीजन परिवहन में, श्वेत रक्त कोशिकाएँ प्रतिरक्षा में और प्लेटलेट्स रक्त का थक्का बनाने में सहायता करते हैं।",
-   trick:"RBC = Oxygen; WBC = रक्षा; Platelets = थक्का।",
-   example:"प्लेटलेट्स रक्तस्राव रोकने की प्रक्रिया में मदद करते हैं।"}
- ],
- "पर्यावरण":[
-  {title:"ग्रीनहाउस गैसें",level:"Beginner",
-   explain:"कार्बन डाइऑक्साइड, मीथेन, नाइट्रस ऑक्साइड और जलवाष्प प्रमुख ग्रीनहाउस गैसों में हैं।",
-   trick:"CO₂ और CH₄ को विशेष रूप से याद करो; साथ में N₂O और जलवाष्प भी पढ़ो।",
-   example:"मीथेन एक ग्रीनहाउस गैस है।"},
-  {title:"खाद्य शृंखला",level:"Beginner",
-   explain:"उत्पादक सामान्यतः पौधे होते हैं; उपभोक्ता अन्य जीवों से भोजन प्राप्त करते हैं और अपघटक मृत पदार्थों का विघटन करते हैं।",
-   trick:"पौधा बनाता है → उपभोक्ता खाता है → अपघटक विघटन करता है।",
-   example:"हरे पौधे पारिस्थितिकी तंत्र में उत्पादक हैं।"}
- ],
- "Static GK":[
-  {title:"भारत के राष्ट्रीय प्रतीक",level:"Beginner",
-   explain:"भारत का राष्ट्रीय पशु बाघ, राष्ट्रीय पक्षी भारतीय मोर और राष्ट्रीय जलीय जीव गंगा नदी डॉल्फिन है।",
-   trick:"पशु—बाघ; पक्षी—मोर; जलीय जीव—गंगा डॉल्फिन।",
-   example:"भारत का राष्ट्रीय पक्षी भारतीय मोर है।"},
-  {title:"खेल और ट्रॉफियाँ",level:"Beginner",
-   explain:"विभिन्न खेलों से जुड़ी ट्रॉफियों के नाम प्रतियोगी परीक्षाओं में पूछे जाते हैं। नाम के साथ संबंधित खेल भी याद करें।",
-   trick:"एक बार में पाँच जोड़े पढ़ो: ट्रॉफी → खेल; फिर बिना देखे उल्टे क्रम में पूछो।",
-   example:"Thomas Cup बैडमिंटन की पुरुष टीम प्रतियोगिता से जुड़ा है।"}
- ],
- "उत्तर प्रदेश GK":[
-  {title:"उत्तर प्रदेश की प्रशासनिक राजधानी",level:"Beginner",
-   explain:"लखनऊ उत्तर प्रदेश की राजधानी है। परीक्षा में राजधानी, उच्च न्यायालय, प्रमुख नदियों, राष्ट्रीय उद्यानों और ऐतिहासिक स्थलों को अलग-अलग पढ़ें।",
-   trick:"UP GK को पाँच फाइलों में बाँटो: प्रशासन, भूगोल, इतिहास, संस्कृति, अर्थव्यवस्था।",
-   example:"उत्तर प्रदेश की राजधानी लखनऊ है।"},
-  {title:"उत्तर प्रदेश की प्रमुख नदियाँ",level:"Beginner",
-   explain:"गंगा, यमुना, गोमती, घाघरा और राप्ती उत्तर प्रदेश से संबंधित प्रमुख नदियों में शामिल हैं।",
-   trick:"हर नदी के साथ एक प्रमुख शहर या क्षेत्र जोड़कर याद करो।",
-   example:"गोमती नदी लखनऊ से होकर बहती है।"}
- ]
+  "Reasoning": {
+    "Number Series": {
+      notes: "Number series mein numbers ke beech ka pattern identify karna hota hai.",
+      trick: "Pehle consecutive numbers ka difference dekho; phir difference ka difference check karo.",
+      formula: "Koi ek universal formula nahi; pattern identify karna main step hai."
+    },
+    "Analogy": {
+      notes: "Analogy mein pehle pair ka relation samajhkar doosre pair mein wahi relation apply karte hain.",
+      trick: "Relation ko ek sentence mein bolo, jaise 'doctor treats patient'."
+    },
+    "Coding-Decoding": {
+      notes: "Letters ko kisi rule ke mutabik change kiya jata hai. Alphabet positions A=1 se Z=26 tak hoti hain.",
+      trick: "Forward/backward letter shifts aur reverse alphabet dono check karo."
+    },
+    "Blood Relations": {
+      notes: "Family relationships ko generation aur gender ke hisaab se map karo.",
+      trick: "Question ko diagram ya family tree mein convert karo."
+    },
+    "Direction Sense": {
+      notes: "North ko upar, South ko neeche, East ko right aur West ko left maan kar diagram banao.",
+      trick: "Har turn ke baad current facing direction update karo."
+    },
+    "Syllogism": {
+      notes: "Statements aur conclusions ke logical relations ko check kiya jata hai.",
+      trick: "Conclusion ko true maan kar nahi, statements se logically follow karta hai ya nahi, ye dekho."
+    }
+  },
+
+  "History": {
+    "Ancient India": {
+      notes: "Ancient India mein Indus Valley Civilization, Vedic period, Buddhism, Jainism aur Maurya-Gupta empires important topics hain.",
+      trick: "Revision ke liye timeline banao aur har period ke rulers, texts aur achievements alag likho."
+    },
+    "Medieval India": {
+      notes: "Delhi Sultanate, Mughal Empire, Bhakti movement aur Sufi movement important topics hain.",
+      trick: "Dynasties ko order mein yaad karo aur har ruler ka ek major contribution likho."
+    },
+    "Modern India": {
+      notes: "British expansion, Revolt of 1857, social reform movements aur national movement important areas hain.",
+      trick: "Events ko year-wise timeline mein revise karo."
+    }
+  },
+
+  "Indian Polity": {
+    "Constitution Basics": {
+      notes: "Bharatiya Samvidhan Constituent Assembly ne banaya. Constitution 26 November 1949 ko adopt hua aur 26 January 1950 ko lagu hua.",
+      trick: "26 Nov = Adoption; 26 Jan = Enforcement.",
+      formula: "Article numbers ko topic ke saath revise karo."
+    },
+    "Fundamental Rights": {
+      notes: "Fundamental Rights Constitution ke Part III mein Articles 12–35 ke beech hain.",
+      trick: "Rights ko groups mein padho: Equality, Freedom, Exploitation ke against, Religion, Cultural-Educational aur Constitutional Remedies."
+    },
+    "Parliament": {
+      notes: "Indian Parliament mein President aur do Houses—Lok Sabha aur Rajya Sabha—shamil hain.",
+      trick: "Lok Sabha ko directly elected House aur Rajya Sabha ko Council of States ke roop mein yaad rakho."
+    }
+  },
+
+  "Geography": {
+    "Indian Geography": {
+      notes: "India ki physical geography mein Himalayas, Northern Plains, Peninsular Plateau, coastal plains aur islands shamil hain.",
+      trick: "Map practice se rivers, mountain ranges aur states revise karo."
+    },
+    "Climate": {
+      notes: "India ki climate par monsoon winds, relief, latitude aur distance from sea ka asar hota hai.",
+      trick: "Southwest monsoon ki Arabian Sea aur Bay of Bengal branches alag se map par dekho."
+    }
+  },
+
+  "Economics": {
+    "Basic Economics": {
+      notes: "Economics resources, production, distribution aur consumption ka study hai.",
+      trick: "GDP, inflation, repo rate aur fiscal deficit ko definition + example ke saath padho."
+    }
+  },
+
+  "General Science": {
+    "Physics Basics": {
+      notes: "Motion, force, work, energy, electricity, light aur sound important exam topics hain.",
+      trick: "Har formula ke saath SI unit aur ek numerical example bhi revise karo."
+    },
+    "Biology Basics": {
+      notes: "Cell, human body systems, nutrition, diseases aur plants ke basic concepts important hain.",
+      trick: "Organs ko unke functions ke saath pair karke yaad karo."
+    },
+    "Chemistry Basics": {
+      notes: "Elements, compounds, mixtures, acids, bases, salts aur everyday chemistry revise karo.",
+      trick: "Common substances ke chemical names aur formulas ki list banao."
+    }
+  },
+
+  "Hindi": {
+    "व्याकरण": {
+      notes: "संज्ञा, सर्वनाम, विशेषण, क्रिया, काल, संधि, समास, उपसर्ग, प्रत्यय और वाक्य-शुद्धि प्रमुख विषय हैं।",
+      trick: "हर नियम के साथ दो सही और दो गलत उदाहरण लिखकर अभ्यास करो।"
+    }
+  },
+
+  "English": {
+    "Grammar": {
+      notes: "Parts of speech, tenses, subject-verb agreement, articles, prepositions, voice aur narration important topics hain.",
+      trick: "Har grammar rule ko examples aur error-spotting questions se practice karo."
+    }
+  }
 };
 
+/*
+  Ye starter practice questions hain, official PYQs nahi.
+  Verified previous-year questions ko source/year ke saath
+  alag question-bank files mein add kiya ja sakta hai.
+*/
+
 const QUESTIONS = [
- {id:"H1",topic:"इतिहास",q:"बौद्ध धर्म के चौथे आर्य सत्य का संबंध किससे है?",o:["अष्टांगिक मार्ग","त्रिरत्न","वेद","यज्ञ"],a:0,e:"चौथा आर्य सत्य दुःख निरोधगामिनी प्रतिपदा अर्थात अष्टांगिक मार्ग है।"},
- {id:"H2",topic:"इतिहास",q:"जैन धर्म के त्रिरत्नों में कौन शामिल है?",o:["यज्ञ","सम्यक ज्ञान","अष्टांगिक मार्ग","चार वेद"],a:1,e:"जैन धर्म के त्रिरत्न हैं—सम्यक दर्शन, सम्यक ज्ञान और सम्यक चरित्र।"},
- {id:"H3",topic:"इतिहास",q:"मौर्य वंश का संस्थापक कौन था?",o:["अशोक","बिंदुसार","चंद्रगुप्त मौर्य","समुद्रगुप्त"],a:2,e:"चंद्रगुप्त मौर्य ने मौर्य साम्राज्य की स्थापना की।"},
- {id:"H4",topic:"इतिहास",q:"कलिंग युद्ध किस शासक से संबंधित है?",o:["अकबर","अशोक","हर्षवर्धन","कनिष्क"],a:1,e:"कलिंग युद्ध मौर्य सम्राट अशोक से संबंधित है।"},
- {id:"H5",topic:"इतिहास",q:"मुगल वंश का संस्थापक कौन था?",o:["अकबर","बाबर","हुमायूँ","शाहजहाँ"],a:1,e:"बाबर ने 1526 में पानीपत के प्रथम युद्ध के बाद भारत में मुगल सत्ता स्थापित की।"},
- {id:"G1",topic:"भूगोल",q:"काली मिट्टी किस फसल के लिए विशेष रूप से उपयुक्त मानी जाती है?",o:["चाय","कपास","जूट","केसर"],a:1,e:"काली मिट्टी कपास की खेती के लिए उपयुक्त मानी जाती है।"},
- {id:"G2",topic:"भूगोल",q:"भारत में अधिकांश मौसमी घटनाएँ वायुमंडल की किस परत में होती हैं?",o:["क्षोभमंडल","मध्यमंडल","बहिर्मंडल","तापमंडल"],a:0,e:"मौसम की अधिकांश घटनाएँ क्षोभमंडल में होती हैं।"},
- {id:"G3",topic:"भूगोल",q:"नर्मदा नदी सामान्यतः किस दिशा में बहती है?",o:["पूर्व","पश्चिम","उत्तर","उत्तर-पूर्व"],a:1,e:"नर्मदा पश्चिम की ओर बहकर अरब सागर में गिरती है।"},
- {id:"G4",topic:"भूगोल",q:"हिमालय किस प्रकार के पर्वतों का उदाहरण है?",o:["अवशिष्ट","ज्वालामुखीय","नवीन वलित","ब्लॉक"],a:2,e:"हिमालय नवीन वलित पर्वत तंत्र का उदाहरण है।"},
- {id:"P1",topic:"राजव्यवस्था",q:"मौलिक अधिकार संविधान के किस भाग में हैं?",o:["भाग II","भाग III","भाग IV","भाग IVA"],a:1,e:"मौलिक अधिकार भाग III में दिए गए हैं।"},
- {id:"P2",topic:"राजव्यवस्था",q:"मौलिक कर्तव्यों का उल्लेख किस अनुच्छेद में है?",o:["अनुच्छेद 14","अनुच्छेद 21","अनुच्छेद 51A","अनुच्छेद 368"],a:2,e:"मौलिक कर्तव्य अनुच्छेद 51A में हैं।"},
- {id:"P3",topic:"राजव्यवस्था",q:"संविधान संशोधन की मुख्य प्रक्रिया किस अनुच्छेद में दी गई है?",o:["32","110","280","368"],a:3,e:"अनुच्छेद 368 संविधान संशोधन की प्रक्रिया से संबंधित है।"},
- {id:"P4",topic:"राजव्यवस्था",q:"भारतीय संसद में कौन शामिल हैं?",o:["केवल लोकसभा","केवल दोनों सदन","राष्ट्रपति और लोकसभा","राष्ट्रपति, राज्यसभा और लोकसभा"],a:3,e:"संविधान के अनुसार संसद में राष्ट्रपति और दोनों सदन शामिल हैं।"},
- {id:"E1",topic:"अर्थव्यवस्था",q:"GDP मुख्यतः क्या मापती है?",o:["केवल निर्यात","देश की सीमा में अंतिम वस्तुओं और सेवाओं का उत्पादन मूल्य","केवल सरकारी खर्च","केवल कृषि उत्पादन"],a:1,e:"GDP एक अवधि में देश की भौगोलिक सीमा के भीतर उत्पादित अंतिम वस्तुओं और सेवाओं के मूल्य को मापती है।"},
- {id:"E2",topic:"अर्थव्यवस्था",q:"भारत का केंद्रीय बैंक कौन है?",o:["SBI","NABARD","RBI","SEBI"],a:2,e:"भारतीय रिजर्व बैंक भारत का केंद्रीय बैंक है।"},
- {id:"E3",topic:"अर्थव्यवस्था",q:"सामान्य मूल्य स्तर में लगातार वृद्धि क्या कहलाती है?",o:["मंदी","महँगाई","अवमूल्यन","बचत"],a:1,e:"सामान्य मूल्य स्तर में लगातार वृद्धि महँगाई कहलाती है।"},
- {id:"S1",topic:"विज्ञान",q:"कोशिका का ऊर्जा-गृह किसे कहा जाता है?",o:["राइबोसोम","केंद्रक","माइटोकॉन्ड्रिया","गॉल्जी तंत्र"],a:2,e:"माइटोकॉन्ड्रिया कोशिका की ऊर्जा आवश्यकताओं में महत्त्वपूर्ण भूमिका निभाता है।"},
- {id:"S2",topic:"विज्ञान",q:"विटामिन C की कमी से कौन-सा रोग हो सकता है?",o:["स्कर्वी","रिकेट्स","बेरी-बेरी","रतौंधी"],a:0,e:"विटामिन C की कमी स्कर्वी से जुड़ी है।"},
- {id:"S3",topic:"विज्ञान",q:"आवृत्ति की SI इकाई क्या है?",o:["न्यूटन","जूल","हर्ट्ज","वाट"],a:2,e:"आवृत्ति की इकाई हर्ट्ज (Hz) है।"},
- {id:"S4",topic:"विज्ञान",q:"निर्वात में ध्वनि के बारे में कौन-सा कथन सही है?",o:["बहुत तेज चलती है","नहीं फैलती","प्रकाश बन जाती है","हमेशा धीमी हो जाती है"],a:1,e:"ध्वनि को फैलने के लिए भौतिक माध्यम चाहिए।"},
- {id:"S5",topic:"विज्ञान",q:"रक्त का थक्का बनाने में कौन सहायता करता है?",o:["प्लेटलेट्स","लाल रक्त कोशिकाएँ","न्यूरॉन","अल्वियोली"],a:0,e:"प्लेटलेट्स रक्त के थक्के बनने की प्रक्रिया में सहायता करते हैं।"},
- {id:"S6",topic:"विज्ञान",q:"सामान्य जलीय विलयन में pH 7 किस प्रकृति को दर्शाता है?",o:["अम्लीय","उदासीन","क्षारीय","केवल विषैला"],a:1,e:"सामान्य परिस्थितियों में pH 7 उदासीन विलयन को दर्शाता है।"},
- {id:"ENV1",topic:"पर्यावरण",q:"इनमें से कौन-सी ग्रीनहाउस गैस है?",o:["मीथेन","हीलियम","नियॉन","आर्गन"],a:0,e:"मीथेन एक प्रमुख ग्रीनहाउस गैस है।"},
- {id:"ENV2",topic:"पर्यावरण",q:"पारिस्थितिकी तंत्र में उत्पादक सामान्यतः कौन होते हैं?",o:["हरे पौधे","मांसाहारी","केवल अपघटक","केवल परजीवी"],a:0,e:"हरे पौधे प्रकाश संश्लेषण के माध्यम से भोजन बनाते हैं।"},
- {id:"GK1",topic:"Static GK",q:"भारत का राष्ट्रीय पक्षी कौन है?",o:["तोता","भारतीय मोर","हंस","गरुड़"],a:1,e:"भारत का राष्ट्रीय पक्षी भारतीय मोर है।"},
- {id:"GK2",topic:"Static GK",
+  {
+    subject: "Mathematics",
+    topic: "Percentage",
+    q: "200 ka 25% kitna hoga?",
+    options: ["25", "40", "50", "75"],
+    answer: 2,
+    explanation: "200 × 25/100 = 50."
+  },
+  {
+    subject: "Mathematics",
+    topic: "Average",
+    q: "4, 6 aur 8 ka average kya hai?",
+    options: ["5", "6", "7", "8"],
+    answer: 1,
+    explanation: "(4 + 6 + 8) / 3 = 6."
+  },
+  {
+    subject: "Mathematics",
+    topic: "Profit and Loss",
+    q: "CP ₹100 aur SP ₹120 hai. Profit kitna hai?",
+    options: ["₹10", "₹15", "₹20", "₹25"],
+    answer: 2,
+    explanation: "Profit = SP − CP = ₹20."
+  },
+  {
+    subject: "Mathematics",
+    topic: "Simple Interest",
+    q: "₹1000 par 10% yearly rate se 1 year ka SI kitna hai?",
+    options: ["₹10", "₹50", "₹100", "₹200"],
+    answer: 2,
+    explanation: "SI = 1000 × 10 × 1 / 100 = ₹100."
+  },
+  {
+    subject: "Mathematics",
+    topic: "Speed, Time and Distance",
+    q: "60 km distance 2 hours mein cover ho, speed kya hai?",
+    options: ["20 km/h", "30 km/h", "40 km/h", "60 km/h"],
+    answer: 1,
+    explanation: "Speed = 60/2 = 30 km/h."
+  },
+  {
+    subject: "Reasoning",
+    topic: "Number Series",
+    q: "2, 4, 6, 8, ?",
+    options: ["9", "10", "11", "12"],
+    answer: 1,
+    explanation: "Har baar 2 add ho raha hai."
+  },
+  {
+    subject: "Reasoning",
+    topic: "Analogy",
+    q: "Bird : Fly :: Fish : ?",
+    options: ["Run", "Swim", "Walk", "Jump"],
+    answer: 1,
+    explanation: "Bird flies; fish swims."
+  },
+  {
+    subject: "Reasoning",
+    topic: "Coding-Decoding",
+    q: "Agar A=1, B=2, C=3, toh D ki position kya hai?",
+    options: ["2", "3", "4", "5"],
+    answer: 2,
+    explanation: "Alphabet mein D chautha letter hai."
+  },
+  {
+    subject: "History",
+    topic: "Modern India",
+    q: "Bharat Chhodo Andolan kis saal shuru hua?",
+    options: ["1930", "1942", "1947", "1919"],
+    answer: 1,
+    explanation: "Quit India Movement 1942 mein shuru hua."
+  },
+  {
+    subject: "Indian Polity",
+    topic: "Constitution Basics",
+    q: "Bharatiya Samvidhan kab lagu hua?",
+    options: ["15 August 1947", "26 January 1950", "26 November 1949", "2 October 1950"],
+    answer: 1,
+    explanation: "Constitution 26 January 1950 ko lagu hua."
+  },
+  {
+    subject: "Geography",
+    topic: "Indian Geography",
+    q: "India ke dakshin mein kaunsa ocean hai?",
+    options: ["Atlantic Ocean", "Arctic Ocean", "Indian Ocean", "Pacific Ocean"],
+    answer: 2,
+    explanatio
