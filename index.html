@@ -3,876 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="theme-color" content="#071426">
 <title>PROJECT IQBAL | Human × AI Exam Academy</title>
-
 <style>
 :root{
-  --bg:#07111f;
-  --card:#101f33;
-  --card2:#162943;
-  --text:#f1f6ff;
-  --muted:#a8b9d1;
-  --gold:#ffc857;
-  --green:#41d6a3;
-  --blue:#65a9ff;
-  --red:#ff7185;
-  --border:#2a405d;
+  --bg:#071426;--panel:#101f35;--panel2:#162943;--line:#263c59;
+  --text:#f1f5ff;--muted:#a9bad1;--gold:#f6c453;--blue:#60a5fa;
+  --green:#48d597;--red:#ff7272;--radius:18px
 }
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,"Noto Sans Devanagari",sans-serif;
-  line-height:1.6;
-}
-
-header{
-  background:#0b192a;
-  padding:18px 15px;
-  border-bottom:1px solid var(--border);
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.brand{
-  font-size:22px;
-  font-weight:900;
-  color:var(--gold);
-}
-
-.tagline{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:3px;
-}
-
-nav{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding-top:14px;
-}
-
-nav button{
-  flex-shrink:0;
-  padding:9px 13px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  background:var(--card);
-  color:white;
-  cursor:pointer;
-}
-
-nav button:hover,
-nav button.active{
-  background:var(--gold);
-  color:#17202d;
-  font-weight:bold;
-}
-
-main{
-  max-width:1050px;
-  margin:auto;
-  padding:18px 13px 60px;
-}
-
-.hero{
-  background:linear-gradient(135deg,#172f4d,#112039,#26334d);
-  padding:28px 19px;
-  border-radius:20px;
-  border:1px solid var(--border);
-  margin-bottom:20px;
-}
-
-.hero h1{
-  font-size:30px;
-  line-height:1.3;
-  margin-bottom:12px;
-}
-
-.hero h1 span{
-  color:var(--gold);
-}
-
-.hero p{
-  color:#d2deee;
-  margin-bottom:15px;
-}
-
-.btn{
-  padding:11px 15px;
-  background:var(--gold);
-  color:#111c2c;
-  border:0;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-  margin:4px 3px 4px 0;
-}
-
-.btn.secondary{
-  background:var(--card2);
-  color:white;
-  border:1px solid var(--border);
-}
-
-.btn.green{
-  background:var(--green);
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:13px;
-  margin:15px 0 24px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:17px;
-}
-
-.card h3{
-  margin-bottom:8px;
-}
-
-.card p{
-  color:var(--muted);
-  font-size:14px;
-}
-
-.stat{
-  font-size:28px;
-  color:var(--gold);
-  font-weight:bold;
-}
-
-.section-title{
-  margin:25px 0 12px;
-  font-size:22px;
-}
-
-label{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-  margin:12px 0 5px;
-}
-
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  background:#091626;
-  color:white;
-  border:1px solid var(--border);
-  border-radius:9px;
-  font-size:15px;
-}
-
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:12px;
-}
-
-.item{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:15px;
-  margin:10px 0;
-}
-
-.item p{
-  margin:7px 0;
-}
-
-.muted{
-  color:var(--muted);
-  font-size:13px;
-}
-
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  margin:3px 4px 3px 0;
-  border-radius:7px;
-  font-size:11px;
-  background:#253b58;
-  color:#d8e9ff;
-}
-
-.badge.gold{
-  background:#47391d;
-  color:var(--gold);
-}
-
-.badge.green{
-  background:#123b35;
-  color:#72f0c1;
-}
-
-.option{
-  display:block;
-  width:100%;
-  text-align:left;
-  padding:12px;
-  margin:8px 0;
-  background:#13253b;
-  color:white;
-  border:1px solid var(--border);
-  border-radius:9px;
-  cursor:pointer;
-}
-
-.option:hover{
-  border-color:var(--gold);
-}
-
-.option.correct{
-  border-color:var(--green);
-  background:#123b35;
-}
-
-.option.wrong{
-  border-color:var(--red);
-  background:#3b202d;
-}
-
-hr{
-  border:0;
-  border-top:1px solid var(--border);
-  margin:17px 0;
-}
-
-footer{
-  text-align:center;
-  color:var(--muted);
-  padding:25px 12px;
-  border-top:1px solid var(--border);
-}
-
-.hidden{
-  display:none!important;
-}
-
-.notice{
-  padding:12px;
-  background:#302819;
-  border:1px solid #66532a;
-  border-radius:10px;
-  margin:12px 0;
-  font-size:13px;
-}
-
-.good{
-  color:var(--green);
-}
-
-.bad{
-  color:var(--red);
-}
-
-@media(max-width:500px){
-  .hero h1{font-size:25px}
-  .brand{font-size:19px}
-}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:10;background:#071426f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top{max-width:1200px;margin:auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:900;font-size:17px;letter-spacing:.4px}
+.brand span{color:var(--gold)}
+.brand small{display:block;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:1.2px}
+.menu{display:flex;gap:7px;overflow-x:auto;padding:0 12px 12px;max-width:1200px;margin:auto;scrollbar-width:thin}
+.navbtn,.btn{border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:10px 13px;white-space:nowrap}
+.navbtn.active,.btn.primary{background:var(--gold);border-color:var(--gold);color:#172033;font-weight:800}
+.btn.secondary{background:var(--panel2)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1200px;margin:auto;padding:22px 15px 70px}
+.hero{padding:27px 22px;border:1px solid #344967;border-radius:24px;background:radial-gradient(circle at 85% 10%,#234a72 0,transparent 38%),linear-gradient(135deg,#142b47,#0c192d);margin-bottom:18px}
+.eyebrow{color:var(--gold);font-size:12px;font-weight:800;letter-spacing:1.6px}
+h1{font-size:clamp(27px,5vw,43px);line-height:1.14;margin:12px 0}
+h2{font-size:23px;margin:0 0 14px}
+h3{margin:0 0 9px}
+p{line-height:1.65}
+.muted{color:var(--muted)}
+.gold{color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;min-width:0}
+.card p{margin:7px 0;color:var(--muted)}
+.stat{font-size:27px;font-weight:900;color:var(--gold)}
+.section{margin-top:25px}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.row>*{flex:0 0 auto}
+input,select,textarea{background:#08172a;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;max-width:100%}
+.search{width:100%;margin-bottom:13px}
+select{max-width:100%}
+.topic-list{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chip{padding:8px 11px;border:1px solid var(--line);border-radius:30px;background:var(--panel2);color:var(--text)}
+.chip.active{background:var(--gold);color:#172033;border-color:var(--gold);font-weight:800}
+.lesson{border-left:3px solid var(--gold);padding:10px 13px;background:#0b1a2e;border-radius:0 12px 12px 0;margin:12px 0}
+.mnemonic{border:1px dashed #617c9f;padding:12px;border-radius:12px;margin-top:10px}
+.option{display:block;width:100%;text-align:left;padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);margin:9px 0}
+.option:hover{border-color:var(--gold)}
+.option.correct{border-color:var(--green);background:#123a31}
+.option.wrong{border-color:var(--red);background:#3b202b}
+.feedback{padding:13px;border-radius:12px;margin-top:12px;background:#0b1a2e;border:1px solid var(--line);line-height:1.6}
+.progress{height:8px;background:#24364d;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:var(--green);width:0;transition:width .2s}
+.badge{display:inline-block;border:1px solid var(--line);padding:5px 8px;border-radius:8px;color:var(--muted);font-size:12px;margin:3px}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.small{font-size:12px}
+footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+.notice{padding:13px;background:#302a19;border:1px solid #675329;border-radius:12px;color:#ffe4a1;line-height:1.6}
+.success{color:var(--green)}.danger{color:var(--red)}
+a{color:var(--blue)}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.hero{padding:21px 16px}.card{padding:14px}.top{padding:12px}}
+@media(max-width:430px){.grid{grid-template-columns:1fr}.brand{font-size:15px}.navbtn{padding:9px 11px;font-size:13px}main{padding-top:15px}}
 </style>
 </head>
-
 <body>
-
 <header>
-  <div class="brand">PROJECT IQBAL 🚀</div>
-  <div class="tagline">HUMAN × AI | Your Competitive Exam Preparation Academy</div>
-
-  <nav id="navigation">
-    <button class="active" onclick="showPage('home',this)">🏠 Home</button>
-    <button onclick="showPage('exams',this)">📚 Exams</button>
-    <button onclick="showPage('pyq',this)">📝 PYQs</button>
-    <button onclick="showPage('tricks',this)">🧠 GK/GS Tricks</button>
-    <button onclick="showPage('notes',this)">📖 Notes</button>
-    <button onclick="showPage('test',this)">🎯 Mock Test</button>
-    <button onclick="showPage('add',this)">➕ Add Questions</button>
-    <button onclick="showPage('progress',this)">🏆 Progress</button>
-  </nav>
+  <div class="top">
+    <div class="brand">PROJECT <span>IQBAL</span><small>HUMAN × AI EXAM ACADEMY</small></div>
+    <span class="badge">LEARN • PRACTICE • IMPROVE</span>
+  </div>
+  <nav class="menu" id="navigation"></nav>
 </header>
 
-<main>
-
-<!-- HOME -->
-<section id="home">
-
-  <div class="hero">
-    <h1>Ek Goal. Ek Mission.<br><span>Selection Ki Taiyari!</span></h1>
-
-    <p>
-      Padhai ko systematic banao. Concepts samjho, PYQs lagao,
-      mistakes sudharo aur har din apne goal ke kareeb jao.
-    </p>
-
-    <button class="btn" onclick="go('exams')">Apna Exam Chuno →</button>
-    <button class="btn secondary" onclick="go('test')">Mock Test Do</button>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <div class="stat" id="totalQuestions">0</div>
-      <h3>Question Bank</h3>
-      <p>Imported aur available questions.</p>
-    </div>
-
-    <div class="card">
-      <div class="stat" id="totalTests">0</div>
-      <h3>Questions Attempted</h3>
-      <p>Tumhari practice ka record.</p>
-    </div>
-
-    <div class="card">
-      <div class="stat" id="accuracy">0%</div>
-      <h3>Accuracy</h3>
-      <p>Attempted questions mein sahi jawab.</p>
-    </div>
-  </div>
-
-  <h2 class="section-title">🔥 Apni Preparation Shuru Karo</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>📝 Previous Year Questions</h3>
-      <p>Exam, year, subject aur topic se questions filter karo.</p>
-      <button class="btn" onclick="go('pyq')">PYQs Kholo</button>
-    </div>
-
-    <div class="card">
-      <h3>🧠 GK/GS Tricks</h3>
-      <p>History, Polity, Geography, Science aur Economy.</p>
-      <button class="btn" onclick="go('tricks')">Tricks Dekho</button>
-    </div>
-
-    <div class="card">
-      <h3>📖 Personal Notes</h3>
-      <p>Apne revision notes save karo.</p>
-      <button class="btn" onclick="go('notes')">Notes Kholo</button>
-    </div>
-
-    <div class="card">
-      <h3>🎯 Mock Test</h3>
-      <p>Questions solve karo aur result check karo.</p>
-      <button class="btn" onclick="go('test')">Test Shuru Karo</button>
-    </div>
-  </div>
-
-  <div class="notice">
-    <b>Important:</b> Is website mein abhi available questions aur
-    tumhare dwara import kiye gaye questions hi dikhaye jayenge.
-    Koi question sirf year select karne se asli PYQ nahi ban jata.
-    Verified question bank ko sahi source aur exam details ke saath add karo.
-  </div>
-
-</section>
-
-<!-- EXAMS -->
-<section id="exams" class="hidden">
-  <h2 class="section-title">📚 Choose Your Exam</h2>
-  <p class="muted">Apna target exam select karke uske questions filter karo.</p>
-  <div id="examCards" class="grid"></div>
-</section>
-
-<!-- PYQ -->
-<section id="pyq" class="hidden">
-  <h2 class="section-title">📝 PYQ Question Bank</h2>
-
-  <p class="muted">
-    2020 se 2026 tak year-wise filtering available hai.
-    Sirf imported questions hi result mein aayenge.
-  </p>
-
-  <div class="row">
-    <div>
-      <label>Exam</label>
-      <select id="filterExam"></select>
-    </div>
-
-    <div>
-      <label>Year</label>
-      <select id="filterYear"></select>
-    </div>
-
-    <div>
-      <label>Subject</label>
-      <select id="filterSubject"></select>
-    </div>
-
-    <div>
-      <label>Topic</label>
-      <input id="filterTopic" placeholder="Jaise: Mughal Empire">
-    </div>
-  </div>
-
-  <label>Question Search</label>
-  <input id="filterSearch" placeholder="Question ya keyword likho...">
-
-  <button class="btn" onclick="renderPYQs()">Search Questions</button>
-  <button class="btn secondary" onclick="resetFilters()">Reset Filters</button>
-
-  <p id="pyqCount" class="muted" style="margin-top:12px"></p>
-  <div id="pyqList"></div>
-</section>
-
-<!-- TRICKS -->
-<section id="tricks" class="hidden">
-  <h2 class="section-title">🧠 GK/GS Tricks Academy</h2>
-
-  <p class="muted">
-    Topic select karo aur quick revision ke liye trick dekho.
-  </p>
-
-  <div class="row">
-    <div>
-      <label>Subject</label>
-      <select id="trickSubject" onchange="renderTricks()"></select>
-    </div>
-
-    <div>
-      <label>Search Trick</label>
-      <input id="trickSearch" placeholder="Topic search karo" oninput="renderTricks()">
-    </div>
-  </div>
-
-  <div id="trickList"></div>
-</section>
-
-<!-- NOTES -->
-<section id="notes" class="hidden">
-  <h2 class="section-title">📖 My Personal Notes</h2>
-
-  <div class="card">
-    <label>Exam</label>
-    <select id="noteExam"></select>
-
-    <label>Subject</label>
-    <input id="noteSubject" placeholder="Jaise: Polity">
-
-    <label>Topic / Heading</label>
-    <input id="noteTitle" placeholder="Jaise: Fundamental Rights">
-
-    <label>Notes</label>
-    <textarea id="noteText" placeholder="Yahan apne notes likho..."></textarea>
-
-    <button class="btn" onclick="saveNote()">Save Notes</button>
-  </div>
-
-  <h3 class="section-title">📌 Saved Notes</h3>
-  <div id="noteList"></div>
-</section>
-
-<!-- TEST -->
-<section id="test" class="hidden">
-  <h2 class="section-title">🎯 Mock Test Centre</h2>
-
-  <div class="card">
-    <label>Exam</label>
-    <select id="testExam"></select>
-
-    <label>Subject</label>
-    <select id="testSubject"></select>
-
-    <label>Number of Questions</label>
-    <select id="testLength">
-      <option value="5">5 Questions</option>
-      <option value="10">10 Questions</option>
-      <option value="20">20 Questions</option>
-      <option value="50">50 Questions</option>
-    </select>
-
-    <p class="muted" style="margin:12px 0">
-      Test available question bank se banega. Verified PYQ aur practice
-      questions ki category question ke source par depend karegi.
-    </p>
-
-    <button class="btn" onclick="startTest()">Start Test</button>
-  </div>
-
-  <div id="testArea"></div>
-</section>
-
-<!-- ADD QUESTIONS -->
-<section id="add" class="hidden">
-  <h2 class="section-title">➕ Add Verified Questions</h2>
-
-  <div class="notice">
-    Asli PYQ add karte waqt exam, year, subject, shift aur source ki
-    details sahi bharna. Agar source verify nahi hai, question ko
-    Practice category mein rakho.
-  </div>
-
-  <div class="card">
-    <label>Question Category</label>
-    <select id="qType">
-      <option value="PYQ">Verified PYQ</option>
-      <option value="Practice">Practice Question</option>
-    </select>
-
-    <label>Exam</label>
-    <select id="qExam"></select>
-
-    <div class="row">
-      <div>
-        <label>Year</label>
-        <select id="qYear"></select>
-      </div>
-
-      <div>
-        <label>Subject</label>
-        <select id="qSubject"></select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div>
-        <label>Topic</label>
-        <input id="qTopic" placeholder="Jaise: Indian Constitution">
-      </div>
-
-      <div>
-        <label>Shift / Paper</label>
-        <input id="qShift" placeholder="Official details, if known">
-      </div>
-    </div>
-
-    <label>Question</label>
-    <textarea id="qText" placeholder="Question likho..."></textarea>
-
-    <div class="row">
-      <div>
-        <label>Option A</label>
-        <input id="optA">
-      </div>
-      <div>
-        <label>Option B</label>
-        <input id="optB">
-      </div>
-      <div>
-        <label>Option C</label>
-        <input id="optC">
-      </div>
-      <div>
-        <label>Option D</label>
-        <input id="optD">
-      </div>
-    </div>
-
-    <label>Correct Answer</label>
-    <select id="qAnswer">
-      <option value="0">Option A</option>
-      <option value="1">Option B</option>
-      <option value="2">Option C</option>
-      <option value="3">Option D</option>
-    </select>
-
-    <label>Explanation</label>
-    <textarea id="qExplanation" placeholder="Answer ka explanation..."></textarea>
-
-    <label>Source / Reference</label>
-    <input id="qSource" placeholder="Official paper, PDF title ya reliable source">
-
-    <button class="btn green" onclick="addQuestion()">Save Question</button>
-  </div>
-
-  <hr>
-
-  <div class="card">
-    <h3>📥 Import Questions Using JSON</h3>
-    <p class="muted">
-      Bulk question bank ko JSON file se import kar sakte ho.
-    </p>
-
-    <label>JSON File</label>
-    <input type="file" id="jsonFile" accept=".json,application/json">
-
-    <button class="btn" onclick="importJSON()">Import JSON</button>
-
-    <button class="btn secondary" onclick="downloadTemplate()">
-      Download JSON Template
-    </button>
-
-    <p id="importMessage" class="muted"></p>
-  </div>
-
-  <hr>
-
-  <div class="card">
-    <h3>📤 Export Your Question Bank</h3>
-    <p class="muted">
-      Apne saved questions ka backup JSON file mein download karo.
-    </p>
-    <button class="btn" onclick="exportJSON()">Export Questions</button>
-  </div>
-</section>
-
-<!-- PROGRESS -->
-<section id="progress" class="hidden">
-  <h2 class="section-title">🏆 Your Progress</h2>
-
-  <div class="grid">
-    <div class="card">
-      <div class="stat" id="pAttempted">0</div>
-      <p>Total questions attempted</p>
-    </div>
-
-    <div class="card">
-      <div class="stat" id="pCorrect">0</div>
-      <p>Correct answers</p>
-    </div>
-
-    <div class="card">
-      <div class="stat" id="pAccuracy">0%</div>
-      <p>Accuracy</p>
-    </div>
-  </div>
-
-  <h3 class="section-title">📊 Recent Test Results</h3>
-  <div id="resultHistory"></div>
-
-  <button class="btn secondary" onclick="clearProgress()">
-    Reset Progress
-  </button>
-</section>
-
-</main>
+<main id="app"></main>
 
 <footer>
-  <h3 style="color:var(--gold)">PROJECT IQBAL</h3>
-  <p>Human × AI Exam Academy</p>
-  <p>Learn • Practice • Revise • Improve</p>
-  <p class="muted">Your effort matters. Keep learning every day.</p>
+  PROJECT IQBAL · Learn from basics, practise topic-wise, revise your mistakes.<br>
+  अभ्यास प्रश्नों को आधिकारिक PYQ तभी मानें जब उनका मूल स्रोत सत्यापित हो।
 </footer>
 
 <script>
-/* ==========================================
-   PROJECT IQBAL — EXAM PREPARATION PLATFORM
-   ========================================== */
+"use strict";
+
+/* =========================================================
+   PROJECT IQBAL
+   Single-file learning app.
+   Practice questions are labelled practice, not official PYQs.
+   Add verified question banks through the Import section.
+========================================================= */
 
 const EXAMS = [
-  "SSC CHSL",
-  "SSC CGL",
-  "SSC MTS",
-  "SSC GD",
-  "SSC CPO",
-  "UPSSSC PET",
-  "UP Police / UPSI",
-  "UPPSC",
-  "UPPCS",
-  "Railway NTPC",
-  "Railway Group D",
-  "Banking",
-  "Other Exam"
+ "SSC CGL","SSC CHSL","SSC MTS","SSC GD","SSC CPO",
+ "UPSSSC PET","UP Police / UPSI","UPPSC / UPPCS",
+ "Railway NTPC","Railway Group D","Banking","Other Exams"
 ];
 
-const SUBJECTS = [
-  "History",
-  "Polity",
-  "Geography",
-  "Economy",
-  "General Science",
-  "Biology",
-  "Physics",
-  "Chemistry",
-  "Static GK",
-  "Current Affairs",
-  "Mathematics",
-  "Reasoning",
-  "English",
-  "Hindi",
-  "Computer",
-  "Mixed"
+const NAV = [
+ ["home","🏠 Home"],["exams","🎯 Exams"],["tricks","⚡ Short Tricks"],
+ ["practice","📝 Practice Sets"],["mock","⏱ Mock Test"],
+ ["pyq","📚 PYQs"],["notes","📒 My Notes"],["progress","📈 Progress"]
 ];
 
-const YEARS = [];
-for(let y=2020;y<=2026;y++) YEARS.push(String(y));
+const TOPICS = {
+ "इतिहास":[
+  {title:"बौद्ध धर्म के चार सत्य",level:"Beginner",
+   explain:"बुद्ध के अनुसार जीवन में दुःख है, दुःख का कारण तृष्णा है, दुःख का निरोध संभव है और निरोध का मार्ग अष्टांगिक मार्ग है।",
+   trick:"याद रखो: दुःख → कारण → छुटकारा → रास्ता।",
+   example:"चार आर्य सत्य में चौथा सत्य अष्टांगिक मार्ग है।"},
+  {title:"बौद्ध धर्म का अष्टांगिक मार्ग",level:"Beginner",
+   explain:"सम्यक दृष्टि, संकल्प, वाणी, कर्म, आजीविका, प्रयास, स्मृति और समाधि।",
+   trick:"8 चीजें याद करो: दृष्टि-संकल्प-वाणी-कर्म, आजीविका-प्रयास-स्मृति-समाधि। पहले चार, फिर चार।",
+   example:"बुद्ध का अष्टांगिक मार्ग मध्यम मार्ग की शिक्षा से जुड़ा है।"},
+  {title:"जैन धर्म के त्रिरत्न",level:"Beginner",
+   explain:"सम्यक दर्शन, सम्यक ज्ञान और सम्यक चरित्र जैन धर्म के तीन रत्न हैं।",
+   trick:"द-ज्ञा-च: दर्शन, ज्ञान, चरित्र।",
+   example:"जैन धर्म के त्रिरत्नों में सम्यक चरित्र शामिल है।"},
+  {title:"मौर्य वंश",level:"Beginner",
+   explain:"चंद्रगुप्त मौर्य ने मौर्य साम्राज्य की स्थापना की। बिंदुसार उनके उत्तराधिकारी और अशोक प्रमुख मौर्य शासक थे।",
+   trick:"क्रम: चंद्रगुप्त → बिंदुसार → अशोक। नामों का क्रम ही याद रखो।",
+   example:"कलिंग युद्ध के बाद अशोक के जीवन में बड़ा परिवर्तन आया।"},
+  {title:"मुगल शासकों का क्रम",level:"Beginner",
+   explain:"मुख्य क्रम: बाबर, हुमायूँ, अकबर, जहाँगीर, शाहजहाँ, औरंगज़ेब।",
+   trick:"बा-हु-अ-ज-शा-औ: हर नाम का पहला हिस्सा बोलकर दोहराओ।",
+   example:"अकबर, हुमायूँ का पुत्र था।"},
+  {title:"1857 का विद्रोह",level:"Beginner",
+   explain:"विद्रोह के प्रमुख केंद्रों में मेरठ, दिल्ली, कानपुर, लखनऊ और झाँसी शामिल थे। अलग-अलग केंद्रों पर अलग नेतृत्व था।",
+   trick:"केंद्रों का अभ्यास नक्शे पर करो: मेरठ-दिल्ली, कानपुर-लखनऊ, झाँसी।",
+   example:"लखनऊ में बेगम हजरत महल ने नेतृत्व किया।"}
+ ],
+ "भूगोल":[
+  {title:"भारत की प्रमुख पर्वत श्रेणियाँ",level:"Beginner",
+   explain:"हिमालय उत्तर में स्थित प्रमुख नवीन वलित पर्वत तंत्र है। अरावली भारत की प्राचीन पर्वत श्रेणियों में गिनी जाती है।",
+   trick:"अरावली = प्राचीन; हिमालय = नवीन वलित पर्वत। इस अंतर को बार-बार दोहराओ।",
+   example:"हिमालय भारत के उत्तरी भाग में फैला है।"},
+  {title:"भारत की प्रमुख नदियाँ",level:"Beginner",
+   explain:"गंगा, यमुना, ब्रह्मपुत्र, गोदावरी, कृष्णा, कावेरी, नर्मदा और ताप्ती महत्त्वपूर्ण नदियाँ हैं।",
+   trick:"नदी को केवल नाम से नहीं, उद्गम + बहाव + मुहाना से याद करो।",
+   example:"नर्मदा पश्चिम की ओर बहने वाली प्रमुख नदी है।"},
+  {title:"कर्क रेखा से जुड़े राज्य",level:"Beginner",
+   explain:"कर्क रेखा भारत के आठ राज्यों से गुजरती है: गुजरात, राजस्थान, मध्य प्रदेश, छत्तीसगढ़, झारखंड, पश्चिम बंगाल, त्रिपुरा और मिजोरम।",
+   trick:"पश्चिम से पूर्व की ओर नक्शे पर आठों राज्य क्रम से ढूँढो; नक्शा याद करने का सबसे आसान तरीका यही है।",
+   example:"कर्क रेखा मध्य प्रदेश से गुजरती है।"},
+  {title:"मिट्टियों के प्रकार",level:"Beginner",
+   explain:"भारत में जलोढ़, काली, लाल-पीली, लैटराइट, मरुस्थलीय और पर्वतीय मिट्टियाँ प्रमुख हैं।",
+   trick:"मिट्टी को क्षेत्र व उपयोग के साथ जोड़ो: काली—कपास; जलोढ़—मैदानी कृषि।",
+   example:"काली मिट्टी कपास की खेती के लिए अनुकूल मानी जाती है।"},
+  {title:"वायुमंडल की परतें",level:"Beginner",
+   explain:"क्षोभमंडल, समतापमंडल, मध्यमंडल, तापमंडल और बहिर्मंडल प्रमुख परतें हैं।",
+   trick:"क्षो-स-म-ता-बहि: नामों को ऊपर से नीचे या नीचे से ऊपर एक ही क्रम में बोलकर याद करो।",
+   example:"अधिकांश मौसमी घटनाएँ क्षोभमंडल में होती हैं।"}
+ ],
+ "राजव्यवस्था":[
+  {title:"मौलिक अधिकार",level:"Beginner",
+   explain:"भारतीय संविधान के भाग III में अनुच्छेद 12 से 35 तक मौलिक अधिकारों का वर्णन है। वर्तमान में छह व्यापक श्रेणियाँ हैं।",
+   trick:"भाग III = अधिकार। अनुच्छेद 14 समानता और अनुच्छेद 21 जीवन व व्यक्तिगत स्वतंत्रता से संबंधित है।",
+   example:"अनुच्छेद 21 जीवन और व्यक्तिगत स्वतंत्रता के संरक्षण से संबंधित है।"},
+  {title:"मौलिक कर्तव्य",level:"Beginner",
+   explain:"मौलिक कर्तव्य संविधान के भाग IVA, अनुच्छेद 51A में दिए गए हैं। वर्तमान में 11 मौलिक कर्तव्य हैं।",
+   trick:"अधिकार = भाग III; कर्तव्य = भाग IVA। दोनों को अलग-अलग जोड़ी की तरह याद करो।",
+   example:"मौलिक कर्तव्य अनुच्छेद 51A में हैं।"},
+  {title:"राष्ट्रपति और प्रधानमंत्री",level:"Beginner",
+   explain:"राष्ट्रपति संघ का संवैधानिक प्रमुख है। प्रधानमंत्री मंत्रिपरिषद का प्रमुख और सरकार के कामकाज का नेतृत्व करता है।",
+   trick:"राष्ट्रपति = संवैधानिक प्रमुख; प्रधानमंत्री = मंत्रिपरिषद का प्रमुख।",
+   example:"प्रधानमंत्री की नियुक्ति राष्ट्रपति करता है।"},
+  {title:"संसद",level:"Beginner",
+   explain:"भारतीय संसद में राष्ट्रपति, राज्यसभा और लोकसभा शामिल हैं।",
+   trick:"संसद = राष्ट्रपति + दो सदन।",
+   example:"लोकसभा को संसद का निम्न सदन कहा जाता है।"},
+  {title:"संविधान संशोधन",level:"Beginner",
+   explain:"संविधान संशोधन की मुख्य प्रक्रिया अनुच्छेद 368 में दी गई है। संशोधनों के लिए अलग-अलग प्रकार के बहुमत लागू हो सकते हैं।",
+   trick:"अनुच्छेद 368 को संविधान संशोधन के साथ जोड़कर याद करो।",
+   example:"संविधान संशोधन प्रक्रिया अनुच्छेद 368 से जुड़ी है।"}
+ ],
+ "अर्थव्यवस्था":[
+  {title:"GDP का अर्थ",level:"Beginner",
+   explain:"GDP एक निश्चित अवधि में देश की भौगोलिक सीमा के भीतर उत्पादित अंतिम वस्तुओं और सेवाओं के कुल मौद्रिक मूल्य को मापती है।",
+   trick:"GDP = देश की सीमा के भीतर उत्पादन। नागरिक की राष्ट्रीयता नहीं, उत्पादन की जगह याद रखो।",
+   example:"भारत की सीमा के भीतर उत्पादित अंतिम सेवाएँ भारत की GDP में गिनी जाती हैं।"},
+  {title:"RBI की भूमिका",level:"Beginner",
+   explain:"भारतीय रिजर्व बैंक देश का केंद्रीय बैंक है। यह मौद्रिक नीति, मुद्रा जारी करने और बैंकिंग व्यवस्था से जुड़े महत्त्वपूर्ण कार्य करता है।",
+   trick:"RBI = Central Bank; SBI जैसे वाणिज्यिक बैंक अलग श्रेणी हैं।",
+   example:"RBI मौद्रिक नीति से जुड़ा प्रमुख संस्थान है।"},
+  {title:"महँगाई",level:"Beginner",
+   explain:"सामान्य मूल्य स्तर में लगातार वृद्धि को महँगाई कहा जाता है। इससे मुद्रा की क्रय शक्ति घट सकती है।",
+   trick:"महँगाई बढ़े → उसी पैसे से सामान्यतः कम सामान।",
+   example:"वस्तुओं के सामान्य मूल्य स्तर में वृद्धि महँगाई है।"}
+ ],
+ "विज्ञान":[
+  {title:"कोशिका के अंगक",level:"Beginner",
+   explain:"केंद्रक आनुवंशिक जानकारी रखता है; माइटोकॉन्ड्रिया ऊर्जा उत्पादन में महत्त्वपूर्ण है; राइबोसोम प्रोटीन संश्लेषण करते हैं।",
+   trick:"माइटोकॉन्ड्रिया = ऊर्जा; राइबोसोम = प्रोटीन; केंद्रक = DNA की मुख्य जानकारी।",
+   example:"माइटोकॉन्ड्रिया को कोशिका का ऊर्जा-गृह कहा जाता है।"},
+  {title:"विटामिन और कमी",level:"Beginner",
+   explain:"विटामिन A की कमी से रतौंधी, B1 की कमी से बेरी-बेरी, C की कमी से स्कर्वी और D की कमी से बच्चों में रिकेट्स हो सकता है।",
+   trick:"A—आँखें; B1—बेरी-बेरी; C—स्कर्वी; D—हड्डियाँ।",
+   example:"विटामिन C की कमी स्कर्वी से जुड़ी है।"},
+  {title:"बल और गति",level:"Beginner",
+   explain:"न्यूटन का पहला नियम जड़त्व, दूसरा नियम बल-संवेग परिवर्तन और तीसरा नियम क्रिया-प्रतिक्रिया से संबंधित है।",
+   trick:"पहला = जड़त्व; दूसरा = F = ma (विशेष परिस्थितियों में); तीसरा = क्रिया-प्रतिक्रिया।",
+   example:"चलती बस के अचानक रुकने पर यात्री आगे की ओर झुक सकता है।"},
+  {title:"अम्ल और क्षार",level:"Beginner",
+   explain:"सामान्य जलीय विलयन में pH 7 से कम अम्लीय, 7 उदासीन और 7 से अधिक क्षारीय होता है।",
+   trick:"7 से नीचे Acid, 7 Neutral, 7 से ऊपर Base।",
+   example:"शुद्ध पानी लगभग उदासीन होता है।"},
+  {title:"ध्वनि",level:"Beginner",
+   explain:"ध्वनि को फैलने के लिए माध्यम चाहिए; निर्वात में ध्वनि नहीं फैलती। आवृत्ति की इकाई हर्ट्ज है।",
+   trick:"आवृत्ति = Hertz (Hz); ध्वनि = माध्यम जरूरी।",
+   example:"ध्वनि निर्वात में यात्रा नहीं कर सकती।"},
+  {title:"मानव रक्त",level:"Beginner",
+   explain:"लाल रक्त कोशिकाएँ ऑक्सीजन परिवहन में, श्वेत रक्त कोशिकाएँ प्रतिरक्षा में और प्लेटलेट्स रक्त का थक्का बनाने में सहायता करते हैं।",
+   trick:"RBC = Oxygen; WBC = रक्षा; Platelets = थक्का।",
+   example:"प्लेटलेट्स रक्तस्राव रोकने की प्रक्रिया में मदद करते हैं।"}
+ ],
+ "पर्यावरण":[
+  {title:"ग्रीनहाउस गैसें",level:"Beginner",
+   explain:"कार्बन डाइऑक्साइड, मीथेन, नाइट्रस ऑक्साइड और जलवाष्प प्रमुख ग्रीनहाउस गैसों में हैं।",
+   trick:"CO₂ और CH₄ को विशेष रूप से याद करो; साथ में N₂O और जलवाष्प भी पढ़ो।",
+   example:"मीथेन एक ग्रीनहाउस गैस है।"},
+  {title:"खाद्य शृंखला",level:"Beginner",
+   explain:"उत्पादक सामान्यतः पौधे होते हैं; उपभोक्ता अन्य जीवों से भोजन प्राप्त करते हैं और अपघटक मृत पदार्थों का विघटन करते हैं।",
+   trick:"पौधा बनाता है → उपभोक्ता खाता है → अपघटक विघटन करता है।",
+   example:"हरे पौधे पारिस्थितिकी तंत्र में उत्पादक हैं।"}
+ ],
+ "Static GK":[
+  {title:"भारत के राष्ट्रीय प्रतीक",level:"Beginner",
+   explain:"भारत का राष्ट्रीय पशु बाघ, राष्ट्रीय पक्षी भारतीय मोर और राष्ट्रीय जलीय जीव गंगा नदी डॉल्फिन है।",
+   trick:"पशु—बाघ; पक्षी—मोर; जलीय जीव—गंगा डॉल्फिन।",
+   example:"भारत का राष्ट्रीय पक्षी भारतीय मोर है।"},
+  {title:"खेल और ट्रॉफियाँ",level:"Beginner",
+   explain:"विभिन्न खेलों से जुड़ी ट्रॉफियों के नाम प्रतियोगी परीक्षाओं में पूछे जाते हैं। नाम के साथ संबंधित खेल भी याद करें।",
+   trick:"एक बार में पाँच जोड़े पढ़ो: ट्रॉफी → खेल; फिर बिना देखे उल्टे क्रम में पूछो।",
+   example:"Thomas Cup बैडमिंटन की पुरुष टीम प्रतियोगिता से जुड़ा है।"}
+ ],
+ "उत्तर प्रदेश GK":[
+  {title:"उत्तर प्रदेश की प्रशासनिक राजधानी",level:"Beginner",
+   explain:"लखनऊ उत्तर प्रदेश की राजधानी है। परीक्षा में राजधानी, उच्च न्यायालय, प्रमुख नदियों, राष्ट्रीय उद्यानों और ऐतिहासिक स्थलों को अलग-अलग पढ़ें।",
+   trick:"UP GK को पाँच फाइलों में बाँटो: प्रशासन, भूगोल, इतिहास, संस्कृति, अर्थव्यवस्था।",
+   example:"उत्तर प्रदेश की राजधानी लखनऊ है।"},
+  {title:"उत्तर प्रदेश की प्रमुख नदियाँ",level:"Beginner",
+   explain:"गंगा, यमुना, गोमती, घाघरा और राप्ती उत्तर प्रदेश से संबंधित प्रमुख नदियों में शामिल हैं।",
+   trick:"हर नदी के साथ एक प्रमुख शहर या क्षेत्र जोड़कर याद करो।",
+   example:"गोमती नदी लखनऊ से होकर बहती है।"}
+ ]
+};
 
-const TRICKS = [
-  {
-    subject:"History",
-    topic:"Buddhism",
-    title:"Buddhism Quick Revision",
-    content:"चार आर्य सत्य और अष्टांगिक मार्ग बौद्ध धर्म के मुख्य अध्ययन-बिंदु हैं। बुद्ध के जीवन, बौद्ध संगीति और प्रमुख स्थलों को अलग-अलग तालिका में याद करें।",
-    exam:"All Exams"
-  },
-  {
-    subject:"History",
-    topic:"Jainism",
-    title:"Jainism Quick Revision",
-    content:"तीर्थंकरों का क्रम, महावीर स्वामी का जीवन और जैन धर्म के सिद्धांत अलग-अलग याद करें। बौद्ध और जैन धर्म की तुलना वाली तालिका revision में उपयोगी है।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Polity",
-    topic:"Constitution",
-    title:"Constitution Revision",
-    content:"संविधान के भाग, अनुच्छेद और अनुसूचियों को अलग-अलग चार्ट में पढ़ो। एक साथ बहुत सारे नंबर याद करने के बजाय रोज थोड़े-थोड़े प्रश्न हल करो।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Polity",
-    topic:"Schedules",
-    title:"भारतीय संविधान की अनुसूचियाँ",
-    content:"हर अनुसूची के लिए तीन कॉलम बनाओ: अनुसूची नंबर, विषय और उससे जुड़ा मुख्य तथ्य। फिर किताब बंद करके खुद से दोहराओ।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Geography",
-    topic:"Rivers",
-    title:"नदियों का Revision",
-    content:"नदी, उद्गम, किन राज्य/क्षेत्र से गुजरती है और कहाँ मिलती है—इन चार बिंदुओं की तालिका बनाओ। मानचित्र पर देखकर अभ्यास करने से याद रखना आसान होता है।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Geography",
-    topic:"Climate",
-    title:"Indian Climate",
-    content:"मानसून की शाखाएँ, वर्षा के वितरण और ऋतुओं को भारत के मानचित्र के साथ पढ़ो। केवल परिभाषा याद करने के बजाय कारण और परिणाम भी समझो।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Economy",
-    topic:"Banking",
-    title:"Banking Basics",
-    content:"RBI के कार्य, Repo Rate, CRR, SLR और मुद्रास्फीति की परिभाषा व प्रभाव अलग-अलग समझो। दरों में बदलाव वाले प्रश्नों के लिए नवीनतम आधिकारिक जानकारी जाँचो।",
-    exam:"All Exams"
-  },
-  {
-    subject:"General Science",
-    topic:"Physics",
-    title:"Physics Formula Revision",
-    content:"हर सूत्र के साथ उसकी इकाई और प्रतीकों का अर्थ लिखो। फिर सूत्र पर आधारित आसान प्रश्न हल करो। केवल सूत्र रटने के बजाय उसका उपयोग समझो।",
-    exam:"All Exams"
-  },
-  {
-    subject:"General Science",
-    topic:"Chemistry",
-    title:"Chemistry Revision",
-    content:"अम्ल, क्षार, लवण, धातु और अधातु के गुणों की तुलना वाली तालिका बनाओ। रोजाना छोटे प्रश्नों से दोहराव करो।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Biology",
-    topic:"Human Body",
-    title:"Human Body Revision",
-    content:"अंग, उनका मुख्य कार्य और उनसे संबंधित महत्वपूर्ण तथ्य एक तालिका में लिखो। पाचन, रक्त संचार और श्वसन तंत्र को चित्रों से समझो।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Static GK",
-    topic:"Awards",
-    title:"Awards Revision",
-    content:"पुरस्कार, क्षेत्र, संबंधित व्यक्ति और वर्ष को एक तालिका में लिखो। बदलने वाले तथ्यों को भरोसेमंद और नवीनतम स्रोत से verify करो।",
-    exam:"All Exams"
-  },
-  {
-    subject:"Current Affairs",
-    topic:"Revision",
-    title:"Current Affairs Strategy",
-    content:"Current affairs को महीने के हिसाब से बाँटो। नियुक्तियाँ, योजनाएँ, खेल, पुरस्कार और महत्वपूर्ण घटनाएँ अलग-अलग revise करो। पुराने तथ्यों को नए तथ्यों से न मिलाओ।",
-    exam:"All Exams"
-  }
-];
-
-/*
-  Ye examples PRACTICE questions hain.
-  Inhe actual previous-year questions nahi bataya gaya hai.
-  Apna verified PYQ data Add Questions se import karo.
-*/
-
-const SAMPLE_QUESTIONS = [
-  {
-    id:"practice-001",
-    type:"Practice",
-    exam:"SSC CHSL",
-    year:"",
-    subject:"Polity",
-    topic:"Constitution Basics",
-    shift:"",
-    question:"भारतीय संविधान को संविधान सभा ने कब अंगीकृत किया था?",
-    options:[
-      "15 अगस्त 1947",
-      "26 नवंबर 1949",
-      "26 जनवरी 1950",
-      "2 अक्टूबर 1949"
-    ],
-    answer:1,
-    explanation:"संविधान सभा ने भारतीय संविधान को 26 नवंबर 1949 को अंगीकृत किया था। संविधान 26 जनवरी 1950 से लागू हुआ।",
-    source:"Practice example — not an authenticated PYQ"
-  },
-  {
-    id:"practice-002",
-    type:"Practice",
-    exam:"UPSSSC PET",
-    year:"",
-    subject:"History",
-    topic:"Ancient India",
-    shift:"",
-    question:"गौतम बुद्ध को ज्ञान की प्राप्ति कहाँ हुई थी?",
-    options:[
-      "सारनाथ",
-      "कुशीनगर",
-      "बोधगया",
-      "लुंबिनी"
-    ],
-    answer:2,
-    explanation:"बौद्ध परंपरा के अनुसार गौतम बुद्ध को बोधगया में ज्ञान प्राप्त हुआ था।",
-    source:"Practice example — not an authenticated PYQ"
-  },
-  {
-    id:"practice-003",
-    type:"Practice",
-    exam:"SSC CGL",
-    year:"",
-    subject:"Mathematics",
-    topic:"Arithmetic",
-    shift:"",
-    question:"यदि किसी संख्या का 25% = 40 है, तो वह संख्या कितनी है?",
-    options:["100","120","160","200"],
-    answer:2,
-    explanation:"संख्या = 40 × 100 ÷ 25 = 160।",
-    source:"Practice example — not an authenticated PYQ"
-  },
-  {
-    id:"practice-004",
-    type:"Practice",
-    exam:"SSC CHSL",
-    year:"",
-    subject:"General Science",
-    topic:"Biology",
-    shift:"",
-    question:"मानव शरीर में रक्त को पंप करने वाला मुख्य अंग कौन-सा है?",
-    options:["फेफड़ा","हृदय","यकृत","गुर्दा"],
-    answer:1,
-    explanation:"हृदय रक्त को शरीर में पंप करने वाला मुख्य अंग है।",
-    source:"Practice example — not an authenticated PYQ"
-  },
-  {
-    id:"practice-005",
-    type:"Practice",
-    exam:"UPSSSC PET",
-    year:"",
-    subject:"Geography",
-    topic:"India",
-    shift:"",
-    qu
+const QUESTIONS = [
+ {id:"H1",topic:"इतिहास",q:"बौद्ध धर्म के चौथे आर्य सत्य का संबंध किससे है?",o:["अष्टांगिक मार्ग","त्रिरत्न","वेद","यज्ञ"],a:0,e:"चौथा आर्य सत्य दुःख निरोधगामिनी प्रतिपदा अर्थात अष्टांगिक मार्ग है।"},
+ {id:"H2",topic:"इतिहास",q:"जैन धर्म के त्रिरत्नों में कौन शामिल है?",o:["यज्ञ","सम्यक ज्ञान","अष्टांगिक मार्ग","चार वेद"],a:1,e:"जैन धर्म के त्रिरत्न हैं—सम्यक दर्शन, सम्यक ज्ञान और सम्यक चरित्र।"},
+ {id:"H3",topic:"इतिहास",q:"मौर्य वंश का संस्थापक कौन था?",o:["अशोक","बिंदुसार","चंद्रगुप्त मौर्य","समुद्रगुप्त"],a:2,e:"चंद्रगुप्त मौर्य ने मौर्य साम्राज्य की स्थापना की।"},
+ {id:"H4",topic:"इतिहास",q:"कलिंग युद्ध किस शासक से संबंधित है?",o:["अकबर","अशोक","हर्षवर्धन","कनिष्क"],a:1,e:"कलिंग युद्ध मौर्य सम्राट अशोक से संबंधित है।"},
+ {id:"H5",topic:"इतिहास",q:"मुगल वंश का संस्थापक कौन था?",o:["अकबर","बाबर","हुमायूँ","शाहजहाँ"],a:1,e:"बाबर ने 1526 में पानीपत के प्रथम युद्ध के बाद भारत में मुगल सत्ता स्थापित की।"},
+ {id:"G1",topic:"भूगोल",q:"काली मिट्टी किस फसल के लिए विशेष रूप से उपयुक्त मानी जाती है?",o:["चाय","कपास","जूट","केसर"],a:1,e:"काली मिट्टी कपास की खेती के लिए उपयुक्त मानी जाती है।"},
+ {id:"G2",topic:"भूगोल",q:"भारत में अधिकांश मौसमी घटनाएँ वायुमंडल की किस परत में होती हैं?",o:["क्षोभमंडल","मध्यमंडल","बहिर्मंडल","तापमंडल"],a:0,e:"मौसम की अधिकांश घटनाएँ क्षोभमंडल में होती हैं।"},
+ {id:"G3",topic:"भूगोल",q:"नर्मदा नदी सामान्यतः किस दिशा में बहती है?",o:["पूर्व","पश्चिम","उत्तर","उत्तर-पूर्व"],a:1,e:"नर्मदा पश्चिम की ओर बहकर अरब सागर में गिरती है।"},
+ {id:"G4",topic:"भूगोल",q:"हिमालय किस प्रकार के पर्वतों का उदाहरण है?",o:["अवशिष्ट","ज्वालामुखीय","नवीन वलित","ब्लॉक"],a:2,e:"हिमालय नवीन वलित पर्वत तंत्र का उदाहरण है।"},
+ {id:"P1",topic:"राजव्यवस्था",q:"मौलिक अधिकार संविधान के किस भाग में हैं?",o:["भाग II","भाग III","भाग IV","भाग IVA"],a:1,e:"मौलिक अधिकार भाग III में दिए गए हैं।"},
+ {id:"P2",topic:"राजव्यवस्था",q:"मौलिक कर्तव्यों का उल्लेख किस अनुच्छेद में है?",o:["अनुच्छेद 14","अनुच्छेद 21","अनुच्छेद 51A","अनुच्छेद 368"],a:2,e:"मौलिक कर्तव्य अनुच्छेद 51A में हैं।"},
+ {id:"P3",topic:"राजव्यवस्था",q:"संविधान संशोधन की मुख्य प्रक्रिया किस अनुच्छेद में दी गई है?",o:["32","110","280","368"],a:3,e:"अनुच्छेद 368 संविधान संशोधन की प्रक्रिया से संबंधित है।"},
+ {id:"P4",topic:"राजव्यवस्था",q:"भारतीय संसद में कौन शामिल हैं?",o:["केवल लोकसभा","केवल दोनों सदन","राष्ट्रपति और लोकसभा","राष्ट्रपति, राज्यसभा और लोकसभा"],a:3,e:"संविधान के अनुसार संसद में राष्ट्रपति और दोनों सदन शामिल हैं।"},
+ {id:"E1",topic:"अर्थव्यवस्था",q:"GDP मुख्यतः क्या मापती है?",o:["केवल निर्यात","देश की सीमा में अंतिम वस्तुओं और सेवाओं का उत्पादन मूल्य","केवल सरकारी खर्च","केवल कृषि उत्पादन"],a:1,e:"GDP एक अवधि में देश की भौगोलिक सीमा के भीतर उत्पादित अंतिम वस्तुओं और सेवाओं के मूल्य को मापती है।"},
+ {id:"E2",topic:"अर्थव्यवस्था",q:"भारत का केंद्रीय बैंक कौन है?",o:["SBI","NABARD","RBI","SEBI"],a:2,e:"भारतीय रिजर्व बैंक भारत का केंद्रीय बैंक है।"},
+ {id:"E3",topic:"अर्थव्यवस्था",q:"सामान्य मूल्य स्तर में लगातार वृद्धि क्या कहलाती है?",o:["मंदी","महँगाई","अवमूल्यन","बचत"],a:1,e:"सामान्य मूल्य स्तर में लगातार वृद्धि महँगाई कहलाती है।"},
+ {id:"S1",topic:"विज्ञान",q:"कोशिका का ऊर्जा-गृह किसे कहा जाता है?",o:["राइबोसोम","केंद्रक","माइटोकॉन्ड्रिया","गॉल्जी तंत्र"],a:2,e:"माइटोकॉन्ड्रिया कोशिका की ऊर्जा आवश्यकताओं में महत्त्वपूर्ण भूमिका निभाता है।"},
+ {id:"S2",topic:"विज्ञान",q:"विटामिन C की कमी से कौन-सा रोग हो सकता है?",o:["स्कर्वी","रिकेट्स","बेरी-बेरी","रतौंधी"],a:0,e:"विटामिन C की कमी स्कर्वी से जुड़ी है।"},
+ {id:"S3",topic:"विज्ञान",q:"आवृत्ति की SI इकाई क्या है?",o:["न्यूटन","जूल","हर्ट्ज","वाट"],a:2,e:"आवृत्ति की इकाई हर्ट्ज (Hz) है।"},
+ {id:"S4",topic:"विज्ञान",q:"निर्वात में ध्वनि के बारे में कौन-सा कथन सही है?",o:["बहुत तेज चलती है","नहीं फैलती","प्रकाश बन जाती है","हमेशा धीमी हो जाती है"],a:1,e:"ध्वनि को फैलने के लिए भौतिक माध्यम चाहिए।"},
+ {id:"S5",topic:"विज्ञान",q:"रक्त का थक्का बनाने में कौन सहायता करता है?",o:["प्लेटलेट्स","लाल रक्त कोशिकाएँ","न्यूरॉन","अल्वियोली"],a:0,e:"प्लेटलेट्स रक्त के थक्के बनने की प्रक्रिया में सहायता करते हैं।"},
+ {id:"S6",topic:"विज्ञान",q:"सामान्य जलीय विलयन में pH 7 किस प्रकृति को दर्शाता है?",o:["अम्लीय","उदासीन","क्षारीय","केवल विषैला"],a:1,e:"सामान्य परिस्थितियों में pH 7 उदासीन विलयन को दर्शाता है।"},
+ {id:"ENV1",topic:"पर्यावरण",q:"इनमें से कौन-सी ग्रीनहाउस गैस है?",o:["मीथेन","हीलियम","नियॉन","आर्गन"],a:0,e:"मीथेन एक प्रमुख ग्रीनहाउस गैस है।"},
+ {id:"ENV2",topic:"पर्यावरण",q:"पारिस्थितिकी तंत्र में उत्पादक सामान्यतः कौन होते हैं?",o:["हरे पौधे","मांसाहारी","केवल अपघटक","केवल परजीवी"],a:0,e:"हरे पौधे प्रकाश संश्लेषण के माध्यम से भोजन बनाते हैं।"},
+ {id:"GK1",topic:"Static GK",q:"भारत का राष्ट्रीय पक्षी कौन है?",o:["तोता","भारतीय मोर","हंस","गरुड़"],a:1,e:"भारत का राष्ट्रीय पक्षी भारतीय मोर है।"},
+ {id:"GK2",topic:"Static GK",
