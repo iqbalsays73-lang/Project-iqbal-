@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zero To Hero - Ultimate Study Portal</title>
-    <!-- Font Awesome & Google Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -19,273 +18,47 @@
             --text-sub: #94a3b8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+        .bg-glow { position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(0,0,0,0) 70%); z-index: -1; filter: blur(80px); }
+        .bg-glow-2 { position: fixed; bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(0,0,0,0) 70%); z-index: -1; filter: blur(80px); }
 
-        /* Animated Glowing Background Effect */
-        .bg-glow {
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            filter: blur(80px);
-        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 8%; background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 10px; }
 
-        .bg-glow-2 {
-            position: fixed;
-            bottom: -10%;
-            right: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            filter: blur(80px);
-        }
+        .hero { text-align: center; padding: 3rem 1rem 1.5rem; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; }
+        .hero h1 span { background: linear-gradient(135deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-sub); font-size: 1rem; margin-top: 5px; }
 
-        /* Navbar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 8%;
-            background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
 
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .exam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+        .exam-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 16px; backdrop-filter: blur(10px); cursor: pointer; transition: all 0.3s ease; }
+        .exam-card:hover { transform: translateY(-4px); border-color: var(--primary-glow); }
+        .exam-card.active { border-color: var(--accent-glow); background: rgba(168, 85, 247, 0.18); }
+        .exam-icon { font-size: 2rem; margin-bottom: 0.8rem; color: #38bdf8; }
 
-        .search-bar {
-            position: relative;
-            width: 350px;
-        }
+        .portal-detail { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; backdrop-filter: blur(12px); }
+        .portal-header h2 { font-size: 1.6rem; color: #fff; margin-bottom: 1.5rem; }
 
-        .search-bar input {
-            width: 100%;
-            padding: 10px 15px 10px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            color: #fff;
-            outline: none;
-            transition: 0.3s;
-        }
+        .tabs { display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .tab-btn { background: none; border: none; color: var(--text-sub); padding: 10px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-radius: 10px; transition: 0.3s; }
+        .tab-btn.active { background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
 
-        .search-bar input:focus {
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .search-bar i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-sub);
-        }
+        /* Syllabus Box Styling */
+        .syllabus-box { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
+        .syllabus-box h3 { color: #38bdf8; font-size: 1.2rem; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
+        .syllabus-list { list-style: none; padding-left: 5px; }
+        .syllabus-list li { color: #cbd5e1; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .syllabus-list li i { color: #a855f7; font-size: 0.8rem; }
 
-        /* Hero Banner */
-        .hero {
-            text-align: center;
-            padding: 4rem 1rem 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-sub);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Exam Grid */
-        .exam-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .exam-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .exam-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-glow);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
-        }
-
-        .exam-card.active {
-            border-color: var(--accent-glow);
-            background: rgba(168, 85, 247, 0.15);
-        }
-
-        .exam-icon {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            color: #38bdf8;
-        }
-
-        .exam-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-
-        .exam-card p {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-        }
-
-        /* Detail Modal / Section */
-        .portal-detail {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(12px);
-        }
-
-        .portal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Navigation Tabs */
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-sub);
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-        }
-
-        /* Content List */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .content-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            padding: 1.2rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.3s;
-        }
-
-        .content-box:hover {
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        .btn-download {
-            background: #22c55e;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        @media (max-width: 768px) {
-            .search-bar { display: none; }
-            .hero h1 { font-size: 2rem; }
-            .tabs { overflow-x: auto; }
-        }
+        .content-box { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .btn-download { background: #22c55e; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -293,177 +66,188 @@
     <div class="bg-glow"></div>
     <div class="bg-glow-2"></div>
 
-    <!-- Navigation -->
     <nav>
-        <div class="logo">
-            <i class="fa-solid fa-graduation-cap"></i> ZERO TO HERO
-        </div>
-        <div class="search-bar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search Portal, Subjects, PYQs...">
-        </div>
+        <div class="logo"><i class="fa-solid fa-graduation-cap"></i> ZERO TO HERO</div>
     </nav>
 
-    <!-- Hero Section -->
     <div class="hero">
         <h1>Select Your Target <span>Exam Portal</span></h1>
-        <p>Complete Syllabus, Chapter-wise Subjects, and Previous Year Questions (PYQs) in One Place.</p>
+        <p>Detailed Syllabus, Subjects & PYQs in One Place</p>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
-        <div class="section-title">
-            <i class="fa-solid fa-layer-group" style="color: #6366f1;"></i> Select Exam
-        </div>
-
-        <!-- Exam Portals -->
+        <!-- Exam Cards -->
         <div class="exam-grid">
-            <div class="exam-card active" onclick="switchExam('upsc', this)">
-                <i class="fa-solid fa-building-columns exam-icon"></i>
-                <h3>UPSC Civil Services</h3>
-                <p>IAS, IPS, IFS Study Hub</p>
-            </div>
-            <div class="exam-card" onclick="switchExam('upsi', this)">
-                <i class="fa-solid fa-shield-halved exam-icon" style="color: #a855f7;"></i>
-                <h3>UP SI</h3>
-                <p>Sub Inspector Recruitment</p>
-            </div>
-            <div class="exam-card" onclick="switchExam('pet', this)">
-                <i class="fa-solid fa-file-pen exam-icon" style="color: #ec4899;"></i>
+            <div class="exam-card active" onclick="switchExam('pet', this)">
+                <i class="fa-solid fa-file-pen exam-icon"></i>
                 <h3>UPSSSC PET</h3>
                 <p>Preliminary Eligibility Test</p>
             </div>
+            <div class="exam-card" onclick="switchExam('upsi', this)">
+                <i class="fa-solid fa-shield-halved exam-icon"></i>
+                <h3>UP SI</h3>
+                <p>Sub Inspector Exam</p>
+            </div>
             <div class="exam-card" onclick="switchExam('chsl', this)">
-                <i class="fa-solid fa-laptop-code exam-icon" style="color: #22c55e;"></i>
+                <i class="fa-solid fa-laptop-code exam-icon"></i>
                 <h3>SSC CHSL</h3>
-                <p>10+2 Level Competitive Exam</p>
+                <p>10+2 Level Exam</p>
+            </div>
+            <div class="exam-card" onclick="switchExam('upsc', this)">
+                <i class="fa-solid fa-building-columns exam-icon"></i>
+                <h3>UPSC CSE</h3>
+                <p>Civil Services Exam</p>
             </div>
         </div>
 
-        <!-- Selected Exam Portal Details -->
+        <!-- Details Section -->
         <div class="portal-detail">
             <div class="portal-header">
-                <div>
-                    <h2 id="portal-title">UPSC Civil Services Portal</h2>
-                    <p style="color: var(--text-sub); font-size: 0.9rem;">Targeted Preparation Material</p>
-                </div>
+                <h2 id="portal-title">UPSSSC PET Portal</h2>
             </div>
 
-            <!-- Portal Internal Navigation -->
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('syllabus', this)"><i class="fa-solid fa-list-check"></i> Syllabus</button>
+                <button class="tab-btn active" onclick="switchTab('syllabus', this)"><i class="fa-solid fa-list-check"></i> Complete Syllabus</button>
                 <button class="tab-btn" onclick="switchTab('subjects', this)"><i class="fa-solid fa-book-open"></i> Subjects & Notes</button>
-                <button class="tab-btn" onclick="switchTab('pyqs', this)"><i class="fa-solid fa-clock-rotate-left"></i> Previous Year PYQs</button>
+                <button class="tab-btn" onclick="switchTab('pyqs', this)"><i class="fa-solid fa-clock-rotate-left"></i> PYQs</button>
             </div>
 
-            <!-- Tab Content Area -->
+            <!-- TAB 1: SYLLABUS -->
             <div id="syllabus" class="tab-content active">
-                <div class="content-box">
-                    <div>
-                        <h4>Complete Official Syllabus Breakdown</h4>
-                        <p style="color: var(--text-sub); font-size: 0.85rem;">Detailed Tier-Wise Syllabus PDF</p>
-                    </div>
-                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Download</a>
-                </div>
+                <!-- Syllabus content will be loaded dynamically via JavaScript -->
             </div>
 
-            <div id="subjects" class="tab-content">
-                <div class="content-box">
-                    <div>
-                        <h4>Indian Polity & Constitution</h4>
-                        <p style="color: var(--text-sub); font-size: 0.85rem;">Articles, Amendments, Schedules & Notes</p>
-                    </div>
-                    <a href="#" class="btn-download"><i class="fa-solid fa-folder-open"></i> Open Module</a>
-                </div>
-                <div class="content-box">
-                    <div>
-                        <h4>Indian History & Freedom Movement</h4>
-                        <p style="color: var(--text-sub); font-size: 0.85rem;">Ancient, Medieval & Modern History</p>
-                    </div>
-                    <a href="#" class="btn-download"><i class="fa-solid fa-folder-open"></i> Open Module</a>
-                </div>
-            </div>
+            <!-- TAB 2: SUBJECTS -->
+            <div id="subjects" class="tab-content"></div>
 
-            <div id="pyqs" class="tab-content">
-                <div class="content-box">
-                    <div>
-                        <h4>Last 10 Years Solved Question Papers</h4>
-                        <p style="color: var(--text-sub); font-size: 0.85rem;">Topic-Wise Separated Questions</p>
-                    </div>
-                    <a href="#" class="btn-download"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
-                </div>
-            </div>
+            <!-- TAB 3: PYQS -->
+            <div id="pyqs" class="tab-content"></div>
         </div>
     </div>
 
     <script>
-        // Data for Dynamic Switch
-        const examData = {
-            upsc: {
-                title: "UPSC Civil Services Portal",
-                syllabus: "UPSC Prelims & Mains Detailed Official Syllabus",
-                subjects: ["Indian Polity & Constitution", "Indian History", "Economics & Banking"],
-                pyq: "UPSC Last 10 Years Prelims Paper I & II (CSAT)"
+        const portalData = {
+            pet: {
+                title: "UPSSSC PET Detailed Syllabus",
+                syllabusHTML: `
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-book"></i> भारतीय इतिहास (Indian History) - 5 अंक</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> सिंधु घाटी सभ्यता (Indus Valley Civilization)</li>
+                            <li><i class="fa-solid fa-angle-right"></i> वैदिक संस्कृति, बौद्ध धर्म (गौतम बुद्ध), जैन धर्म (महावीर)</li>
+                            <li><i class="fa-solid fa-angle-right"></i> मौर्य वंश (सम्राट अशोक), गुप्त वंश, हर्षावर्धन, राजपूत काल</li>
+                            <li><i class="fa-solid fa-angle-right"></i> सल्तनत काल, मुगल साम्राज्य, मराठा, ब्रिटिश राज का अभ्युदय</li>
+                        </ul>
+                    </div>
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-scale-balanced"></i> भारतीय संविधान एवं लोक प्रशासन - 5 अंक</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> भारतीय संविधान की मुख्य विशेषताएं & अनुसूचियां</li>
+                            <li><i class="fa-solid fa-angle-right"></i> मौलिक अधिकार एवं कर्तव्य, राज्य के नीति निदेशक तत्व</li>
+                            <li><i class="fa-solid fa-angle-right"></i> संसदीय प्रणाली, संघीय प्रणाली, केंद्र-राज्य संबंध</li>
+                            <li><i class="fa-solid fa-angle-right"></i> त्रिस्तरीय पंचायती राज व्यवस्था</li>
+                        </ul>
+                    </div>
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-brain"></i> तर्कशक्ति (Reasoning) - 5 अंक</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> बृहत् एवं लघु, क्रम एवं रैंकिंग, संबंध (Blood Relations)</li>
+                            <li><i class="fa-solid fa-angle-right"></i> समूह से भिन्न को अलग करना, कैलेंडर एवं घड़ी (Calendar & Clock)</li>
+                            <li><i class="fa-solid fa-angle-right"></i> कारण और प्रभाव, कोडिंग-डिकोडिंग</li>
+                        </ul>
+                    </div>`,
+                subjects: ["भारतीय इतिहास (History)", "भारतीय संविधान (Polity)", "तर्कशक्ति (Reasoning)", "ग्राफ एवं तालिका व्याख्या"],
+                pyqs: "UPSSSC PET Previous Year Official Question Papers (PDF)"
             },
             upsi: {
-                title: "UP Sub Inspector (SI) Portal",
-                syllabus: "UP SI Exam Pattern & Detailed Topic-Wise Syllabus",
-                subjects: ["Mool Vidhi (मूल विधि) & Constitution", "General Hindi", "Reasoning & Aptitude"],
-                pyq: "UP SI Previous Years Papers (With Explanation)"
-            },
-            pet: {
-                title: "UPSSSC PET Portal",
-                syllabus: "UPSSSC PET 100 Marks Exam Syllabus Structure",
-                subjects: ["Indian History & Movement", "General Reasoning & Calendar", "Graph & Table Interpretation"],
-                pyq: "UPSSSC PET Official Question Papers with Answer Key"
+                title: "UP Sub Inspector (SI) Detailed Syllabus",
+                syllabusHTML: `
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-gavel"></i> मूलविधि एवं संविधान (Mool Vidhi & Constitution)</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> भारतीय न्याय संहिता / दंड प्रक्रिया संहिता, मानव अधिकार संरक्षण</li>
+                            <li><i class="fa-solid fa-angle-right"></i> यातायात नियम, पर्यावरण संरक्षण, वन्यजीव संरक्षण अधिनियम</li>
+                            <li><i class="fa-solid fa-angle-right"></i> संविधान का उद्देश्य, मौलिक अधिकार, नीतियाँ एवं संसदीय व्यवस्था</li>
+                        </ul>
+                    </div>
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-calculator"></i> संख्यात्मक एवं मानसिक योग्यता (Maths)</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> संख्या पद्धति (Number System), अभाज्य गुणनखंड (Prime Factors)</li>
+                            <li><i class="fa-solid fa-angle-right"></i> प्रतिशतता, लाभ और हानि, साधारण व चक्रवृद्धि ब्याज</li>
+                            <li><i class="fa-solid fa-angle-right"></i> समय और कार्य, गति और दूरी, अनुपात समानुपात</li>
+                        </ul>
+                    </div>`,
+                subjects: ["मूलविधि एवं संविधान", "सामान्य हिंदी", "संख्यात्मक योग्यता (Maths)", "मानसिक अभिरुचि व रीजनिंग"],
+                pyqs: "UP SI All Shift Solved Papers (Answer Key Included)"
             },
             chsl: {
-                title: "SSC CHSL (10+2) Portal",
-                syllabus: "SSC CHSL Tier 1 & Tier 2 Updated Syllabus",
-                subjects: ["Quantitative Aptitude", "Reasoning & General Intelligence", "English Language"],
-                pyq: "SSC CHSL All Shifts Solved PYQs PDF"
+                title: "SSC CHSL (10+2) Detailed Syllabus",
+                syllabusHTML: `
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-square-root-variable"></i> Quantitative Aptitude</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> Number System, Simplification, Prime Factorization</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Percentage, Profit & Loss, Simple & Compound Interest</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Geometry, Mensuration, Trigonometry, Algebra</li>
+                        </ul>
+                    </div>
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-puzzle-piece"></i> General Intelligence & Reasoning</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> Calendar, Clocks, Blood Relations, Directions & Distances</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Coding-Decoding, Venn Diagrams, Matrix & Syllogism</li>
+                        </ul>
+                    </div>`,
+                subjects: ["Quantitative Aptitude", "General Intelligence & Reasoning", "English Language", "General Awareness"],
+                pyqs: "SSC CHSL Tier-1 & Tier-2 Previous Papers PDF"
+            },
+            upsc: {
+                title: "UPSC Civil Services Detailed Syllabus",
+                syllabusHTML: `
+                    <div class="syllabus-box">
+                        <h3><i class="fa-solid fa-landmark"></i> Paper I: General Studies (GS)</h3>
+                        <ul class="syllabus-list">
+                            <li><i class="fa-solid fa-angle-right"></i> History of India & Indian National Movement</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Indian & World Geography, Polity & Governance</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Economic & Social Development, Environmental Ecology</li>
+                        </ul>
+                    </div>`,
+                subjects: ["GS Paper 1 (Polity, History, Geo)", "CSAT Paper 2 (Reasoning & Maths)", "Mains Optional Subjects"],
+                pyqs: "UPSC Mains & Prelims Last 10 Years Papers"
             }
         };
-
-        let currentExam = 'upsc';
 
         function switchExam(examKey, cardElement) {
             document.querySelectorAll('.exam-card').forEach(card => card.classList.remove('active'));
             cardElement.classList.add('active');
             
-            currentExam = examKey;
-            const data = examData[examKey];
-
+            const data = portalData[examKey];
             document.getElementById('portal-title').innerText = data.title;
 
-            // Update Tab Contents
-            document.getElementById('syllabus').innerHTML = `
-                <div class="content-box">
-                    <div>
-                        <h4>${data.syllabus}</h4>
-                        <p style="color: var(--text-sub); font-size: 0.85rem;">Updated Pattern for Exam Preparation</p>
-                    </div>
-                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Download</a>
-                </div>`;
+            // Load Syllabus
+            document.getElementById('syllabus').innerHTML = data.syllabusHTML;
 
+            // Load Subjects
             let subjectsHTML = '';
             data.subjects.forEach(sub => {
                 subjectsHTML += `
                     <div class="content-box">
                         <div>
                             <h4>${sub}</h4>
-                            <p style="color: var(--text-sub); font-size: 0.85rem;">Notes, One-Liners & MCQs</p>
+                            <p style="color: var(--text-sub); font-size: 0.85rem;">Chapter-wise Notes & One-Liners</p>
                         </div>
-                        <a href="#" class="btn-download"><i class="fa-solid fa-folder-open"></i> Open Module</a>
+                        <a href="#" class="btn-download"><i class="fa-solid fa-folder-open"></i> Study Now</a>
                     </div>`;
             });
             document.getElementById('subjects').innerHTML = subjectsHTML;
 
+            // Load PYQs
             document.getElementById('pyqs').innerHTML = `
                 <div class="content-box">
                     <div>
-                        <h4>${data.pyq}</h4>
-                        <p style="color: var(--text-sub); font-size: 0.85rem;">Solution along with Answer Key</p>
+                        <h4>${data.pyqs}</h4>
+                        <p style="color: var(--text-sub); font-size: 0.85rem;">Solved Papers with Detailed Solutions</p>
                     </div>
                     <a href="#" class="btn-download"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
                 </div>`;
@@ -476,6 +260,9 @@
             btnElement.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
+
+        // Initialize First Exam View
+        switchExam('pet', document.querySelector('.exam-card.active'));
     </script>
 </body>
 </html>
